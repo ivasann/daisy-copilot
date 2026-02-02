@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAISY - Your Personal AI Life Copilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#FFB7C5',
+                        secondary: '#F8EDEB',
+                        accent: '#E5989B',
+                        dark: '#4A4E69',
+                        light: '#FFFFFF',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Apple Health Style Pastel Gradients */
+        .bg-pastel-blue {
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAe6FD 100%);
+        }
+
+        .bg-pastel-pink {
+            background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%);
+        }
+
+        .bg-pastel-green {
+            background: linear-gradient(135deg, #DCFCE7 0%, #BBF7D0 100%);
+        }
+
+        .bg-pastel-purple {
+            background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
+        }
+
+        .bg-pastel-orange {
+            background: linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%);
+        }
+
+        .bg-pastel-cyan {
+            background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
+        }
+
+        .bg-pastel-indigo {
+            background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%);
+        }
+
+        .bg-pastel-rose {
+            background: linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%);
+        }
+
+        .bg-pastel-yellow {
+            background: linear-gradient(135deg, #FEF9C3 0%, #FEF08A 100%);
+        }
+
+        .ios-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes aurora {
+            0% {
+                transform: translate(0, 0) scale(1);
+                background: var(--primary);
+                opacity: 0.2;
+            }
+
+            33% {
+                transform: translate(10%, 10%) scale(1.1);
+                background: var(--accent);
+                opacity: 0.15;
+            }
+
+            66% {
+                transform: translate(-5%, 5%) scale(0.9);
+                background: var(--primary);
+                opacity: 0.2;
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+                background: var(--accent);
+                opacity: 0.15;
+            }
+        }
+
+        .animate-aurora {
+            animation: aurora 20s ease-in-out infinite alternate;
+        }
+
+        :root {
+            --primary: #1d1d1f;
+            /* Apple Midnight style */
+            --accent: #FF3B8E;
+            --pastel-blue: #E3F2FD;
+            --pastel-pink: #FCE4EC;
+            --pastel-green: #E8F5E9;
+            --pastel-purple: #F3E5F5;
+            --pastel-orange: #FFF3E0;
+            --pastel-cyan: #E0F7FA;
+            --pastel-indigo: #E8EAF6;
+            --pastel-rose: #FFF1F2;
+            --pastel-yellow: #FFFDE7;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif !important;
+            letter-spacing: -0.01em;
+        }
+
+        .font-display {
+            font-family: 'Inter', sans-serif !important;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-daisy {
+            font-weight: 500;
+            letter-spacing: -0.05em;
+            /* Precisely tight kerning */
+            text-transform: lowercase;
+            color: #1d1d1f;
+        }
+
+        /* Mascot-Symbol Hybrid Daisy SVG Styles */
+        .daisy-icon {
+            filter: none;
+        }
+
+        .daisy-center {
+            fill: #FFD23F;
+            /* Vibrant Warm Yellow */
+        }
+
+        .daisy-petal {
+            fill: #1d1d1f;
+            /* Bold Silhouette */
+        }
+
+        .daisy-mascot-eye {
+            fill: #1d1d1f;
+        }
+
+        .daisy-mascot-smile {
+            fill: none;
+            stroke: #1d1d1f;
+            stroke-width: 1.2;
+            stroke-linecap: round;
+        }
+
+        /* Clean Background */
+        .bg-daisy-white {
+            background: #FFFFFF;
+        }
+
+        /* Haptic Pop Effect */
+        .haptic-pop {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .haptic-pop:active {
+            transform: scale(0.92);
+        }
+
+        /* Voice Pulse Animation */
+        @keyframes voice-pulse {
+            0% {
+                height: 4px;
+            }
+
+            50% {
+                height: 16px;
+            }
+
+            100% {
+                height: 4px;
+            }
+        }
+
+        .voice-bar {
+            width: 3px;
+            background: var(--primary);
+            border-radius: 99px;
+            animation: voice-pulse 0.8s ease-in-out infinite;
+        }
+
+        /* Memory Vault Shimmer */
+        .memory-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+            opacity: 0;
+        }
+
+        .memory-card:hover::after {
+            left: 100%;
+            opacity: 1;
+        }
+
+        .phone-frame {
+            border: 12px solid #1a1a1a;
+            border-radius: 3rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25), 0 30px 60px -30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* DNA Bar Pulsing */
+        @keyframes pulse-dna {
+            0% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.4;
+            }
+        }
+
+        .animate-pulse-dna {
+            animation: pulse-dna 2s ease-in-out infinite;
+        }
+
+        /* Scroll Reveal Hidden State */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 183, 197, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #FFB7C5 0%, #E5989B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(255, 183, 197, 0.3);
+        }
+
+        .shimmer-bg {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            background-size: 200% 100%;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-daisy-white text-gray-800 font-sans antialiased selection:bg-primary selection:text-white overflow-x-hidden">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] animate-aurora">
+        </div>
+        <div class="absolute bottom-0 left-0 w-[800px] h-[800px] bg-secondary/30 rounded-full blur-[120px] animate-aurora"
+            style="animation-delay: -5s;"></div>
+    </div>
+
+    <!-- Promo Banner -->
+    <div class="bg-[#1d1d1f] py-2 text-center relative z-50">
+        <p class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/90">Experience the Future of Personal
+            Intelligence • Beta Access Open</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-500 border-b border-transparent" id="navbar">
+        <!-- Intelligence Tracker Bar (Sentient UI) -->
+        <div class="h-1 w-full bg-primary/10 relative overflow-hidden">
+            <div id="dnaBar" class="absolute top-0 left-0 h-full bg-primary transition-all duration-1000 ease-out"
+                style="width: 82%;"></div>
+            <div
+                class="absolute top-0 left-0 h-full w-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse-dna">
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 transition-all duration-500" id="navContainer">
+                <div class="flex items-center gap-2.5 group cursor-pointer"
+                    onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <div
+                        class="daisy-icon w-9 h-9 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <g transform="translate(50,50)">
+                                <!-- 6 Thick Smooth Petals -->
+                                <circle class="daisy-petal" transform="rotate(0)" cx="0" cy="-24" r="16" />
+                                <circle class="daisy-petal" transform="rotate(60)" cx="0" cy="-24" r="16" />
+                                <circle class="daisy-petal" transform="rotate(120)" cx="0" cy="-24" r="16" />
+                                <circle class="daisy-petal" transform="rotate(180)" cx="0" cy="-24" r="16" />
+                                <circle class="daisy-petal" transform="rotate(240)" cx="0" cy="-24" r="16" />
+                                <circle class="daisy-petal" transform="rotate(300)" cx="0" cy="-24" r="16" />
+                            </g>
+                            <!-- Mascot Center -->
+                            <circle class="daisy-center" cx="50" cy="50" r="16" />
+                            <!-- Friendly Mascot Face -->
+                            <circle class="daisy-mascot-eye" cx="44" cy="46" r="2" />
+                            <circle class="daisy-mascot-eye" cx="56" cy="46" r="2" />
+                            <path class="daisy-mascot-smile" d="M44,54 Q50,58 56,54" />
+                        </svg>
+                    </div>
+                    <span class="logo-daisy text-[22px]">daisy</span>
+                </div>
+
+                <div class="hidden md:flex items-center gap-10">
+                    <a href="#modes"
+                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-primary transition-colors">Intelligence</a>
+                    <a href="#about"
+                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-primary transition-colors">DNA
+                        Evolution</a>
+                    <a href="#community"
+                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-primary transition-colors">Safety</a>
+                    <div class="flex items-center gap-2 bg-primary/5 px-3 py-1.5 rounded-full border border-primary/10">
+                        <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-primary">Sentient: 82.4%</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button class="text-gray-400 hover:text-primary transition-colors haptic-pop">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                    <button
+                        class="bg-primary text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all shadow-lg shadow-primary/20 haptic-pop">
+                        Try Beta
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-strong border-t border-primary/10">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#modes" class="block text-xs font-semibold uppercase tracking-widest">AI Modes</a>
+                <a href="#evolution" class="block text-xs font-semibold uppercase tracking-widest">Evolution</a>
+                <a href="#reviews" class="block text-xs font-semibold uppercase tracking-widest">Trust</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 animate-fade-in">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
+                        <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+                        AI Personal Life Copilot
+                    </div>
+
+                    <h1 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-6">
+                        One AI Friend, <br />
+                        <span class="text-gradient">360 Possibilities</span>
+                    </h1>
+
+                    <p class="text-base text-gray-500 max-w-md leading-relaxed mb-8 h-20" id="typewriter">
+                        <!-- Content injected by JS -->
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button
+                            class="px-8 py-4 bg-[#1d1d1f] text-white font-medium rounded-full hover:bg-black transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group shadow-xl shadow-black/10 haptic-pop">
+                            Start Journey
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        <button
+                            class="px-8 py-4 glass text-[#1d1d1f] font-medium rounded-full hover:bg-white/60 transition-all flex items-center justify-center gap-2 haptic-pop text-sm">
+                            <i data-lucide="play-circle" class="w-5 h-5"></i>
+                            Watch the Story
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-4 pt-4">
+                        <div class="flex -space-x-3">
+                            <img src="https://i.pravatar.cc/150?img=1"
+                                class="w-10 h-10 rounded-full border-2 border-darker" alt="User">
+                            <img src="https://i.pravatar.cc/150?img=2"
+                                class="w-10 h-10 rounded-full border-2 border-darker" alt="User">
+                            <img src="https://i.pravatar.cc/150?img=3"
+                                class="w-10 h-10 rounded-full border-2 border-darker" alt="User">
+                            <img src="https://i.pravatar.cc/150?img=4"
+                                class="w-10 h-10 rounded-full border-2 border-darker" alt="User">
+                        </div>
+                        <div class="text-sm">
+                            <div class="flex items-center gap-1 text-yellow-500">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-500">Trusted by 66.6% of sentient beings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative flex justify-center lg:justify-end animate-slide-up group">
+                    <!-- iOS Device Frame -->
+                    <div id="phoneFrame"
+                        class="relative phone-frame aspect-[9/19.5] w-[320px] overflow-hidden ios-shadow scale-90 lg:scale-100 origin-bottom">
+                        <!-- Content dynamically updated by JS -->
+                        <div id="phoneContent" class="h-full flex flex-col pt-8 pb-6 px-5 bg-[#F9F9F9] relative">
+                            <!-- Neural Sync Overlay Badge (Sentient UI) -->
+                            <div id="syncBadge"
+                                class="absolute top-3 left-1/2 -translate-x-1/2 opacity-0 transition-opacity">
+                                <span
+                                    class="text-[7px] font-bold uppercase tracking-[0.2em] text-primary px-3 py-1 bg-white/90 rounded-full shadow-sm border border-primary/10">Neural
+                                    Sync Active</span>
+                            </div>
+
+                            <!-- Header -->
+                            <div class="flex items-center justify-between mb-6 shrink-0 relative z-10" id="phoneHeader">
+                                <div>
+                                    <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-0.5"
+                                        id="phoneStatus">DAISY DNA: 82%</p>
+                                    <h2 class="text-lg font-bold text-gray-800" id="phoneTitle">Health Mode</h2>
+                                </div>
+                                <div
+                                    class="w-9 h-9 rounded-full bg-pastel-pink flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
+                                    <img src="https://i.pravatar.cc/100?img=47" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <!-- App content placeholder -->
+                            <div id="appBody" class="flex-1 flex flex-col transition-all duration-300 relative z-10">
+                                <!-- Default Grid injected here or specific Mode view -->
+                            </div>
+
+                            <!-- Interaction Hint -->
+                            <div id="phoneHint"
+                                class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
+                                <span
+                                    class="text-[8px] font-bold uppercase tracking-widest text-primary bg-white/95 px-3 py-1.5 rounded-full shadow-lg border border-primary/10">Try
+                                    an Intelligence Mode</span>
+                            </div>
+                        </div>
+
+                        <!-- Home Indicator -->
+                        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-300 rounded-full z-20">
+                        </div>
+                    </div>
+
+                    <!-- Decorative Background for Phone -->
+                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-[100px] -z-10">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Modes Grid -->
+    <section id="modes" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-widest mb-4">
+                    Intelligence Modes
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-800 mb-4">Choose Your Mode</h2>
+                <p class="text-gray-500 text-sm">Every interaction helps Daisy evolve. As you use her more, you'll
+                    unlock different parts of her intelligence.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="productsGrid">
+                <!-- 12 Cards injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Study Focus Section (Pomodoro Integration) -->
+    <section id="study-timer" class="py-24 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pastel-yellow/20 text-[#1C1C1E] text-[9px] font-bold uppercase tracking-widest mb-4 border border-pastel-yellow/30 bg-[#FFFDE7]">
+                    New Feature
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-800 mb-4">Study Focus</h2>
+                <p class="text-gray-500 text-sm">Boost your productivity with Daisy's built-in Pomodoro timer. Switch to
+                    pastel mode for a calming, focused environment.</p>
+            </div>
+
+            <div
+                class="relative max-w-md mx-auto h-[700px] bg-[#D6EAF8] rounded-[3rem] shadow-2xl overflow-hidden border-[8px] border-white/20 select-none transform hover:scale-[1.01] transition-transform duration-500">
+                <!-- Status Bar Mock -->
+                <div class="h-8 w-full flex justify-between items-center px-6 pt-2 opacity-50">
+                    <span class="text-[10px] font-semibold text-[#1C1C1E]">9:41</span>
+                    <div class="w-4 h-2 bg-[#1C1C1E] rounded-sm"></div>
+                </div>
+
+                <!-- App Content -->
+                <div class="flex flex-col h-full px-6 pb-8">
+                    <!-- Header -->
+                    <header class="flex justify-between items-center py-4 mb-2">
+                        <h1 class="text-xl font-semibold tracking-tight text-[#1C1C1E]">Focus</h1>
+                        <button
+                            class="bg-white/60 backdrop-blur-md px-1 py-1 pr-3 rounded-full flex items-center gap-2 shadow-sm border border-white/50">
+                            <div class="w-5 h-5 bg-white rounded-full shadow-md flex items-center justify-center">
+                                <div
+                                    class="w-full h-full bg-gradient-to-br from-[#F6EAC2] to-[#D6EAF8] rounded-full opacity-80">
+                                </div>
+                            </div>
+                            <span class="text-[9px] font-semibold uppercase text-gray-600">Pastel</span>
+                        </button>
+                    </header>
+
+                    <!-- Timer -->
+                    <main class="flex-1 flex flex-col items-center justify-center relative">
+                        <div
+                            class="w-full aspect-square bg-[#F6EAC2] rounded-[32px] shadow-[0_20px_60px_-10px_rgba(246,234,194,0.6)] border border-white/40 flex flex-col items-center justify-center relative overflow-hidden mb-6 z-0">
+                            <!-- Background Blur Layer -->
+                            <div
+                                class="absolute top-0 right-0 w-32 h-32 bg-white/40 rounded-full blur-2xl translate-x-8 -translate-y-8 z-0">
+                            </div>
+
+                            <!-- Timer Container -->
+                            <div class="relative w-48 h-48 flex items-center justify-center z-10">
+                                <svg
+                                    class="w-full h-full transform -rotate-90 pointer-events-none absolute inset-0 z-10">
+                                    <circle cx="96" cy="96" r="80" stroke="white" stroke-width="6" fill="none"
+                                        class="opacity-40" />
+                                    <circle id="progressRing" cx="96" cy="96" r="80" stroke="white" stroke-width="6"
+                                        fill="none" stroke-dasharray="502" stroke-dashoffset="0" stroke-linecap="round"
+                                        class="transition-all duration-1000 ease-linear" />
+                                </svg>
+
+                                <!-- Digits Layer: Z-50 and !important color -->
+                                <div
+                                    class="absolute inset-0 flex flex-col items-center justify-center z-50 pointer-events-none">
+                                    <div id="timerDisplay"
+                                        class="text-4xl font-bold tracking-tighter text-[#1C1C1E] relative z-50"
+                                        style="color: #1C1C1E !important; text-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                                        25:00</div>
+                                    <div id="modeDisplay"
+                                        class="text-xs font-bold text-[#1C1C1E]/60 mt-1 uppercase tracking-widest relative z-50"
+                                        style="color: rgba(28, 28, 30, 0.6) !important;">Focus</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 mb-6 z-20">
+                            <button id="resetTimer"
+                                class="w-12 h-12 rounded-full bg-[#FAF9F6] text-[#1C1C1E] flex items-center justify-center shadow-sm hover:scale-105 transition-transform active:scale-95 z-20 cursor-pointer"><i
+                                    data-lucide="rotate-ccw" class="w-5 h-5"></i></button>
+                            <button id="startTimer"
+                                class="w-16 h-16 rounded-full bg-[#1C1C1E] text-white flex items-center justify-center shadow-xl hover:scale-105 transition-transform active:scale-95 z-20 cursor-pointer"><i
+                                    data-lucide="play" class="w-7 h-7 fill-current translate-x-1"></i></button>
+                            <button id="pauseTimer"
+                                class="w-12 h-12 rounded-full bg-[#FAF9F6] text-[#1C1C1E] flex items-center justify-center shadow-sm hover:scale-105 transition-transform active:scale-95 z-20 cursor-pointer"><i
+                                    data-lucide="pause" class="w-5 h-5"></i></button>
+                        </div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                // Pomodoro Logic
+                                (function () {
+                                    console.log('Success: Timer Logic Initializing...');
+                                    let timeLeft = 25 * 60; // 25:00
+                                    let timerId = null;
+                                    const originalTime = 25 * 60;
+
+                                    const circle = document.getElementById('progressRing');
+                                    const display = document.getElementById('timerDisplay');
+
+                                    if (!circle || !display) {
+                                        console.error('Error: Timer elements not found!');
+                                        return;
+                                    }
+
+                                    // Robust Radius Calculation
+                                    const radius = 80; // Hardcoded from r="80" to ensure stability
+                                    const circumference = radius * 2 * Math.PI;
+
+                                    // Setup Ring
+                                    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+                                    circle.style.strokeDashoffset = 0;
+
+                                    function setProgress(percent) {
+                                        const offset = circumference - (percent / 100) * circumference;
+                                        circle.style.strokeDashoffset = offset;
+                                    }
+
+                                    function updateDisplay() {
+                                        const minutes = Math.floor(timeLeft / 60);
+                                        const seconds = timeLeft % 60;
+                                        display.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                                        // Calculate progress
+                                        const percent = ((originalTime - timeLeft) / originalTime) * 100;
+                                        setProgress(100 - percent); // Countdown visual
+                                    }
+
+                                    // Initial Call
+                                    updateDisplay();
+                                    // Force color again just in case
+                                    display.style.color = '#1C1C1E';
+
+                                    document.getElementById('startTimer').addEventListener('click', () => {
+                                        if (timerId) return;
+                                        timerId = setInterval(() => {
+                                            if (timeLeft > 0) {
+                                                timeLeft--;
+                                                updateDisplay();
+                                            } else {
+                                                clearInterval(timerId);
+                                                timerId = null;
+                                                alert('Session Complete! Take a break.');
+                                            }
+                                        }, 1000);
+                                    });
+
+                                    document.getElementById('pauseTimer').addEventListener('click', () => {
+                                        clearInterval(timerId);
+                                        timerId = null;
+                                    });
+
+                                    document.getElementById('resetTimer').addEventListener('click', () => {
+                                        clearInterval(timerId);
+                                        timerId = null;
+                                        timeLeft = originalTime;
+                                        updateDisplay();
+                                        circle.style.strokeDashoffset = 0;
+                                    });
+                                })();
+                            });
+                        </script>
+
+                        <div
+                            class="w-full flex-1 bg-white/60 backdrop-blur-md rounded-2xl p-4 overflow-hidden flex flex-col shadow-sm border border-white/40">
+                            <h3 class="text-[10px] font-bold uppercase text-gray-400 mb-3 ml-1">Recent Sessions</h3>
+                            <div class="space-y-2 overflow-y-auto custom-scrollbar">
+                                <div class="flex justify-between items-center p-2.5 bg-white/50 rounded-xl">
+                                    <div class="flex items-center gap-2.5">
+                                        <div
+                                            class="w-5 h-5 rounded-full bg-[#A7F3D0] flex items-center justify-center text-[#1C1C1E]">
+                                            <i data-lucide="check" class="w-3 h-3"></i>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="text-xs font-semibold">Deep Work</span>
+                                            <span class="text-[9px] text-gray-500">Project Architecture</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold opacity-40">25m</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2.5 bg-white/50 rounded-xl">
+                                    <div class="flex items-center gap-2.5">
+                                        <div
+                                            class="w-5 h-5 rounded-full bg-[#A7F3D0] flex items-center justify-center text-[#1C1C1E]">
+                                            <i data-lucide="check" class="w-3 h-3"></i>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="text-xs font-semibold">Reading</span>
+                                            <span class="text-[9px] text-gray-500">Neural Net Concepts</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold opacity-40">25m</span>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="relative group">
+                    <div class="aspect-square overflow-hidden rounded-[3rem] shadow-2xl relative z-10">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1000&h=1000&fit=crop"
+                            alt="AI Abstraction"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div
+                        class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10 animate-aurora">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <h2 class="font-display text-4xl font-bold text-gray-800 leading-tight">The Future of Companionship
+                    </h2>
+                    <p class="text-gray-500 leading-relaxed text-sm">Daisy isn't just an app; she is the result of a
+                        vision to make technology feel human. We believe your digital tools should be as empathetic,
+                        funny, and supportive as your best friend.</p>
+                    <p class="text-gray-500 leading-relaxed text-sm">By blending advanced neural networks with a
+                        carefully crafted personality, we've created a copilot that doesn't just process data—it
+                        understands you. Whether you're coding a new project or need a midnight roast, Daisy evolves to
+                        meet you exactly where you are.</p>
+
+                    <button
+                        class="px-8 py-3 bg-primary text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-accent transition-all shadow-lg shadow-primary/20 haptic-pop">
+                        Join the DNA Evolution
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-24 bg-dark/5 shadow-inner reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <p class="font-display text-4xl font-bold text-primary mb-1">99.9%</p>
+                    <p class="text-[9px] uppercase font-bold tracking-[0.1em] text-gray-400">Response Accuracy</p>
+                </div>
+                <div class="text-center">
+                    <p class="font-display text-4xl font-bold text-primary mb-1">24/7</p>
+                    <p class="text-[9px] uppercase font-bold tracking-[0.1em] text-gray-400">Active Copilot</p>
+                </div>
+                <div class="text-center">
+                    <p class="font-display text-4xl font-bold text-primary mb-1">12+</p>
+                    <p class="text-[9px] uppercase font-bold tracking-[0.1em] text-gray-400">Intelligence Modes</p>
+                </div>
+                <div class="text-center">
+                    <p class="font-display text-4xl font-bold text-primary mb-1">Zero</p>
+                    <p class="text-[9px] uppercase font-bold tracking-[0.1em] text-gray-400">Data Sharing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Vault Section (NEW) -->
+    <section id="memory" class="py-24 relative overflow-hidden reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-widest mb-4">
+                    The Memory Vault
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-800 mb-4">Dynamic Memory Profile</h2>
+                <p class="text-gray-500 text-sm">Every interaction is a synapse. DAISY's vault stores your shared
+                    growth, making every response feel uniquely yours.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Memory Cards -->
+                <div
+                    class="memory-card glass p-6 rounded-[2.5rem] bg-white border border-primary/5 hover:translate-y-[-5px] transition-all">
+                    <div class="text-[10px] font-bold text-primary mb-2 uppercase tracking-tighter">Sync Moment • 02:44
+                        AM</div>
+                    <p class="text-sm font-bold text-gray-800 mb-3">Optimization Suggestion</p>
+                    <p class="text-[11px] text-gray-400 leading-relaxed italic">"Integrated React useMemo hook after
+                        analyzing your state bottlenecks."</p>
+                </div>
+                <div
+                    class="memory-card glass p-6 rounded-[2.5rem] bg-white border border-primary/5 hover:translate-y-[-5px] transition-all">
+                    <div class="text-[10px] font-bold text-primary mb-2 uppercase tracking-tighter">Emotion Sync • 11:21
+                        PM</div>
+                    <p class="text-sm font-bold text-gray-800 mb-3">Mood Baseline Adjust</p>
+                    <p class="text-[11px] text-gray-400 leading-relaxed italic">"Detected elevated stress levels.
+                        Switching tone to Empathy/Support."</p>
+                </div>
+                <div
+                    class="memory-card glass p-6 rounded-[2.5rem] bg-white border border-primary/5 hover:translate-y-[-5px] transition-all">
+                    <div class="text-[10px] font-bold text-primary mb-2 uppercase tracking-tighter">Recall • 3 Days Ago
+                    </div>
+                    <p class="text-sm font-bold text-gray-800 mb-3">Project Milestones</p>
+                    <p class="text-[11px] text-gray-400 leading-relaxed italic">"Remembered your goal to finish user
+                        authentication before Friday."</p>
+                </div>
+                <div
+                    class="memory-card glass p-6 rounded-[2.5rem] bg-white border border-primary/5 hover:translate-y-[-5px] transition-all">
+                    <div class="text-[10px] font-bold text-primary mb-2 uppercase tracking-tighter">AI Evolution •
+                        Ongoing</div>
+                    <p class="text-sm font-bold text-gray-800 mb-3">DNA Synthesis</p>
+                    <p class="text-[11px] text-gray-400 leading-relaxed italic">"Shared context density increased by 14%
+                        this week. Intelligence Synced."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="community" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div
+                    class="p-8 rounded-[2.5rem] bg-white border border-primary/5 shadow-lg shadow-primary/5 hover:-translate-y-2 transition-transform">
+                    <div class="w-12 h-12 bg-pastel-blue rounded-[24%] flex items-center justify-center mb-6 shadow-sm">
+                        <i data-lucide="brain" class="w-6 h-6 text-blue-500"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-gray-800 mb-4">Evolving DNA</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Daisy remembers every conversation, building a
+                        unique memory profile that allows her to understand your humor, stress triggers, and goals.</p>
+                </div>
+
+                <div
+                    class="p-8 rounded-[2.5rem] bg-white border border-primary/5 shadow-lg shadow-primary/5 hover:-translate-y-2 transition-transform">
+                    <div class="w-12 h-12 bg-pastel-pink rounded-[24%] flex items-center justify-center mb-6 shadow-sm">
+                        <i data-lucide="heart" class="w-6 h-6 text-pink-500"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-gray-800 mb-4">Hyper Personal</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">She doesn't just answer questions; she anticipates
+                        needs. From suggesting a focus mode when you're busy to a roast when you need a laugh.</p>
+                </div>
+
+                <div
+                    class="p-8 rounded-[2.5rem] bg-white border border-primary/5 shadow-lg shadow-primary/5 hover:-translate-y-2 transition-transform">
+                    <div
+                        class="w-12 h-12 bg-pastel-green rounded-[24%] flex items-center justify-center mb-6 shadow-sm">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-gray-800 mb-4">Safe & Respectful</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Your data never leaves your device's reach. Daisy
+                        is encrypted, non-judgmental, and programmed with strict safety and respect protocols.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-30"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="font-display text-3xl font-bold text-gray-800 mb-6">Experience the Evolution</h2>
+            <p class="text-gray-500 mb-10 max-w-xl mx-auto uppercase text-xs tracking-[0.2em] font-bold">Daisy learns
+                from every interaction to better serve your unique lifestyle.</p>
+
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-8"
+                onsubmit="event.preventDefault(); alert('Welcome to Nomad!');">
+                <input type="email" placeholder="Enter your email"
+                    class="flex-1 px-6 py-4 rounded-full bg-white/10 border border-white/10 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                <button type="submit"
+                    class="px-8 py-4 bg-primary text-dark font-bold rounded-full hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 whitespace-nowrap haptic-pop">
+                    Get Started
+                </button>
+            </form>
+
+            <p class="text-sm text-gray-600 dark:text-gray-500">Free forever. Upgrade anytime for premium features.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 pt-16 pb-8 relative z-10 glass-strong">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="font-display font-bold text-xl text-primary tracking-[0.2em]">DAISY</span>
+                    </div>
+                    <p
+                        class="text-[10px] uppercase font-bold tracking-widest text-gray-400 leading-relaxed mb-4 max-w-xs">
+                        An evolving digital companion designed to help you navigate life with ease.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Intelligence</h4>
+                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                        <li><a href="#modes" class="hover:text-primary transition-colors">AI Modes</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Personalization</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Memory</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Voice</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Company</h4>
+                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition-colors">Our Mission</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy First</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Radical Trust</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Terms</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">© 2024 DAISY AI. All rights
+                    reserved.</p>
+                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-500">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    All systems operational
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Daisy AI Modes data (12 Modes)
+        const daisyModes = [
+            { name: 'Smart Tutor', status: 'Expert', icon: 'graduation-cap', bg: 'bg-pastel-blue', text: 'text-blue-500', category: 'Study', desc: 'Step-by-step help with complex problems.' },
+            { name: 'Life Coach', status: 'Active', icon: 'heart', bg: 'bg-pastel-pink', text: 'text-pink-500', category: 'Habits', desc: 'The gentle push you need to stay on track.' },
+            { name: 'Relationship', status: 'Safe', icon: 'users', bg: 'bg-pastel-green', text: 'text-green-600', category: 'Advice', desc: 'Secure and respectful guidance for life.' },
+            { name: 'Creative', status: 'New', icon: 'sparkles', bg: 'bg-pastel-purple', text: 'text-purple-600', category: 'Idea', desc: 'Unleash your imagination with AI.' },
+            { name: 'Fun Mode', status: 'Witty', icon: 'smile', bg: 'bg-pastel-orange', text: 'text-orange-500', category: 'Laugh', desc: 'Jokes, roasts, and witty comebacks.' },
+            { name: 'Coding Buddy', status: 'Pro', icon: 'code', bg: 'bg-pastel-cyan', text: 'text-cyan-600', category: 'Dev', desc: 'Review, debug, and write code faster.' },
+            { name: 'Fitness Coach', status: 'Strong', icon: 'dumbbell', bg: 'bg-pastel-indigo', text: 'text-indigo-600', category: 'Workouts', desc: 'Daily routines tailored to your body.' },
+            { name: 'Sleep Coach', status: 'Calm', icon: 'moon', bg: 'bg-pastel-rose', text: 'text-rose-500', category: 'Rest', desc: 'Optimize your recovery and dreams.' },
+            { name: 'Money Guide', status: 'Smart', icon: 'piggy-bank', bg: 'bg-pastel-yellow', text: 'text-yellow-600', category: 'Finance', desc: 'Grow your wealth with smart insights.' },
+            { name: 'Design Pro', status: 'Art', icon: 'palette', bg: 'bg-pastel-blue', text: 'text-blue-600', category: 'Visuals', desc: 'Create stunning designs in seconds.' },
+            { name: 'Focus Mode', status: 'Flow', icon: 'brain', bg: 'bg-pastel-purple', text: 'text-purple-700', category: 'Mind', desc: 'Deep work and concentration boost.' },
+            { name: 'Safety Mode', status: 'Secure', icon: 'shield', bg: 'bg-pastel-green', text: 'text-green-700', category: 'Privacy', desc: 'Military-grade encryption for chat.' },
+        ];
+
+        // Typewriter Effect
+        const typewriterElement = document.getElementById('typewriter');
+        const phrases = [
+            "Meet Daisy — your evolving digital sidekick.",
+            "I learn your preferences and adapt in real-time.",
+            "Welcome to the next generation of intimacy.",
+            "Ready to build our digital bond together?"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex--);
+            } else {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex++);
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length + 1) {
+                setTimeout(() => isDeleting = true, 2500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+            }
+            setTimeout(type, isDeleting ? 30 : 60);
+        }
+
+        // Phone Interactions
+        const appBody = document.getElementById('appBody');
+        const phoneFrame = document.getElementById('phoneFrame');
+        const phoneTitle = document.getElementById('phoneTitle');
+        const phoneStatus = document.getElementById('phoneStatus');
+
+        const defaultPhoneContent = `
+            <div class="bg-gray-200/50 rounded-xl px-4 py-2 flex items-center gap-3 mb-6">
+                <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
+                <span class="text-xs text-gray-400">Search Modes</span>
+            </div>
+            <div class="grid grid-cols-3 gap-4 overflow-y-auto pb-12 hide-scrollbar">
+                ${daisyModes.map(mode => `
+                    <div class="aspect-square ${mode.bg} rounded-[24%] flex items-center justify-center shadow-sm cursor-pointer hover:scale-110 active:scale-95 transition-all duration-300 group/icon haptic-pop" onclick="openMode('${mode.name}')">
+                        <i data-lucide="${mode.icon}" class="w-7 h-7 ${mode.text} group-hover/icon:rotate-12 transition-transform"></i>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center px-4 shrink-0">
+                <i data-lucide="home" class="w-5 h-5 text-primary cursor-pointer active:scale-90 transition-transform haptic-pop" onclick="resetPhone()"></i>
+                <i data-lucide="activity" class="w-5 h-5 text-gray-300 haptic-pop"></i>
+                <i data-lucide="message-circle" class="w-5 h-5 text-gray-300 haptic-pop"></i>
+                <i data-lucide="settings" class="w-5 h-5 text-gray-300 haptic-pop"></i>
+            </div>
+        `;
+
+        function resetPhone() {
+            appBody.style.opacity = '0';
+            setTimeout(() => {
+                phoneTitle.textContent = "Home Intelligence";
+                phoneStatus.textContent = "DAISY DNA: 82%";
+                document.getElementById('syncBadge').style.opacity = '0';
+                document.documentElement.style.setProperty('--primary', '#FF3B8E');
+                appBody.innerHTML = defaultPhoneContent;
+                lucide.createIcons();
+                appBody.style.opacity = '1';
+                phoneFrame.style.transform = 'scale(1) rotate(0deg)';
+                phoneFrame.style.background = 'white';
+            }, 300);
+        }
+
+        window.openMode = (name) => {
+            const mode = daisyModes.find(m => m.name === name);
+            appBody.style.opacity = '0';
+            setTimeout(() => {
+                phoneTitle.textContent = mode.name;
+                phoneStatus.textContent = `Evolution: ${mode.status}`;
+                appBody.innerHTML = `
+                    <div class="flex-1 flex flex-col pt-2 overflow-y-auto hide-scrollbar">
+                        <div class="w-full aspect-[16/10] rounded-2xl ${mode.bg} flex items-center justify-center mb-6 shadow-inner shrink-0">
+                            <i data-lucide="${mode.icon}" class="w-12 h-12 ${mode.text} animate-bounce"></i>
+                        </div>
+                        <div class="px-1">
+                            <p class="text-[9px] text-gray-400 uppercase font-bold tracking-widest mb-1">${mode.category}</p>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-8">${mode.desc}</p>
+                            
+                            <div class="space-y-3">
+                                <button class="w-full py-3.5 bg-gray-900 text-white font-bold rounded-2xl text-[10px] uppercase tracking-widest shadow-xl hover:bg-gray-800 transition-colors haptic-pop" onclick="startChat('${mode.name}')">
+                                    Launch Sentient Chat
+                                </button>
+                                <button class="w-full py-3.5 bg-white border border-gray-200 text-gray-500 font-bold rounded-2xl text-[10px] uppercase tracking-widest hover:bg-gray-50 transition-colors haptic-pop" onclick="resetPhone()">
+                                    Back to Menu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+                appBody.style.opacity = '1';
+                phoneFrame.style.transform = 'scale(1.02) rotate(1deg)';
+            }, 300);
+        };
+
+        window.startChat = (modeName) => {
+            const mode = daisyModes.find(m => m.name === modeName);
+            appBody.style.opacity = '0';
+            phoneFrame.style.background = '#F9F9F9';
+
+            // Neural Sync: Update Page Accent Color
+            const modeColors = {
+                'Smart Tutor': '#3B82F6',
+                'Life Coach': '#EC4899',
+                'Relationship': '#10B981',
+                'Creative': '#8B5CF6',
+                'Fun Mode': '#F59E0B',
+                'Coding Buddy': '#06B6D4',
+                'Fitness Coach': '#6366F1',
+                'Sleep Coach': '#F43F5E',
+                'Money Guide': '#EAB308',
+                'Design Pro': '#3B82F6',
+                'Focus Mode': '#8B5CF6',
+                'Safety Mode': '#059669'
+            };
+            const newColor = modeColors[modeName] || '#FF3B8E';
+            document.documentElement.style.setProperty('--primary', newColor);
+
+            setTimeout(() => {
+                phoneTitle.textContent = "Daisy Chat";
+                phoneStatus.textContent = "Establishing Bond...";
+                document.getElementById('syncBadge').style.opacity = '1';
+
+                appBody.innerHTML = `
+                    <div class="flex-1 flex flex-col gap-4 pt-2">
+                        <div class="bg-gray-100 p-4 rounded-t-2xl rounded-br-2xl self-start max-w-[85%] border border-gray-200">
+                            <p class="text-[11px] text-gray-700 leading-relaxed">Hey there! I'm initializing my <b>${modeName}</b> sub-module. Ready to dive deep into our session?</p>
+                        </div>
+                        <div class="bg-primary/5 p-4 rounded-t-2xl rounded-bl-2xl self-end max-w-[85%] border border-primary/10">
+                            <p class="text-[11px] text-primary leading-relaxed italic">DNA Sequence Synced. I'm ready.</p>
+                        </div>
+                        
+                        <!-- Voice Pulse Visualizer -->
+                        <div class="mt-4 flex flex-col items-center gap-3">
+                            <div class="flex items-center gap-1.5 h-6">
+                                <div class="voice-bar"></div>
+                                <div class="voice-bar" style="animation-delay: 0.1s; height: 12px"></div>
+                                <div class="voice-bar" style="animation-delay: 0.2s; height: 18px"></div>
+                                <div class="voice-bar" style="animation-delay: 0.3s; height: 10px"></div>
+                                <div class="voice-bar" style="animation-delay: 0.4s; height: 14px"></div>
+                            </div>
+                            <span class="text-[8px] text-primary font-bold uppercase tracking-[0.2em]">Neural Sync Active</span>
+                        </div>
+                        
+                        <div class="mt-auto pb-4">
+                            <div class="bg-white border border-gray-200 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                                <span class="text-[10px] text-gray-400">Type a message...</span>
+                                <i data-lucide="send" class="w-4 h-4 text-primary opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+                appBody.style.opacity = '1';
+                phoneFrame.style.transform = 'scale(1.05) rotate(0deg)';
+                appBody.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
+        };
+
+        // Scroll Effects
+        const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('navContainer');
+        const dnaBar = document.getElementById('dnaBar');
+
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+
+            // Navbar Shrink
+            if (scroll > 50) {
+                navbar.classList.add('glass-strong', 'shadow-lg');
+                navContainer.classList.remove('h-20');
+                navContainer.classList.add('h-16');
+            } else {
+                navbar.classList.remove('glass-strong', 'shadow-lg');
+                navContainer.classList.remove('h-16');
+                navContainer.classList.add('h-20');
+            }
+
+            // DNA Bar Progress
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            // Map scroll to 82% - 95% range
+            const dnaPercent = 82 + (scrolled * 0.13);
+            dnaBar.style.width = dnaPercent + "%";
+        });
+
+        // Intersection Observer for Reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Also support the manual opacity/transform logic from the second script
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Initialize
+        function init() {
+            // Render main grid (bottom section)
+            const mainGrid = document.getElementById('productsGrid');
+            mainGrid.innerHTML = '';
+            daisyModes.forEach(mode => {
+                const card = document.createElement('div');
+                card.className = 'glass rounded-[2rem] overflow-hidden card-hover group cursor-pointer p-6 bg-white flex flex-col items-center text-center ios-shadow border-none';
+                card.innerHTML = `
+                    <div class="w-16 h-16 ${mode.bg} rounded-[24%] flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="${mode.icon}" class="w-8 h-8 ${mode.text}"></i>
+                    </div>
+                    <h3 class="font-display text-sm font-bold text-gray-800 mb-1 leading-tight">${mode.name}</h3>
+                    <p class="text-[9px] text-gray-400 uppercase font-bold tracking-widest mb-2">${mode.category}</p>
+                    <p class="text-[10px] text-gray-500 leading-relaxed line-clamp-2">${mode.desc}</p>
+                `;
+                card.onclick = () => {
+                    document.getElementById('modes').scrollIntoView({ behavior: 'smooth' });
+                    openMode(mode.name);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                mainGrid.appendChild(card);
+            });
+
+            resetPhone();
+            setTimeout(type, 1000);
+            lucide.createIcons();
+
+            // Observe elements for animation (from second observer logic)
+            document.querySelectorAll('.card-hover').forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+                revealObserver.observe(el);
+            });
+            // Re-initialize reveals for dynamically added elements (from first observer logic)
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        }
+
+        init();
+
+        // Theme management
+        (function initTheme() {
+            const stored = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (stored === 'dark') document.documentElement.classList.add('dark');
+        })();
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu')?.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>
