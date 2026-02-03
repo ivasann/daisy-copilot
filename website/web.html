@@ -9,7 +9,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -17,14 +19,14 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Inter', 'sans-serif'],
+                        sans: ['Nunito', 'Quicksand', 'sans-serif'],
+                        display: ['Nunito', 'Quicksand', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#FFB7C5',
-                        secondary: '#F8EDEB',
-                        accent: '#E5989B',
-                        dark: '#4A4E69',
+                        primary: '#FF4D6D',
+                        secondary: '#F5F5F7',
+                        accent: '#0B0B0D',
+                        dark: '#0B0B0D',
                         light: '#FFFFFF',
                     },
                     animation: {
@@ -48,10 +50,10 @@
 
     <style>
         .glass {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            border: 0.5px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(15, 15, 18, 0.06);
+            box-shadow: 0 12px 40px -18px rgba(0, 0, 0, 0.18);
         }
 
         /* Apple Health Style Pastel Gradients */
@@ -126,38 +128,53 @@
         }
 
         :root {
-            --primary: #1d1d1f;
-            /* Apple Midnight style */
-            --accent: #FF3B8E;
-            --pastel-blue: #E3F2FD;
-            --pastel-pink: #FCE4EC;
-            --pastel-green: #E8F5E9;
-            --pastel-purple: #F3E5F5;
-            --pastel-orange: #FFF3E0;
-            --pastel-cyan: #E0F7FA;
-            --pastel-indigo: #E8EAF6;
-            --pastel-rose: #FFF1F2;
-            --pastel-yellow: #FFFDE7;
-            --dark: #1F2937;
-            --light: #F9FAFB;
+            --primary: #ff4d6d;
+            --ink: #0b0b0d;
+            --muted: #f5f5f7;
+            --line: #e7e7ea;
+            --pastel-blue: #edf4ff;
+            --pastel-pink: #fff1f4;
+            --pastel-green: #edf7f0;
+            --pastel-purple: #f3f0ff;
+            --pastel-orange: #fff3e6;
+            --pastel-cyan: #e9f6f8;
+            --pastel-indigo: #eff1ff;
+            --pastel-rose: #fff1f2;
+            --pastel-yellow: #fff9e6;
+            --dark: #0b0b0d;
+            --light: #ffffff;
         }
 
         * {
-            font-family: 'Inter', sans-serif !important;
-            letter-spacing: -0.01em;
+            font-family: 'Nunito', 'Quicksand', sans-serif !important;
+            letter-spacing: -0.003em;
         }
 
         .font-display {
-            font-family: 'Inter', sans-serif !important;
-            letter-spacing: -0.02em;
+            font-family: 'Nunito', 'Quicksand', sans-serif !important;
+            letter-spacing: -0.01em;
         }
 
         .logo-daisy {
-            font-weight: 500;
-            letter-spacing: -0.05em;
-            /* Precisely tight kerning */
+            font-family: 'Nunito', 'Quicksand', sans-serif !important;
+            font-weight: 600;
+            letter-spacing: -0.03em;
             text-transform: lowercase;
-            color: #1d1d1f;
+            color: var(--ink);
+        }
+
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 30% 30%, #ffffff 0%, #f2f2f4 45%, #e6e6ea 100%);
+            border: 1px solid rgba(15, 15, 18, 0.06);
+            box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.35);
+        }
+
+        .logo-mark svg {
+            width: 20px;
+            height: 20px;
         }
 
         /* Mascot-Symbol Hybrid Daisy SVG Styles */
@@ -171,24 +188,24 @@
         }
 
         .daisy-petal {
-            fill: #1d1d1f;
+            fill: var(--ink);
             /* Bold Silhouette */
         }
 
         .daisy-mascot-eye {
-            fill: #1d1d1f;
+            fill: var(--ink);
         }
 
         .daisy-mascot-smile {
             fill: none;
-            stroke: #1d1d1f;
+            stroke: var(--ink);
             stroke-width: 1.2;
             stroke-linecap: round;
         }
 
         /* Clean Background */
         .bg-daisy-white {
-            background: #FFFFFF;
+            background: #f7f7f9;
         }
 
         /* Haptic Pop Effect */
@@ -295,21 +312,64 @@
         }
 
         .glass-strong {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 183, 197, 0.1);
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(15, 15, 18, 0.08);
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, #FFB7C5 0%, #E5989B 100%);
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff8aa1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px -10px rgba(255, 183, 197, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px -16px rgba(15, 15, 18, 0.22);
+        }
+
+        .bg-ambient {
+            background: radial-gradient(1200px 500px at 10% -10%, #ffffff 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f6f6f8 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f2f2f6 0%, transparent 50%),
+                #f7f7f9;
+        }
+
+        .noise {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+            opacity: 0.35;
+        }
+
+        .theme-pastel {
+            --primary: #ff8ab3;
+            --accent: #1b1b1f;
+            --muted: #f7f1f4;
+            --line: #eadde4;
+        }
+
+        .theme-pastel .bg-ambient {
+            background: radial-gradient(1200px 500px at 10% -10%, #fff6fb 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f7f0ff 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f2f7ff 0%, transparent 50%),
+                #faf7fb;
+        }
+
+        @keyframes toastIn {
+            from {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-enter {
+            animation: toastIn 0.35s ease-out;
         }
 
         .shimmer-bg {
@@ -329,18 +389,19 @@
 </head>
 
 <body
-    class="bg-daisy-white text-gray-800 font-sans antialiased selection:bg-primary selection:text-white overflow-x-hidden">
+    class="bg-ambient text-gray-900 font-sans antialiased selection:bg-primary selection:text-white overflow-x-hidden">
 
     <!-- Background Effects -->
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] animate-aurora">
+        <div class="absolute top-[-120px] right-[-120px] w-[900px] h-[900px] bg-primary/15 rounded-full blur-[140px] animate-aurora">
         </div>
-        <div class="absolute bottom-0 left-0 w-[800px] h-[800px] bg-secondary/30 rounded-full blur-[120px] animate-aurora"
-            style="animation-delay: -5s;"></div>
+        <div class="absolute bottom-[-200px] left-[-120px] w-[900px] h-[900px] bg-black/5 rounded-full blur-[160px] animate-aurora"
+            style="animation-delay: -6s;"></div>
+        <div class="absolute inset-0 noise"></div>
     </div>
 
     <!-- Promo Banner -->
-    <div class="bg-[#1d1d1f] py-2 text-center relative z-50">
+    <div class="bg-accent py-2 text-center relative z-50">
         <p class="text-[10px] font-medium uppercase tracking-[0.3em] text-white/90">Experience the Future of Personal
             Intelligence • Beta Access Open</p>
     </div>
@@ -360,24 +421,19 @@
             <div class="flex justify-between items-center h-20 transition-all duration-500" id="navContainer">
                 <div class="flex items-center gap-2.5 group cursor-pointer"
                     onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                    <div
-                        class="daisy-icon w-9 h-9 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                        <svg viewBox="0 0 100 100" class="w-full h-full">
-                            <g transform="translate(50,50)">
-                                <!-- 6 Thick Smooth Petals -->
-                                <circle class="daisy-petal" transform="rotate(0)" cx="0" cy="-24" r="16" />
-                                <circle class="daisy-petal" transform="rotate(60)" cx="0" cy="-24" r="16" />
-                                <circle class="daisy-petal" transform="rotate(120)" cx="0" cy="-24" r="16" />
-                                <circle class="daisy-petal" transform="rotate(180)" cx="0" cy="-24" r="16" />
-                                <circle class="daisy-petal" transform="rotate(240)" cx="0" cy="-24" r="16" />
-                                <circle class="daisy-petal" transform="rotate(300)" cx="0" cy="-24" r="16" />
+                    <div class="logo-mark flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                            <circle cx="16" cy="16" r="6.5" fill="#0b0b0d" />
+                            <g fill="#0b0b0d" opacity="0.22">
+                                <circle cx="16" cy="2.5" r="2" />
+                                <circle cx="16" cy="29.5" r="2" />
+                                <circle cx="2.5" cy="16" r="2" />
+                                <circle cx="29.5" cy="16" r="2" />
+                                <circle cx="7" cy="7" r="1.8" />
+                                <circle cx="25" cy="7" r="1.8" />
+                                <circle cx="7" cy="25" r="1.8" />
+                                <circle cx="25" cy="25" r="1.8" />
                             </g>
-                            <!-- Mascot Center -->
-                            <circle class="daisy-center" cx="50" cy="50" r="16" />
-                            <!-- Friendly Mascot Face -->
-                            <circle class="daisy-mascot-eye" cx="44" cy="46" r="2" />
-                            <circle class="daisy-mascot-eye" cx="56" cy="46" r="2" />
-                            <path class="daisy-mascot-smile" d="M44,54 Q50,58 56,54" />
                         </svg>
                     </div>
                     <span class="logo-daisy text-[22px]">daisy</span>
@@ -385,24 +441,39 @@
 
                 <div class="hidden md:flex items-center gap-10">
                     <a href="#modes"
-                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-primary transition-colors">Intelligence</a>
+                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-accent transition-colors">Intelligence</a>
                     <a href="#about"
-                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-primary transition-colors">DNA
+                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-accent transition-colors">DNA
                         Evolution</a>
                     <a href="#community"
-                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-primary transition-colors">Safety</a>
-                    <div class="flex items-center gap-2 bg-primary/5 px-3 py-1.5 rounded-full border border-primary/10">
+                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-accent transition-colors">Safety</a>
+                    <div class="flex items-center gap-2 bg-black/5 px-3 py-1.5 rounded-full border border-black/10">
                         <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                        <span class="text-[9px] font-bold uppercase tracking-widest text-primary">Sentient: 82.4%</span>
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-gray-700">Sentient: 82.4%</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <button class="text-gray-400 hover:text-primary transition-colors haptic-pop">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="flex items-center gap-2 bg-black/5 px-3 py-1.5 rounded-full border border-black/10">
+                        <i data-lucide="coins" class="w-4 h-4 text-gray-800"></i>
+                        <span id="coinBalance" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400">coins</span>
+                    </div>
+                    <div
+                        class="hidden sm:flex items-center gap-2 bg-black/5 px-3 py-1.5 rounded-full border border-black/10">
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400">streak</span>
+                        <span id="streakCount" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                    </div>
+                    <button class="text-gray-400 hover:text-accent transition-colors haptic-pop">
                         <i data-lucide="search" class="w-5 h-5"></i>
                     </button>
+                    <button id="openShop"
+                        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border border-black/10 text-gray-700 hover:text-black hover:border-black/20 transition-all haptic-pop">
+                        Theme Shop
+                    </button>
                     <button
-                        class="bg-primary text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all shadow-lg shadow-primary/20 haptic-pop">
+                        class="bg-accent text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all shadow-lg shadow-black/20 haptic-pop">
                         Try Beta
                     </button>
                 </div>
@@ -425,12 +496,12 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8 animate-fade-in">
                     <div
-                        class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
+                        class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-black/5 text-gray-700 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                         <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
                         AI Personal Life Copilot
                     </div>
 
-                    <h1 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-6">
+                    <h1 class="font-display text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.05] mb-6">
                         One AI Friend, <br />
                         <span class="text-gradient">360 Possibilities</span>
                     </h1>
@@ -441,16 +512,29 @@
 
                     <div class="flex flex-col sm:flex-row gap-4">
                         <button
-                            class="px-8 py-4 bg-[#1d1d1f] text-white font-medium rounded-full hover:bg-black transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group shadow-xl shadow-black/10 haptic-pop">
+                            class="px-8 py-4 bg-accent text-white font-medium rounded-full hover:bg-black transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group shadow-xl shadow-black/10 haptic-pop">
                             Start Journey
                             <i data-lucide="arrow-right"
                                 class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </button>
                         <button
-                            class="px-8 py-4 glass text-[#1d1d1f] font-medium rounded-full hover:bg-white/60 transition-all flex items-center justify-center gap-2 haptic-pop text-sm">
+                            class="px-8 py-4 glass text-gray-900 font-medium rounded-full hover:bg-white/80 transition-all flex items-center justify-center gap-2 haptic-pop text-sm">
                             <i data-lucide="play-circle" class="w-5 h-5"></i>
                             Watch the Story
                         </button>
+                    </div>
+
+                    <div class="glass rounded-[20px] p-4 ios-shadow max-w-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Level</span>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-700">
+                                <span id="levelValue">0</span> •
+                                <span id="levelProgressText">0/100</span>
+                            </span>
+                        </div>
+                        <div class="w-full h-2 bg-black/10 rounded-full overflow-hidden">
+                            <div id="levelProgressBar" class="h-2 bg-accent w-0 transition-all duration-500"></div>
+                        </div>
                     </div>
 
                     <div class="flex items-center gap-4 pt-4">
@@ -550,197 +634,274 @@
         </div>
     </section>
 
-    <!-- Study Focus Section (Pomodoro Integration) -->
-    <section id="study-timer" class="py-24 relative z-10 overflow-hidden">
+    <!-- How It Works -->
+    <section id="how" class="py-24 relative z-10 reveal">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pastel-yellow/20 text-[#1C1C1E] text-[9px] font-bold uppercase tracking-widest mb-4 border border-pastel-yellow/30 bg-[#FFFDE7]">
-                    New Feature
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                    How It Works
                 </div>
-                <h2 class="font-display text-3xl font-bold text-gray-800 mb-4">Study Focus</h2>
-                <p class="text-gray-500 text-sm">Boost your productivity with Daisy's built-in Pomodoro timer. Switch to
-                    pastel mode for a calming, focused environment.</p>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">A Copilot That Learns You</h2>
+                <p class="text-gray-500 text-sm">Daisy adapts quietly in the background while you stay in control.</p>
             </div>
 
-            <div
-                class="relative max-w-md mx-auto h-[700px] bg-[#D6EAF8] rounded-[3rem] shadow-2xl overflow-hidden border-[8px] border-white/20 select-none transform hover:scale-[1.01] transition-transform duration-500">
-                <!-- Status Bar Mock -->
-                <div class="h-8 w-full flex justify-between items-center px-6 pt-2 opacity-50">
-                    <span class="text-[10px] font-semibold text-[#1C1C1E]">9:41</span>
-                    <div class="w-4 h-2 bg-[#1C1C1E] rounded-sm"></div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass rounded-[24px] p-6 ios-shadow">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mb-2">01</p>
+                    <h3 class="font-display text-lg font-semibold text-gray-900 mb-2">Onboard Once</h3>
+                    <p class="text-sm text-gray-500">Share your goals and preferences. Daisy builds a baseline profile.</p>
+                </div>
+                <div class="glass rounded-[24px] p-6 ios-shadow">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mb-2">02</p>
+                    <h3 class="font-display text-lg font-semibold text-gray-900 mb-2">Assist Daily</h3>
+                    <p class="text-sm text-gray-500">From planning to coaching, Daisy adapts to your rhythm.</p>
+                </div>
+                <div class="glass rounded-[24px] p-6 ios-shadow">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mb-2">03</p>
+                    <h3 class="font-display text-lg font-semibold text-gray-900 mb-2">Evolve With You</h3>
+                    <p class="text-sm text-gray-500">Your preferences sharpen. Suggestions get cleaner and faster.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Actions -->
+    <section id="actions" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                    Daily Actions
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">Earn Coins With Focus</h2>
+                <p class="text-gray-500 text-sm">Complete a Pomodoro or mark a task done to grow your streak and unlock themes.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="glass rounded-[26px] p-6 ios-shadow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-display text-lg font-semibold text-gray-900">Pomodoro Focus</h3>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">+10 coins</span>
+                    </div>
+                    <div class="text-5xl font-display font-semibold text-gray-900 tracking-tight" id="pomodoroDisplay">25:00</div>
+                    <div class="mt-4 w-full h-2 bg-black/10 rounded-full overflow-hidden">
+                        <div id="pomodoroProgress" class="h-2 bg-accent w-0 transition-all duration-500"></div>
+                    </div>
+                    <div class="flex items-center gap-3 mt-5">
+                        <button id="pomodoroStart"
+                            class="px-5 py-2.5 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
+                            Start
+                        </button>
+                        <button id="pomodoroPause"
+                            class="px-5 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
+                            Pause
+                        </button>
+                        <button id="pomodoroReset"
+                            class="px-5 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
+                            Reset
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4">Finish a 25‑minute session to earn coins and keep your streak alive.</p>
                 </div>
 
-                <!-- App Content -->
-                <div class="flex flex-col h-full px-6 pb-8">
-                    <!-- Header -->
-                    <header class="flex justify-between items-center py-4 mb-2">
-                        <h1 class="text-xl font-semibold tracking-tight text-[#1C1C1E]">Focus</h1>
-                        <button
-                            class="bg-white/60 backdrop-blur-md px-1 py-1 pr-3 rounded-full flex items-center gap-2 shadow-sm border border-white/50">
-                            <div class="w-5 h-5 bg-white rounded-full shadow-md flex items-center justify-center">
-                                <div
-                                    class="w-full h-full bg-gradient-to-br from-[#F6EAC2] to-[#D6EAF8] rounded-full opacity-80">
-                                </div>
-                            </div>
-                            <span class="text-[9px] font-semibold uppercase text-gray-600">Pastel</span>
-                        </button>
-                    </header>
+                <div class="glass rounded-[26px] p-6 ios-shadow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-display text-lg font-semibold text-gray-900">Complete a Task</h3>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">+5 coins</span>
+                    </div>
+                    <p class="text-sm text-gray-500">One tap when you finish a real task. Daisy keeps score.</p>
+                    <button id="completeTaskBtn"
+                        class="mt-5 px-6 py-3 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
+                        Complete Task
+                    </button>
 
-                    <!-- Timer -->
-                    <main class="flex-1 flex flex-col items-center justify-center relative">
+                    <div class="mt-6">
+                        <label class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Ask Daisy (1 coin)</label>
+                        <div class="flex gap-2 mt-2">
+                            <input id="chatInput" type="text" placeholder="Ask for advice or planning"
+                                class="flex-1 px-4 py-2.5 rounded-full border border-black/10 bg-white/80 focus:outline-none focus:ring-2 focus:ring-black/20 text-sm" />
+                            <button id="chatSendBtn"
+                                class="px-4 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
+                                Send
+                            </button>
+                        </div>
+                        <div id="chatReply" class="mt-3 text-sm text-gray-600"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History -->
+    <section id="history" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                    History
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">Your Recent Progress</h2>
+                <p class="text-gray-500 text-sm">Tasks, pomodoros, and streak activity from the last 7 days.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-4">Recent Tasks</h3>
+                    <ul id="historyTasks" class="space-y-2 text-sm text-gray-600">
+                        <li class="text-gray-400">No tasks yet.</li>
+                    </ul>
+                </div>
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-4">Pomodoro Sessions</h3>
+                    <ul id="historyPomodoros" class="space-y-2 text-sm text-gray-600">
+                        <li class="text-gray-400">No sessions yet.</li>
+                    </ul>
+                </div>
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-4">Streak Calendar</h3>
+                    <div id="streakCalendar" class="grid grid-cols-7 gap-2 text-[10px] text-gray-500"></div>
+                    <p class="text-[10px] text-gray-400 mt-3">Active days glow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Privacy -->
+    <section id="trust" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center gap-10">
+                <div class="flex-1">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                        Trust & Privacy
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">Designed for Safety by Default</h2>
+                    <p class="text-gray-500 text-sm max-w-md">Control your data, manage your memory, and stay informed with transparent settings.</p>
+                </div>
+                <div class="flex-1 grid sm:grid-cols-3 gap-4 w-full">
+                    <div class="glass rounded-[20px] p-5 text-center ios-shadow">
+                        <i data-lucide="shield" class="w-6 h-6 text-gray-900 mx-auto mb-3"></i>
+                        <p class="text-sm font-semibold text-gray-900">Private by Design</p>
+                        <p class="text-xs text-gray-500 mt-1">Clear controls and audit trails.</p>
+                    </div>
+                    <div class="glass rounded-[20px] p-5 text-center ios-shadow">
+                        <i data-lucide="lock" class="w-6 h-6 text-gray-900 mx-auto mb-3"></i>
+                        <p class="text-sm font-semibold text-gray-900">Encrypted Memory</p>
+                        <p class="text-xs text-gray-500 mt-1">Your data stays protected.</p>
+                    </div>
+                    <div class="glass rounded-[20px] p-5 text-center ios-shadow">
+                        <i data-lucide="toggle-right" class="w-6 h-6 text-gray-900 mx-auto mb-3"></i>
+                        <p class="text-sm font-semibold text-gray-900">You're in Control</p>
+                        <p class="text-xs text-gray-500 mt-1">Pause, review, or delete.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 relative z-10 reveal">
+        <div class="max-w-3xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                    FAQ
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mb-2">Answers, Clearly</h2>
+                <p class="text-gray-500 text-sm">Short and direct. No fluff.</p>
+            </div>
+            <div class="space-y-3">
+                <details class="glass rounded-[18px] p-5 ios-shadow">
+                    <summary class="cursor-pointer text-sm font-semibold text-gray-900">Is Daisy a chatbot or an assistant?</summary>
+                    <p class="text-sm text-gray-500 mt-2">Daisy is a personal AI copilot that blends coaching, planning, and memory in one place.</p>
+                </details>
+                <details class="glass rounded-[18px] p-5 ios-shadow">
+                    <summary class="cursor-pointer text-sm font-semibold text-gray-900">Can I control what Daisy remembers?</summary>
+                    <p class="text-sm text-gray-500 mt-2">Yes. You can review, pause, or delete memories any time.</p>
+                </details>
+                <details class="glass rounded-[18px] p-5 ios-shadow">
+                    <summary class="cursor-pointer text-sm font-semibold text-gray-900">Is there a free plan?</summary>
+                    <p class="text-sm text-gray-500 mt-2">The beta is free while we refine the experience.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                    People Love Daisy
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mb-2">Calm, Clear, and Useful</h2>
+                <p class="text-gray-500 text-sm">Early users say Daisy feels less like software and more like support.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <p class="text-sm text-gray-600 leading-relaxed">“The planning flow is effortless. It quietly nudges me toward the right next step without noise.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <img src="https://i.pravatar.cc/80?img=11" alt="Ava"
+                            class="w-10 h-10 rounded-full border border-black/10" />
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Ava K.</p>
+                            <p class="text-xs text-gray-500">Product Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <p class="text-sm text-gray-600 leading-relaxed">“The memory and context are the real magic. Daisy keeps everything aligned without being intrusive.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <img src="https://i.pravatar.cc/80?img=22" alt="Noah"
+                            class="w-10 h-10 rounded-full border border-black/10" />
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Noah R.</p>
+                            <p class="text-xs text-gray-500">Founder</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <p class="text-sm text-gray-600 leading-relaxed">“It feels like a calm co‑pilot. The tone is clean, and the guidance is consistently helpful.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <img src="https://i.pravatar.cc/80?img=31" alt="Maya"
+                            class="w-10 h-10 rounded-full border border-black/10" />
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Maya S.</p>
+                            <p class="text-xs text-gray-500">Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist -->
+    <section id="waitlist" class="py-24 relative z-10 reveal">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="glass rounded-[28px] p-8 md:p-12 ios-shadow">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
+                    <div class="flex-1">
                         <div
-                            class="w-full aspect-square bg-[#F6EAC2] rounded-[32px] shadow-[0_20px_60px_-10px_rgba(246,234,194,0.6)] border border-white/40 flex flex-col items-center justify-center relative overflow-hidden mb-6 z-0">
-                            <!-- Background Blur Layer -->
-                            <div
-                                class="absolute top-0 right-0 w-32 h-32 bg-white/40 rounded-full blur-2xl translate-x-8 -translate-y-8 z-0">
-                            </div>
-
-                            <!-- Timer Container -->
-                            <div class="relative w-48 h-48 flex items-center justify-center z-10">
-                                <svg
-                                    class="w-full h-full transform -rotate-90 pointer-events-none absolute inset-0 z-10">
-                                    <circle cx="96" cy="96" r="80" stroke="white" stroke-width="6" fill="none"
-                                        class="opacity-40" />
-                                    <circle id="progressRing" cx="96" cy="96" r="80" stroke="white" stroke-width="6"
-                                        fill="none" stroke-dasharray="502" stroke-dashoffset="0" stroke-linecap="round"
-                                        class="transition-all duration-1000 ease-linear" />
-                                </svg>
-
-                                <!-- Digits Layer: Z-50 and !important color -->
-                                <div
-                                    class="absolute inset-0 flex flex-col items-center justify-center z-50 pointer-events-none">
-                                    <div id="timerDisplay"
-                                        class="text-4xl font-bold tracking-tighter text-[#1C1C1E] relative z-50"
-                                        style="color: #1C1C1E !important; text-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                                        25:00</div>
-                                    <div id="modeDisplay"
-                                        class="text-xs font-bold text-[#1C1C1E]/60 mt-1 uppercase tracking-widest relative z-50"
-                                        style="color: rgba(28, 28, 30, 0.6) !important;">Focus</div>
-                                </div>
-                            </div>
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                            Early Access
                         </div>
-
-                        <div class="flex items-center gap-4 mb-6 z-20">
-                            <button id="resetTimer"
-                                class="w-12 h-12 rounded-full bg-[#FAF9F6] text-[#1C1C1E] flex items-center justify-center shadow-sm hover:scale-105 transition-transform active:scale-95 z-20 cursor-pointer"><i
-                                    data-lucide="rotate-ccw" class="w-5 h-5"></i></button>
-                            <button id="startTimer"
-                                class="w-16 h-16 rounded-full bg-[#1C1C1E] text-white flex items-center justify-center shadow-xl hover:scale-105 transition-transform active:scale-95 z-20 cursor-pointer"><i
-                                    data-lucide="play" class="w-7 h-7 fill-current translate-x-1"></i></button>
-                            <button id="pauseTimer"
-                                class="w-12 h-12 rounded-full bg-[#FAF9F6] text-[#1C1C1E] flex items-center justify-center shadow-sm hover:scale-105 transition-transform active:scale-95 z-20 cursor-pointer"><i
-                                    data-lucide="pause" class="w-5 h-5"></i></button>
+                        <h2 class="font-display text-3xl font-bold text-gray-900 mb-3">Join the Daisy Waitlist</h2>
+                        <p class="text-gray-500 text-sm">Be first to try new modes, memory features, and priority support.</p>
+                    </div>
+                    <form id="waitlistForm" class="flex-1 w-full">
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input id="waitlistEmail" type="email" placeholder="you@email.com"
+                                class="w-full px-4 py-3 rounded-full border border-black/10 bg-white/80 focus:outline-none focus:ring-2 focus:ring-black/20 text-sm" />
+                            <button id="waitlistSubmit" type="button"
+                                class="px-6 py-3 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all shadow-lg shadow-black/20 haptic-pop">
+                                Request Access
+                            </button>
                         </div>
-
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                // Pomodoro Logic
-                                (function () {
-                                    console.log('Success: Timer Logic Initializing...');
-                                    let timeLeft = 25 * 60; // 25:00
-                                    let timerId = null;
-                                    const originalTime = 25 * 60;
-
-                                    const circle = document.getElementById('progressRing');
-                                    const display = document.getElementById('timerDisplay');
-
-                                    if (!circle || !display) {
-                                        console.error('Error: Timer elements not found!');
-                                        return;
-                                    }
-
-                                    // Robust Radius Calculation
-                                    const radius = 80; // Hardcoded from r="80" to ensure stability
-                                    const circumference = radius * 2 * Math.PI;
-
-                                    // Setup Ring
-                                    circle.style.strokeDasharray = `${circumference} ${circumference}`;
-                                    circle.style.strokeDashoffset = 0;
-
-                                    function setProgress(percent) {
-                                        const offset = circumference - (percent / 100) * circumference;
-                                        circle.style.strokeDashoffset = offset;
-                                    }
-
-                                    function updateDisplay() {
-                                        const minutes = Math.floor(timeLeft / 60);
-                                        const seconds = timeLeft % 60;
-                                        display.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-                                        // Calculate progress
-                                        const percent = ((originalTime - timeLeft) / originalTime) * 100;
-                                        setProgress(100 - percent); // Countdown visual
-                                    }
-
-                                    // Initial Call
-                                    updateDisplay();
-                                    // Force color again just in case
-                                    display.style.color = '#1C1C1E';
-
-                                    document.getElementById('startTimer').addEventListener('click', () => {
-                                        if (timerId) return;
-                                        timerId = setInterval(() => {
-                                            if (timeLeft > 0) {
-                                                timeLeft--;
-                                                updateDisplay();
-                                            } else {
-                                                clearInterval(timerId);
-                                                timerId = null;
-                                                alert('Session Complete! Take a break.');
-                                            }
-                                        }, 1000);
-                                    });
-
-                                    document.getElementById('pauseTimer').addEventListener('click', () => {
-                                        clearInterval(timerId);
-                                        timerId = null;
-                                    });
-
-                                    document.getElementById('resetTimer').addEventListener('click', () => {
-                                        clearInterval(timerId);
-                                        timerId = null;
-                                        timeLeft = originalTime;
-                                        updateDisplay();
-                                        circle.style.strokeDashoffset = 0;
-                                    });
-                                })();
-                            });
-                        </script>
-
-                        <div
-                            class="w-full flex-1 bg-white/60 backdrop-blur-md rounded-2xl p-4 overflow-hidden flex flex-col shadow-sm border border-white/40">
-                            <h3 class="text-[10px] font-bold uppercase text-gray-400 mb-3 ml-1">Recent Sessions</h3>
-                            <div class="space-y-2 overflow-y-auto custom-scrollbar">
-                                <div class="flex justify-between items-center p-2.5 bg-white/50 rounded-xl">
-                                    <div class="flex items-center gap-2.5">
-                                        <div
-                                            class="w-5 h-5 rounded-full bg-[#A7F3D0] flex items-center justify-center text-[#1C1C1E]">
-                                            <i data-lucide="check" class="w-3 h-3"></i>
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <span class="text-xs font-semibold">Deep Work</span>
-                                            <span class="text-[9px] text-gray-500">Project Architecture</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-[10px] font-bold opacity-40">25m</span>
-                                </div>
-                                <div class="flex justify-between items-center p-2.5 bg-white/50 rounded-xl">
-                                    <div class="flex items-center gap-2.5">
-                                        <div
-                                            class="w-5 h-5 rounded-full bg-[#A7F3D0] flex items-center justify-center text-[#1C1C1E]">
-                                            <i data-lucide="check" class="w-3 h-3"></i>
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <span class="text-xs font-semibold">Reading</span>
-                                            <span class="text-[9px] text-gray-500">Neural Net Concepts</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-[10px] font-bold opacity-40">25m</span>
-                                </div>
-                            </div>
-                        </div>
-                    </main>
+                        <p id="waitlistStatus" class="text-[10px] text-gray-400 mt-3">No spam. Unsubscribe anytime.</p>
+                    </form>
                 </div>
             </div>
         </div>
@@ -985,6 +1146,73 @@
         </div>
     </footer>
 
+    <!-- Theme Shop Modal -->
+    <div id="shopModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+        <div class="relative max-w-xl mx-auto mt-28 p-6">
+            <div class="glass rounded-[28px] p-6 ios-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-display text-xl font-semibold text-gray-900">Theme Shop</h3>
+                    <button id="closeShop" class="text-gray-500 hover:text-black haptic-pop">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="glass rounded-[20px] p-5 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Pastel Aura</p>
+                            <p class="text-xs text-gray-500">Soft gradients and a calmer mood.</p>
+                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: 50 coins</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <button id="unlockThemeBtn"
+                                class="px-4 py-2.5 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
+                                Unlock
+                            </button>
+                            <button id="applyThemeBtn"
+                                class="hidden px-4 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-[20px] p-5 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Obsidian Mode</p>
+                            <p class="text-xs text-gray-500">Deep contrast for night focus.</p>
+                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: 120 coins</p>
+                        </div>
+                        <button
+                            class="px-4 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
+                            Coming Soon
+                        </button>
+                    </div>
+
+                    <div class="glass rounded-[20px] p-5 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">Aurora Pulse</p>
+                            <p class="text-xs text-gray-500">Subtle glow + soft motion.</p>
+                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: 80 coins</p>
+                        </div>
+                        <button
+                            class="px-4 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-4">Unlock once. Use forever.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-[110] space-y-2"></div>
+
+    <script>
+        window.DAISY_API_BASE = "http://localhost:8000";
+    </script>
+    <script src="api.js"></script>
+
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
@@ -1066,7 +1294,7 @@
                 phoneTitle.textContent = "Home Intelligence";
                 phoneStatus.textContent = "DAISY DNA: 82%";
                 document.getElementById('syncBadge').style.opacity = '0';
-                document.documentElement.style.setProperty('--primary', '#FF3B8E');
+                document.documentElement.style.setProperty('--primary', '#ff4d6d');
                 appBody.innerHTML = defaultPhoneContent;
                 lucide.createIcons();
                 appBody.style.opacity = '1';
@@ -1127,7 +1355,7 @@
                 'Focus Mode': '#8B5CF6',
                 'Safety Mode': '#059669'
             };
-            const newColor = modeColors[modeName] || '#FF3B8E';
+            const newColor = modeColors[modeName] || '#ff4d6d';
             document.documentElement.style.setProperty('--primary', newColor);
 
             setTimeout(() => {
@@ -1269,6 +1497,337 @@
         function toggleMobileMenu() {
             document.getElementById('mobileMenu')?.classList.toggle('hidden');
         }
+
+        // Gamification + Coins
+        const userId = (() => {
+            const existing = localStorage.getItem('daisy_user_id');
+            if (existing) return existing;
+            const id = (crypto?.randomUUID?.() || `guest-${Date.now()}`);
+            localStorage.setItem('daisy_user_id', id);
+            return id;
+        })();
+
+        let currentCoins = 0;
+        let themeUnlocked = false;
+        let pendingTheme = localStorage.getItem("daisy_theme");
+
+        const coinBalanceEl = document.getElementById('coinBalance');
+        const streakCountEl = document.getElementById('streakCount');
+        const levelValueEl = document.getElementById('levelValue');
+        const levelProgressTextEl = document.getElementById('levelProgressText');
+        const levelProgressBarEl = document.getElementById('levelProgressBar');
+
+        function animateCounter(el, from, to, duration = 600) {
+            if (!el) return;
+            const start = performance.now();
+            const range = to - from;
+            function tick(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const value = Math.round(from + range * progress);
+                el.textContent = value;
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        function playCoinSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = "sine";
+                osc.frequency.value = 880;
+                gain.gain.value = 0.0001;
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+                osc.stop(ctx.currentTime + 0.26);
+            } catch (_) {
+                // Audio may be blocked; ignore.
+            }
+        }
+
+        function showToast(message, type = "success") {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            const toast = document.createElement('div');
+            const color = type === "error" ? "bg-red-500/90" : "bg-black/90";
+            toast.className = `toast-enter ${color} text-white text-xs px-4 py-3 rounded-full shadow-lg`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 2800);
+        }
+
+        function updateBalanceUI(balance, announce = false) {
+            const delta = balance.coins - currentCoins;
+            if (announce && delta > 0) {
+                showToast(`+${delta} coins earned`);
+                playCoinSound();
+            }
+            animateCounter(coinBalanceEl, currentCoins, balance.coins);
+            currentCoins = balance.coins;
+
+            if (streakCountEl) streakCountEl.textContent = balance.streak;
+            if (levelValueEl) levelValueEl.textContent = balance.level;
+            if (levelProgressTextEl) levelProgressTextEl.textContent = `${balance.level_progress}/100`;
+            if (levelProgressBarEl) {
+                const width = Math.min((balance.level_progress / 100) * 100, 100);
+                levelProgressBarEl.style.width = `${width}%`;
+            }
+
+            themeUnlocked = balance.theme_unlocked;
+            if (themeUnlocked && pendingTheme === "pastel") {
+                applyTheme("pastel");
+            } else if (!themeUnlocked) {
+                applyTheme("default");
+            }
+            syncThemeButtons();
+        }
+
+        async function refreshBalance(announce = false) {
+            if (!window.DaisyAPI) return;
+            try {
+                const balance = await DaisyAPI.getBalance(userId);
+                updateBalanceUI(balance, announce);
+            } catch (err) {
+                showToast(err.message || "Failed to load balance", "error");
+            }
+        }
+
+        async function refreshHistory() {
+            if (!window.DaisyAPI) return;
+            try {
+                const data = await DaisyAPI.history(userId);
+                const tasksEl = document.getElementById('historyTasks');
+                const pomosEl = document.getElementById('historyPomodoros');
+                const calendarEl = document.getElementById('streakCalendar');
+
+                if (tasksEl) {
+                    tasksEl.innerHTML = '';
+                    if (!data.tasks.length) {
+                        tasksEl.innerHTML = '<li class="text-gray-400">No tasks yet.</li>';
+                    } else {
+                        data.tasks.slice(0, 6).forEach((t) => {
+                            const item = document.createElement('li');
+                            item.className = 'flex items-center justify-between';
+                            const label = t.type.replace(/_/g, ' ');
+                            item.innerHTML = `<span class="text-gray-700">${label}</span><span class="text-gray-400 text-xs">+${t.coins}</span>`;
+                            tasksEl.appendChild(item);
+                        });
+                    }
+                }
+
+                if (pomosEl) {
+                    pomosEl.innerHTML = '';
+                    if (!data.pomodoros.length) {
+                        pomosEl.innerHTML = '<li class="text-gray-400">No sessions yet.</li>';
+                    } else {
+                        data.pomodoros.slice(0, 6).forEach((p) => {
+                            const item = document.createElement('li');
+                            item.className = 'flex items-center justify-between';
+                            item.innerHTML = `<span class="text-gray-700">${p.duration} min</span><span class="text-gray-400 text-xs">+${p.coins}</span>`;
+                            pomosEl.appendChild(item);
+                        });
+                    }
+                }
+
+                if (calendarEl) {
+                    calendarEl.innerHTML = '';
+                    data.streak_calendar.forEach((d) => {
+                        const cell = document.createElement('div');
+                        cell.className = `h-9 rounded-lg flex items-center justify-center border ${d.active ? 'bg-accent text-white border-accent' : 'bg-white/70 text-gray-500 border-black/10'}`;
+                        cell.textContent = d.date.slice(5);
+                        calendarEl.appendChild(cell);
+                    });
+                }
+            } catch (_) {
+                // History is non-critical; ignore errors.
+            }
+        }
+
+        function applyTheme(theme) {
+            const root = document.documentElement;
+            if (theme === "pastel") {
+                root.classList.add("theme-pastel");
+                localStorage.setItem("daisy_theme", "pastel");
+                pendingTheme = "pastel";
+            } else {
+                root.classList.remove("theme-pastel");
+                localStorage.setItem("daisy_theme", "default");
+                pendingTheme = "default";
+            }
+        }
+
+        function syncThemeButtons() {
+            const unlockBtn = document.getElementById('unlockThemeBtn');
+            const applyBtn = document.getElementById('applyThemeBtn');
+            if (!unlockBtn || !applyBtn) return;
+
+            if (themeUnlocked) {
+                unlockBtn.classList.add('hidden');
+                applyBtn.classList.remove('hidden');
+            } else {
+                unlockBtn.classList.remove('hidden');
+                applyBtn.classList.add('hidden');
+            }
+        }
+
+        // Pomodoro
+        let pomodoroTimer = null;
+        const pomodoroTotal = 25 * 60;
+        let pomodoroLeft = pomodoroTotal;
+        const pomodoroDisplayEl = document.getElementById('pomodoroDisplay');
+        const pomodoroProgressEl = document.getElementById('pomodoroProgress');
+
+        function updatePomodoroUI() {
+            const minutes = Math.floor(pomodoroLeft / 60);
+            const seconds = pomodoroLeft % 60;
+            if (pomodoroDisplayEl) {
+                pomodoroDisplayEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
+            if (pomodoroProgressEl) {
+                const done = (pomodoroTotal - pomodoroLeft) / pomodoroTotal;
+                pomodoroProgressEl.style.width = `${Math.round(done * 100)}%`;
+            }
+        }
+
+        function startPomodoro() {
+            if (pomodoroTimer) return;
+            pomodoroTimer = setInterval(async () => {
+                if (pomodoroLeft > 0) {
+                    pomodoroLeft -= 1;
+                    updatePomodoroUI();
+                } else {
+                    clearInterval(pomodoroTimer);
+                    pomodoroTimer = null;
+                    await completePomodoro();
+                }
+            }, 1000);
+        }
+
+        function pausePomodoro() {
+            if (!pomodoroTimer) return;
+            clearInterval(pomodoroTimer);
+            pomodoroTimer = null;
+        }
+
+        function resetPomodoro() {
+            pausePomodoro();
+            pomodoroLeft = pomodoroTotal;
+            updatePomodoroUI();
+        }
+
+        async function completePomodoro() {
+            try {
+                await DaisyAPI.pomodoroComplete({ user_id: userId, duration: 25 });
+                showToast("Pomodoro complete! +10 coins");
+                await refreshBalance(true);
+                await refreshHistory();
+            } catch (err) {
+                showToast(err.message || "Pomodoro failed", "error");
+            } finally {
+                resetPomodoro();
+            }
+        }
+
+        async function completeTask() {
+            try {
+                await DaisyAPI.earnCoins({ user_id: userId, task_type: "task_completed" });
+                showToast("Task complete! +5 coins");
+                await refreshBalance(true);
+                await refreshHistory();
+            } catch (err) {
+                showToast(err.message || "Task failed", "error");
+            }
+        }
+
+        async function sendChat() {
+            const input = document.getElementById('chatInput');
+            const output = document.getElementById('chatReply');
+            const text = input?.value?.trim();
+            if (!text) return;
+            if (output) output.textContent = "Thinking…";
+            try {
+                const res = await DaisyAPI.aiChat({ user_id: userId, message: text });
+                if (output) output.textContent = res.reply;
+                await refreshBalance(true);
+                await refreshHistory();
+            } catch (err) {
+                if (output) output.textContent = "";
+                showToast(err.message || "Chat failed", "error");
+            } finally {
+                if (input) input.value = "";
+            }
+        }
+
+        function initShopModal() {
+            const openBtn = document.getElementById('openShop');
+            const closeBtn = document.getElementById('closeShop');
+            const modal = document.getElementById('shopModal');
+            const unlockBtn = document.getElementById('unlockThemeBtn');
+            const applyBtn = document.getElementById('applyThemeBtn');
+
+            openBtn?.addEventListener('click', () => modal?.classList.remove('hidden'));
+            closeBtn?.addEventListener('click', () => modal?.classList.add('hidden'));
+            modal?.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.add('hidden');
+            });
+
+            unlockBtn?.addEventListener('click', async () => {
+                try {
+                    await DaisyAPI.spendCoins({ user_id: userId, amount: 50, reason: "theme_unlock" });
+                    themeUnlocked = true;
+                    applyTheme("pastel");
+                    showToast("Theme unlocked!");
+                    await refreshBalance(true);
+                } catch (err) {
+                    showToast(err.message || "Unlock failed", "error");
+                }
+            });
+
+            applyBtn?.addEventListener('click', () => {
+                applyTheme("pastel");
+                showToast("Pastel theme applied");
+            });
+        }
+
+        function initActions() {
+            document.getElementById('pomodoroStart')?.addEventListener('click', startPomodoro);
+            document.getElementById('pomodoroPause')?.addEventListener('click', pausePomodoro);
+            document.getElementById('pomodoroReset')?.addEventListener('click', resetPomodoro);
+            document.getElementById('completeTaskBtn')?.addEventListener('click', completeTask);
+            document.getElementById('chatSendBtn')?.addEventListener('click', sendChat);
+            updatePomodoroUI();
+        }
+
+        function initWaitlist() {
+            const btn = document.getElementById('waitlistSubmit');
+            const input = document.getElementById('waitlistEmail');
+            const status = document.getElementById('waitlistStatus');
+            btn?.addEventListener('click', async () => {
+                const email = input?.value?.trim();
+                if (!email) return;
+                if (status) status.textContent = "Submitting...";
+                try {
+                    await DaisyAPI.waitlist({ email });
+                    if (status) status.textContent = "You're in. Welcome to the waitlist.";
+                    if (input) input.value = "";
+                } catch (err) {
+                    if (status) status.textContent = err.message || "Unable to submit.";
+                }
+            });
+        }
+
+        (function initGamification() {
+            initActions();
+            initShopModal();
+            initWaitlist();
+            pendingTheme = localStorage.getItem("daisy_theme");
+            refreshBalance(false);
+            refreshHistory();
+        })();
     </script>
 </body>
 
