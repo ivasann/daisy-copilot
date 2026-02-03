@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAISY Focus</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Poppins', 'Nunito', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Nunito', sans-serif !important; letter-spacing: -0.003em; }
+        .font-display { font-family: 'Poppins','Nunito',sans-serif !important; letter-spacing: -0.01em; }
+        .bg-ambient {
+            background: radial-gradient(1200px 500px at 10% -10%, #ffffff 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f6f6f8 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f2f2f6 0%, transparent 50%),
+                #f7f7f9;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(15, 15, 18, 0.06);
+            box-shadow: 0 12px 40px -18px rgba(0, 0, 0, 0.18);
+        }
+        .floaty {
+            animation: floaty 6s ease-in-out infinite;
+        }
+        @keyframes floaty {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        .break-tint {
+            background: linear-gradient(90deg, rgba(213, 249, 255, 0.5) 0%, rgba(236, 246, 255, 0.5) 100%);
+        }
+
+        .theme-switcher {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 120;
+        }
+
+        .theme-panel {
+            display: none;
+            margin-bottom: 8px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 16px 40px -24px rgba(0, 0, 0, 0.25);
+        }
+
+        .theme-panel.active {
+            display: flex;
+            gap: 8px;
+        }
+
+        .theme-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        body[data-bg="sand"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #fff7ec 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f5efe6 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f3ede3 0%, transparent 50%),
+                #faf5ec;
+        }
+
+        body[data-bg="slate"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #f3f4f6 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #e5e7eb 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f9fafb 0%, transparent 50%),
+                #f3f4f6;
+        }
+
+        body[data-bg="olive"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #f6f7f0 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #eef0e6 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f7f8f2 0%, transparent 50%),
+                #f4f6ee;
+        }
+
+        body[data-bg="stone"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #f8f8f8 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f0f0f0 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f7f7f7 0%, transparent 50%),
+                #f6f6f6;
+        }
+
+        body[data-bg="default"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #ffffff 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f6f6f8 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f2f2f6 0%, transparent 50%),
+                #f7f7f9;
+        }
+
+        body.dark {
+            background: #0b0b0d;
+            color: #e5e7eb;
+        }
+
+        body.dark .glass {
+            background: rgba(16, 18, 22, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        body.dark .text-gray-800,
+        body.dark .text-gray-900,
+        body.dark .text-gray-700,
+        body.dark .text-gray-500,
+        body.dark .text-gray-400 {
+            color: #cbd5f5 !important;
+        }
+
+        body.dark .ring-track { stroke: rgba(255,255,255,0.1); }
+
+        .anime-widget {
+            position: fixed;
+            top: 18%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 130;
+            padding: 16px 22px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ffe7f4 0%, #eaf1ff 100%);
+            box-shadow: 0 20px 50px -30px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: popIn 0.5s ease-out, floatUpWidget 1.6s ease-in-out forwards;
+        }
+
+        .anime-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: radial-gradient(circle at 30% 30%, #fff8d1 0%, #ffd35c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        @keyframes popIn {
+            from { transform: translate(-50%, 10px) scale(0.95); opacity: 0; }
+            to { transform: translate(-50%, 0) scale(1); opacity: 1; }
+        }
+
+        @keyframes floatUpWidget {
+            to { transform: translate(-50%, -30px); opacity: 0; }
+        }
+
+        .reward-pulse {
+            animation: rewardPulse 0.6s ease-out;
+        }
+
+        @keyframes rewardPulse {
+            0% { box-shadow: 0 0 0 rgba(255, 123, 190, 0.0); }
+            50% { box-shadow: 0 20px 50px -20px rgba(255, 123, 190, 0.55); }
+            100% { box-shadow: 0 0 0 rgba(255, 123, 190, 0.0); }
+        }
+
+        /* playground removed */
+
+        .breathing {
+            width: 120px;
+            height: 120px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, rgba(213, 249, 255, 0.6), rgba(171, 229, 255, 0.25));
+            animation: breathe 4s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+        .ring-track { stroke: rgba(0,0,0,0.08); }
+        .ring-progress { stroke: url(#ringGrad); }
+    </style>
+</head>
+
+<body class="bg-ambient text-gray-900 font-sans antialiased" data-bg="default">
+    <!-- Ambient bubbles -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-[20%] left-[10%] w-24 h-24 bg-white/60 rounded-full blur-xl floaty"></div>
+        <div class="absolute top-[65%] right-[12%] w-32 h-32 bg-white/50 rounded-full blur-2xl floaty"
+            style="animation-delay: -2s;"></div>
+    </div>
+
+    <nav class="w-full py-6 relative z-10">
+        <div class="max-w-5xl mx-auto px-6 flex items-center justify-between">
+            <a href="web.html" class="flex items-center gap-3">
+                <img src="assets/logo-daisy.svg" alt="Daisy" class="w-9 h-9">
+                <span class="font-display text-xl font-semibold">DAISY</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-full border border-white/60 shadow-sm">
+                    <span class="text-[9px] uppercase font-bold tracking-widest text-gray-500">coins</span>
+                    <span id="focusCoins" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-full border border-white/60 shadow-sm">
+                    <span class="text-[9px] uppercase font-bold tracking-widest text-gray-500">level</span>
+                    <span id="focusLevel" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-full border border-white/60 shadow-sm">
+                    <span class="text-[9px] uppercase font-bold tracking-widest text-gray-500">streak</span>
+                    <span id="focusStreak" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                </div>
+            </div>
+            <button id="darkToggle"
+                class="px-4 py-2 rounded-full bg-white/70 border border-white/60 text-xs font-bold uppercase tracking-widest">
+                Dark
+            </button>
+            <a href="web.html"
+                class="px-4 py-2 rounded-full bg-white/70 border border-white/60 text-xs font-bold uppercase tracking-widest">
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <section class="py-10 relative z-10">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <h1 class="font-display text-4xl font-bold text-gray-800">Focus Mode</h1>
+                <p class="text-gray-500 mt-3">A calm, rewarding Pomodoro experience with dopamine feedback.</p>
+            </div>
+
+            <div class="flex justify-center gap-2 mb-6">
+                <span class="px-3 py-1.5 rounded-full text-[10px] uppercase font-bold tracking-widest bg-white/70 border border-white/60">Clear Desk</span>
+                <span class="px-3 py-1.5 rounded-full text-[10px] uppercase font-bold tracking-widest bg-white/70 border border-white/60">Water</span>
+                <span class="px-3 py-1.5 rounded-full text-[10px] uppercase font-bold tracking-widest bg-white/70 border border-white/60">One Task</span>
+            </div>
+
+            <div id="pomodoroCard" class="glass rounded-[26px] p-6 ios-shadow relative overflow-hidden">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-display text-lg font-semibold text-gray-900">Pomodoro Focus</h3>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">+10 coins</span>
+                </div>
+                <div class="flex items-center justify-center">
+                    <div class="relative w-52 h-52">
+                        <svg class="w-full h-full -rotate-90">
+                            <defs>
+                                <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#ff7bbe" />
+                                    <stop offset="100%" stop-color="#6b8cff" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-track" cx="104" cy="104" r="86" stroke-width="10" fill="none" />
+                            <circle id="pomodoroRing" class="ring-progress" cx="104" cy="104" r="86" stroke-width="10"
+                                fill="none" stroke-linecap="round" stroke-dasharray="540" stroke-dashoffset="0" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span id="pomodoroMode" class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Focus</span>
+                            <div class="text-4xl font-display font-semibold text-gray-900 tracking-tight" id="pomodoroDisplay">25:00</div>
+                        </div>
+                        <div id="breathingGuide" class="absolute inset-0 hidden items-center justify-center">
+                            <div class="breathing"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 mt-5 justify-center">
+                    <button id="pomodoroStart"
+                        class="px-5 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
+                        Start
+                    </button>
+                    <button id="pomodoroPause"
+                        class="px-5 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
+                        Pause
+                    </button>
+                    <button id="pomodoroReset"
+                        class="px-5 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
+                        Reset
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-4 text-center">Demo: 1‑minute session awards full coins.</p>
+            </div>
+
+            <div class="glass rounded-[22px] p-6 mt-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-display text-lg font-semibold text-gray-900">Recent Focus</h2>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Last 3</span>
+                </div>
+                <ul id="focusHistory" class="space-y-2 text-sm text-gray-600">
+                    <li class="text-gray-400">No sessions yet.</li>
+                </ul>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="glass rounded-[22px] p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-display text-lg font-semibold text-gray-900">Leaderboard</h2>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Weekly</span>
+                    </div>
+                    <ol id="leaderboard" class="space-y-2 text-sm text-gray-600">
+                        <li class="text-gray-400">Loading...</li>
+                    </ol>
+                </div>
+                <div class="glass rounded-[22px] p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-display text-lg font-semibold text-gray-900">Consistency</h2>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Last 4 weeks</span>
+                    </div>
+                    <div id="heatmap" class="grid grid-cols-7 gap-1"></div>
+                    <p class="text-[10px] text-gray-400 mt-3">GitHub‑style focus map.</p>
+                </div>
+            </div>
+
+            <div id="focusToast"
+                class="fixed bottom-6 left-1/2 -translate-x-1/2 hidden bg-black/90 text-white text-xs px-4 py-3 rounded-full shadow-lg">
+                +10 coins added
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <div id="themePanel" class="theme-panel">
+            <button class="theme-dot" data-bg="default" style="background:#f7f7f9"></button>
+            <button class="theme-dot" data-bg="sand" style="background:#f4eadc"></button>
+            <button class="theme-dot" data-bg="slate" style="background:#e5e7eb"></button>
+            <button class="theme-dot" data-bg="olive" style="background:#eef0e6"></button>
+            <button class="theme-dot" data-bg="stone" style="background:#f1f1f1"></button>
+        </div>
+        <button id="themeToggle"
+            class="w-12 h-12 rounded-full bg-white/80 border border-white/70 shadow-lg flex items-center justify-center">
+            <span style="font-size:14px;">🎨</span>
+        </button>
+    </div>
+
+    <!-- playground removed -->
+
+    <script src="api.js"></script>
+    <script type="module">
+        import { Dopamine } from './dopamine.js';
+        window.Dopamine = Dopamine;
+    </script>
+    <script>
+        let pomodoroTimer = null;
+        const focusDuration = 1 * 60;
+        const breakDuration = 1 * 60;
+        const rewardDurationMinutes = 25;
+        let pomodoroLeft = focusDuration;
+        let pomodoroMode = "focus";
+        const pomodoroDisplayEl = document.getElementById('pomodoroDisplay');
+        const pomodoroModeEl = document.getElementById('pomodoroMode');
+        const pomodoroRingEl = document.getElementById('pomodoroRing');
+        const ringRadius = 86;
+        const ringCircumference = 2 * Math.PI * ringRadius;
+        pomodoroRingEl.style.strokeDasharray = `${ringCircumference} ${ringCircumference}`;
+        pomodoroRingEl.style.strokeDashoffset = `${ringCircumference}`;
+
+        function updatePomodoroUI() {
+            const minutes = Math.floor(pomodoroLeft / 60);
+            const seconds = pomodoroLeft % 60;
+            pomodoroDisplayEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            pomodoroModeEl.textContent = pomodoroMode === "focus" ? "Focus" : "Break";
+            const total = pomodoroMode === "focus" ? focusDuration : breakDuration;
+            const progress = (total - pomodoroLeft) / total;
+            const offset = ringCircumference - progress * ringCircumference;
+            pomodoroRingEl.style.strokeDashoffset = `${offset}`;
+
+            const card = document.getElementById('pomodoroCard');
+            if (card) {
+                card.classList.toggle('break-tint', pomodoroMode === "break");
+            }
+            const breath = document.getElementById('breathingGuide');
+            if (breath) {
+                breath.classList.toggle('hidden', pomodoroMode !== "break");
+                breath.classList.toggle('flex', pomodoroMode === "break");
+            }
+        }
+
+        function startPomodoro() {
+            if (pomodoroTimer) return;
+            pomodoroTimer = setInterval(async () => {
+                if (pomodoroLeft > 0) {
+                    pomodoroLeft -= 1;
+                    updatePomodoroUI();
+                } else {
+                    clearInterval(pomodoroTimer);
+                    pomodoroTimer = null;
+                    if (pomodoroMode === "focus") {
+                        await completePomodoro();
+                        pomodoroMode = "break";
+                        pomodoroLeft = breakDuration;
+                        startPomodoro();
+                    } else {
+                        pomodoroMode = "focus";
+                        pomodoroLeft = focusDuration;
+                    }
+                }
+            }, 1000);
+        }
+
+        function pausePomodoro() {
+            if (!pomodoroTimer) return;
+            clearInterval(pomodoroTimer);
+            pomodoroTimer = null;
+        }
+
+        function resetPomodoro() {
+            pausePomodoro();
+            pomodoroMode = "focus";
+            pomodoroLeft = focusDuration;
+            updatePomodoroUI();
+        }
+
+        async function completePomodoro() {
+            const res = await DaisyAPI.completePomodoro({ duration_minutes: rewardDurationMinutes });
+            const card = document.getElementById('pomodoroCard');
+            card?.classList.add('reward-pulse');
+            setTimeout(() => card?.classList.remove('reward-pulse'), 600);
+            const toast = document.getElementById('focusToast');
+            if (toast) {
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 2000);
+            }
+            showAnimeWidget("Focus complete! +10");
+            await refreshBalance();
+            await refreshHistory();
+        }
+
+        async function refreshHistory() {
+            const history = await DaisyAPI.history();
+            const list = document.getElementById('focusHistory');
+            if (!list) return;
+            list.innerHTML = '';
+            const recent = history.pomodoros.slice(0, 3);
+            if (!recent.length) {
+                list.innerHTML = '<li class="text-gray-400">No sessions yet.</li>';
+            } else {
+                recent.forEach((p) => {
+                    const item = document.createElement('li');
+                    item.className = 'flex items-center justify-between';
+                    item.innerHTML = `<span class="text-gray-700">${p.duration} min</span><span class="text-gray-400 text-xs">+${p.coins}</span>`;
+                    list.appendChild(item);
+                });
+            }
+
+            const heatmap = document.getElementById('heatmap');
+            if (heatmap) {
+                heatmap.innerHTML = '';
+                const today = new Date();
+                const activeDates = new Set();
+                history.pomodoros.forEach((p) => activeDates.add(p.completed_at.slice(0, 10)));
+                for (let i = 27; i >= 0; i -= 1) {
+                    const d = new Date(today);
+                    d.setDate(today.getDate() - i);
+                    const dateStr = d.toISOString().slice(0, 10);
+                    const active = activeDates.has(dateStr);
+                    const cell = document.createElement('div');
+                    cell.className = 'w-4 h-4 rounded-sm';
+                    cell.style.background = active ? '#16a34a' : '#e5e7eb';
+                    heatmap.appendChild(cell);
+                }
+            }
+        }
+
+        async function refreshBalance() {
+            const balance = await DaisyAPI.getBalance();
+            const coinsEl = document.getElementById('focusCoins');
+            const levelEl = document.getElementById('focusLevel');
+            const streakEl = document.getElementById('focusStreak');
+            if (coinsEl) coinsEl.textContent = balance.coins ?? 0;
+            if (levelEl) levelEl.textContent = balance.level ?? 0;
+            if (streakEl) streakEl.textContent = balance.streak ?? 0;
+
+            const leaderboard = document.getElementById('leaderboard');
+            if (leaderboard) {
+                leaderboard.innerHTML = '';
+                const entries = [
+                    { name: 'You', score: balance.coins_today ?? 0 },
+                    { name: 'Nova', score: Math.max(10, (balance.coins_today ?? 0) + 12) },
+                    { name: 'Aria', score: Math.max(8, (balance.coins_today ?? 0) - 6) },
+                ];
+                entries.sort((a, b) => b.score - a.score);
+                entries.forEach((e, idx) => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center justify-between';
+                    li.innerHTML = `<span class="text-gray-700">${idx + 1}. ${e.name}</span><span class="text-gray-400 text-xs">${e.score} pts</span>`;
+                    leaderboard.appendChild(li);
+                });
+            }
+        }
+
+        document.getElementById('pomodoroStart').addEventListener('click', startPomodoro);
+        document.getElementById('pomodoroPause').addEventListener('click', pausePomodoro);
+        document.getElementById('pomodoroReset').addEventListener('click', resetPomodoro);
+        updatePomodoroUI();
+        refreshBalance();
+        refreshHistory();
+
+        function showAnimeWidget(text = "Nice! +5") {
+            const widget = document.createElement('div');
+            widget.className = 'anime-widget';
+            widget.innerHTML = `
+                <div class="anime-badge">★</div>
+                <div>
+                    <p class="text-sm font-semibold text-gray-800">${text}</p>
+                    <p class="text-[10px] text-gray-500">Keep the streak alive</p>
+                </div>
+            `;
+            document.body.appendChild(widget);
+            setTimeout(() => widget.remove(), 1600);
+        }
+
+        function initThemeSwitcher() {
+            const panel = document.getElementById('themePanel');
+            const toggle = document.getElementById('themeToggle');
+            const saved = localStorage.getItem('daisy_bg') || 'default';
+            document.body.setAttribute('data-bg', saved);
+
+            toggle?.addEventListener('click', () => {
+                panel?.classList.toggle('active');
+            });
+
+            panel?.querySelectorAll('.theme-dot').forEach((dot) => {
+                dot.addEventListener('click', (e) => {
+                    const bg = e.currentTarget.getAttribute('data-bg');
+                    document.body.setAttribute('data-bg', bg);
+                    localStorage.setItem('daisy_bg', bg);
+                    panel.classList.remove('active');
+                });
+            });
+        }
+
+        initThemeSwitcher();
+
+        (function initDarkMode() {
+            const toggle = document.getElementById('darkToggle');
+            const stored = localStorage.getItem('daisy_dark') === 'true';
+            document.body.classList.toggle('dark', stored);
+            toggle?.addEventListener('click', () => {
+                const next = !document.body.classList.contains('dark');
+                document.body.classList.toggle('dark', next);
+                localStorage.setItem('daisy_dark', next ? 'true' : 'false');
+            });
+        })();
+
+        // playground removed
+    </script>
+</body>
+
+</html>

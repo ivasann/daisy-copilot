@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAISY - Your Personal AI Life Copilot</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <script>
@@ -19,8 +20,8 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Nunito', 'Quicksand', 'sans-serif'],
-                        display: ['Nunito', 'Quicksand', 'sans-serif'],
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Poppins', 'Nunito', 'sans-serif'],
                     },
                     colors: {
                         primary: '#FF4D6D',
@@ -127,6 +128,16 @@
             animation: aurora 20s ease-in-out infinite alternate;
         }
 
+        @keyframes floaty {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
+        }
+
+        .floaty {
+            animation: floaty 6s ease-in-out infinite;
+        }
+
         :root {
             --primary: #ff4d6d;
             --ink: #0b0b0d;
@@ -146,17 +157,17 @@
         }
 
         * {
-            font-family: 'Nunito', 'Quicksand', sans-serif !important;
+            font-family: 'Nunito', sans-serif !important;
             letter-spacing: -0.003em;
         }
 
         .font-display {
-            font-family: 'Nunito', 'Quicksand', sans-serif !important;
+            font-family: 'Poppins', 'Nunito', sans-serif !important;
             letter-spacing: -0.01em;
         }
 
         .logo-daisy {
-            font-family: 'Nunito', 'Quicksand', sans-serif !important;
+            font-family: 'Poppins', 'Nunito', sans-serif !important;
             font-weight: 600;
             letter-spacing: -0.03em;
             text-transform: lowercase;
@@ -318,7 +329,7 @@
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, #ff4d6d 0%, #ff8aa1 100%);
+            background: linear-gradient(135deg, #111827 0%, #6b7280 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -372,6 +383,175 @@
             animation: toastIn 0.35s ease-out;
         }
 
+        .progress-gradient {
+            background: linear-gradient(90deg, #111827 0%, #6b7280 100%);
+        }
+
+        /* reward bar removed */
+
+        .theme-switcher {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 120;
+        }
+
+        .theme-panel {
+            display: none;
+            margin-bottom: 8px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 16px 40px -24px rgba(0, 0, 0, 0.25);
+        }
+
+        .theme-panel.active {
+            display: flex;
+            gap: 8px;
+        }
+
+        .theme-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        body[data-bg="sand"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #fff7ec 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f5efe6 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f3ede3 0%, transparent 50%),
+                #faf5ec;
+        }
+
+        body[data-bg="slate"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #f3f4f6 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #e5e7eb 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f9fafb 0%, transparent 50%),
+                #f3f4f6;
+        }
+
+        body[data-bg="olive"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #f6f7f0 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #eef0e6 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f7f8f2 0%, transparent 50%),
+                #f4f6ee;
+        }
+
+        body[data-bg="stone"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #f8f8f8 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f0f0f0 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f7f7f7 0%, transparent 50%),
+                #f6f6f6;
+        }
+
+        body[data-bg="default"] {
+            background: radial-gradient(1200px 500px at 10% -10%, #ffffff 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f6f6f8 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f2f2f6 0%, transparent 50%),
+                #f7f7f9;
+        }
+
+        .anime-widget {
+            position: fixed;
+            top: 18%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 130;
+            padding: 16px 22px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ffe7f4 0%, #eaf1ff 100%);
+            box-shadow: 0 20px 50px -30px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: popIn 0.5s ease-out, floatUpWidget 1.6s ease-in-out forwards;
+        }
+
+        .anime-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: radial-gradient(circle at 30% 30%, #fff8d1 0%, #ffd35c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        @keyframes popIn {
+            from { transform: translate(-50%, 10px) scale(0.95); opacity: 0; }
+            to { transform: translate(-50%, 0) scale(1); opacity: 1; }
+        }
+
+        @keyframes floatUpWidget {
+            to { transform: translate(-50%, -30px); opacity: 0; }
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 12px 30px -18px rgba(255, 123, 190, 0.6);
+            transform: translateY(-1px);
+        }
+
+        .glow-enabled .glow-hover:hover {
+            box-shadow: 0 18px 40px -18px rgba(255, 123, 190, 0.85);
+        }
+
+        .avatar-enabled .avatar-stack img {
+            box-shadow: 0 0 0 2px rgba(255, 123, 190, 0.6);
+        }
+
+        .coin-float {
+            position: absolute;
+            animation: floatUp 1.2s ease-out forwards;
+            font-weight: 700;
+            color: #ff7bbe;
+            text-shadow: 0 6px 20px rgba(255, 123, 190, 0.5);
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #ffd35c;
+            animation: sparkle 0.9s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-60px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkle {
+            from {
+                transform: scale(1) translate(0, 0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(0) translate(20px, -20px);
+                opacity: 0;
+            }
+        }
+
+        .ring-track {
+            stroke: rgba(0, 0, 0, 0.08);
+        }
+
+        .ring-progress {
+            stroke: url(#ringGrad);
+        }
+
         .shimmer-bg {
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
             background-size: 200% 100%;
@@ -391,12 +571,17 @@
 <body
     class="bg-ambient text-gray-900 font-sans antialiased selection:bg-primary selection:text-white overflow-x-hidden">
 
+    <!-- Reward Bar removed: replaced by inline hero badges -->
+
     <!-- Background Effects -->
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div class="absolute top-[-120px] right-[-120px] w-[900px] h-[900px] bg-primary/15 rounded-full blur-[140px] animate-aurora">
         </div>
         <div class="absolute bottom-[-200px] left-[-120px] w-[900px] h-[900px] bg-black/5 rounded-full blur-[160px] animate-aurora"
             style="animation-delay: -6s;"></div>
+        <div class="absolute top-[20%] left-[10%] w-24 h-24 bg-white/60 rounded-full blur-xl floaty"></div>
+        <div class="absolute top-[60%] right-[12%] w-32 h-32 bg-white/50 rounded-full blur-2xl floaty"
+            style="animation-delay: -2s;"></div>
         <div class="absolute inset-0 noise"></div>
     </div>
 
@@ -442,6 +627,8 @@
                 <div class="hidden md:flex items-center gap-10">
                     <a href="#modes"
                         class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-accent transition-colors">Intelligence</a>
+                    <a href="insights.html"
+                        class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-accent transition-colors">Insights</a>
                     <a href="#about"
                         class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-accent transition-colors">DNA
                         Evolution</a>
@@ -459,6 +646,11 @@
                         <i data-lucide="coins" class="w-4 h-4 text-gray-800"></i>
                         <span id="coinBalance" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
                         <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400">coins</span>
+                    </div>
+                    <div
+                        class="hidden sm:flex items-center gap-2 bg-black/5 px-3 py-1.5 rounded-full border border-black/10">
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400">lvl</span>
+                        <span id="levelBadge" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
                     </div>
                     <div
                         class="hidden sm:flex items-center gap-2 bg-black/5 px-3 py-1.5 rounded-full border border-black/10">
@@ -501,9 +693,9 @@
                         AI Personal Life Copilot
                     </div>
 
-                    <h1 class="font-display text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.05] mb-6">
-                        One AI Friend, <br />
-                        <span class="text-gradient">360 Possibilities</span>
+                    <h1 class="font-display text-5xl lg:text-6xl font-bold text-gray-800 leading-[1.05] mb-6">
+                        Focus feels <span class="text-gradient">rewarding</span>. <br />
+                        Streaks feel irresistible.
                     </h1>
 
                     <p class="text-base text-gray-500 max-w-md leading-relaxed mb-8 h-20" id="typewriter">
@@ -533,12 +725,46 @@
                             </span>
                         </div>
                         <div class="w-full h-2 bg-black/10 rounded-full overflow-hidden">
-                            <div id="levelProgressBar" class="h-2 bg-accent w-0 transition-all duration-500"></div>
+                            <div id="levelProgressBar" class="h-2 progress-gradient w-0 transition-all duration-500"></div>
                         </div>
                     </div>
 
+                    <div class="flex flex-wrap items-center gap-2 pt-2">
+                        <div class="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-full border border-white/70 shadow-sm">
+                            <i data-lucide="coins" class="w-4 h-4 text-gray-700"></i>
+                            <span id="rewardCoins" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-gray-500">coins</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-full border border-white/70 shadow-sm">
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-gray-500">level</span>
+                            <span id="rewardLevel" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-full border border-white/70 shadow-sm">
+                            <i id="streakFlame" data-lucide="flame" class="w-4 h-4 text-orange-400"></i>
+                            <span id="rewardStreak" class="text-[10px] font-bold uppercase tracking-widest text-gray-700">0</span>
+                        </div>
+                        <span id="streakWarning" class="text-[10px] uppercase font-bold tracking-widest text-orange-500 hidden">Streak at risk</span>
+                    </div>
+
+                    <div class="mt-3 max-w-sm">
+                        <label class="text-[10px] uppercase font-bold tracking-widest text-gray-400">AI Mode</label>
+                        <select id="aiModeSelect"
+                            class="mt-2 w-full px-4 py-2.5 rounded-full border border-white/70 bg-white/70 focus:outline-none focus:ring-2 focus:ring-black/20 text-sm">
+                            <option>Motivator</option>
+                            <option>Coach</option>
+                            <option>Companion</option>
+                            <option>Reward Master</option>
+                            <option>Silent Focus</option>
+                        </select>
+                    </div>
+                    <div class="inline-flex items-center gap-3 bg-white/70 px-4 py-2 rounded-full border border-white/70 shadow-sm">
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Daily Quest</span>
+                        <span class="text-sm text-gray-700">Finish 1 focus session</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-orange-500">+20</span>
+                    </div>
+
                     <div class="flex items-center gap-4 pt-4">
-                        <div class="flex -space-x-3">
+                        <div class="flex -space-x-3 avatar-stack">
                             <img src="https://i.pravatar.cc/150?img=1"
                                 class="w-10 h-10 rounded-full border-2 border-darker" alt="User">
                             <img src="https://i.pravatar.cc/150?img=2"
@@ -631,6 +857,35 @@
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="productsGrid">
                 <!-- 12 Cards injected by JS -->
             </div>
+
+            <!-- Mode Tools (shown when a mode is selected) -->
+            <div id="modeTools" class="mt-12 hidden">
+                <div class="glass rounded-[26px] p-6 ios-shadow" id="taskChatPanel">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-display text-lg font-semibold text-gray-900">Quick Actions</h3>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Tasks + Chat</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Complete tasks, ask Daisy, and keep your streak alive.</p>
+                    <div class="flex flex-wrap gap-3 mt-4">
+                        <button id="completeTaskBtn"
+                            class="px-6 py-3 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
+                            Complete Task
+                        </button>
+                    </div>
+                    <div class="mt-6">
+                        <label class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Ask Daisy (1 coin)</label>
+                        <div class="flex gap-2 mt-2">
+                            <input id="chatInput" type="text" placeholder="Ask for advice or planning"
+                                class="flex-1 px-4 py-2.5 rounded-full border border-black/10 bg-white/80 focus:outline-none focus:ring-2 focus:ring-black/20 text-sm" />
+                            <button id="chatSendBtn"
+                                class="px-4 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
+                                Send
+                            </button>
+                        </div>
+                        <div id="chatReply" class="mt-3 text-sm text-gray-600"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -666,72 +921,66 @@
         </div>
     </section>
 
-    <!-- Daily Actions -->
-    <section id="actions" class="py-24 relative z-10 reveal">
+    <!-- Daily Quests -->
+    <section id="daily-quests" class="py-24 relative z-10 reveal">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <div
                     class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
-                    Daily Actions
+                    Daily Quest
                 </div>
-                <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">Earn Coins With Focus</h2>
-                <p class="text-gray-500 text-sm">Complete a Pomodoro or mark a task done to grow your streak and unlock themes.</p>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">Complete Today’s Boost</h2>
+                <p class="text-gray-500 text-sm">Finish all three quests for a +20 coin dopamine bonus.</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-8">
-                <div class="glass rounded-[26px] p-6 ios-shadow">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-display text-lg font-semibold text-gray-900">Pomodoro Focus</h3>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">+10 coins</span>
-                    </div>
-                    <div class="text-5xl font-display font-semibold text-gray-900 tracking-tight" id="pomodoroDisplay">25:00</div>
-                    <div class="mt-4 w-full h-2 bg-black/10 rounded-full overflow-hidden">
-                        <div id="pomodoroProgress" class="h-2 bg-accent w-0 transition-all duration-500"></div>
-                    </div>
-                    <div class="flex items-center gap-3 mt-5">
-                        <button id="pomodoroStart"
-                            class="px-5 py-2.5 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
-                            Start
-                        </button>
-                        <button id="pomodoroPause"
-                            class="px-5 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
-                            Pause
-                        </button>
-                        <button id="pomodoroReset"
-                            class="px-5 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
-                            Reset
-                        </button>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-4">Finish a 25‑minute session to earn coins and keep your streak alive.</p>
+            <div class="max-w-2xl mx-auto glass rounded-[26px] p-6 ios-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-semibold text-gray-900">Today’s Quests</h3>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">+20 bonus</span>
                 </div>
+                <ul id="questList" class="space-y-3 text-sm text-gray-700"></ul>
+                <div class="mt-5 w-full h-2 bg-black/10 rounded-full overflow-hidden">
+                    <div id="questProgress" class="h-2 progress-gradient w-0 transition-all duration-500"></div>
+                </div>
+                <p id="questStatus" class="text-[10px] text-gray-400 mt-3">Complete all quests to earn the bonus.</p>
+            </div>
+        </div>
+    </section>
 
-                <div class="glass rounded-[26px] p-6 ios-shadow">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-display text-lg font-semibold text-gray-900">Complete a Task</h3>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">+5 coins</span>
-                    </div>
-                    <p class="text-sm text-gray-500">One tap when you finish a real task. Daisy keeps score.</p>
-                    <button id="completeTaskBtn"
-                        class="mt-5 px-6 py-3 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
-                        Complete Task
-                    </button>
+    <!-- Stats Dashboard -->
+    <section id="stats" class="py-24 relative z-10 reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-gray-700 text-[9px] font-bold uppercase tracking-widest mb-4">
+                    Stats
+                </div>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mb-4">Your Momentum</h2>
+                <p class="text-gray-500 text-sm">Daily focus, streak health, and a quick weekly glance.</p>
+            </div>
 
-                    <div class="mt-6">
-                        <label class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Ask Daisy (1 coin)</label>
-                        <div class="flex gap-2 mt-2">
-                            <input id="chatInput" type="text" placeholder="Ask for advice or planning"
-                                class="flex-1 px-4 py-2.5 rounded-full border border-black/10 bg-white/80 focus:outline-none focus:ring-2 focus:ring-black/20 text-sm" />
-                            <button id="chatSendBtn"
-                                class="px-4 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
-                                Send
-                            </button>
-                        </div>
-                        <div id="chatReply" class="mt-3 text-sm text-gray-600"></div>
-                    </div>
+            <div class="grid lg:grid-cols-4 gap-6">
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Coins Today</p>
+                    <p id="coinsToday" class="text-3xl font-display font-semibold text-gray-900 mt-2">0</p>
+                </div>
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Focus Minutes</p>
+                    <p id="focusMinutesToday" class="text-3xl font-display font-semibold text-gray-900 mt-2">0</p>
+                </div>
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Streak Days</p>
+                    <p id="streakDaysStat" class="text-3xl font-display font-semibold text-gray-900 mt-2">0</p>
+                </div>
+                <div class="glass rounded-[22px] p-6 ios-shadow">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Weekly Progress</p>
+                    <div id="weeklyChart" class="mt-3 grid grid-cols-7 gap-1 items-end h-24"></div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Daily Actions section removed; tools are inside Intelligence Modes -->
 
     <!-- History -->
     <section id="history" class="py-24 relative z-10 reveal">
@@ -1157,49 +1406,7 @@
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
-                <div class="space-y-4">
-                    <div class="glass rounded-[20px] p-5 flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-900">Pastel Aura</p>
-                            <p class="text-xs text-gray-500">Soft gradients and a calmer mood.</p>
-                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: 50 coins</p>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <button id="unlockThemeBtn"
-                                class="px-4 py-2.5 bg-accent text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
-                                Unlock
-                            </button>
-                            <button id="applyThemeBtn"
-                                class="hidden px-4 py-2.5 glass text-gray-900 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/80 transition-all haptic-pop">
-                                Apply
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="glass rounded-[20px] p-5 flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-900">Obsidian Mode</p>
-                            <p class="text-xs text-gray-500">Deep contrast for night focus.</p>
-                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: 120 coins</p>
-                        </div>
-                        <button
-                            class="px-4 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
-                            Coming Soon
-                        </button>
-                    </div>
-
-                    <div class="glass rounded-[20px] p-5 flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-900">Aurora Pulse</p>
-                            <p class="text-xs text-gray-500">Subtle glow + soft motion.</p>
-                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: 80 coins</p>
-                        </div>
-                        <button
-                            class="px-4 py-2.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gray-900 transition-all haptic-pop">
-                            Coming Soon
-                        </button>
-                    </div>
-                </div>
+                <div id="shopItems" class="space-y-4"></div>
                 <p class="text-[10px] text-gray-400 mt-4">Unlock once. Use forever.</p>
             </div>
         </div>
@@ -1207,11 +1414,33 @@
 
     <!-- Toasts -->
     <div id="toastContainer" class="fixed bottom-6 right-6 z-[110] space-y-2"></div>
+    <div id="rewardLayer" class="fixed inset-0 pointer-events-none z-[105]"></div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <div id="themePanel" class="theme-panel">
+            <button class="theme-dot" data-bg="default" style="background:#f7f7f9"></button>
+            <button class="theme-dot" data-bg="sand" style="background:#f4eadc"></button>
+            <button class="theme-dot" data-bg="slate" style="background:#e5e7eb"></button>
+            <button class="theme-dot" data-bg="olive" style="background:#eef0e6"></button>
+            <button class="theme-dot" data-bg="stone" style="background:#f1f1f1"></button>
+        </div>
+        <button id="themeToggle"
+            class="w-12 h-12 rounded-full bg-white/80 border border-white/70 shadow-lg flex items-center justify-center">
+            <i data-lucide="palette" class="w-5 h-5 text-gray-700"></i>
+        </button>
+    </div>
 
     <script>
         window.DAISY_API_BASE = "http://localhost:8000";
     </script>
     <script src="api.js"></script>
+    <script type="module">
+        import { Dopamine } from './dopamine.js';
+        import { AIModes } from './aiModes.js';
+        window.Dopamine = Dopamine;
+        window.AIModes = AIModes;
+    </script>
 
     <script>
         // Initialize Lucide icons
@@ -1458,9 +1687,13 @@
                     <p class="text-[10px] text-gray-500 leading-relaxed line-clamp-2">${mode.desc}</p>
                 `;
                 card.onclick = () => {
+                    if (mode.name === "Focus Mode") {
+                        window.location.href = "focus.html";
+                        return;
+                    }
                     document.getElementById('modes').scrollIntoView({ behavior: 'smooth' });
                     openMode(mode.name);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    showModeTools(mode.name);
                 };
                 mainGrid.appendChild(card);
             });
@@ -1482,6 +1715,13 @@
 
         init();
 
+        function showModeTools(modeName) {
+            const tools = document.getElementById('modeTools');
+            if (!tools) return;
+            tools.classList.remove('hidden');
+            tools.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
         // Theme management
         (function initTheme() {
             const stored = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -1499,14 +1739,6 @@
         }
 
         // Gamification + Coins
-        const userId = (() => {
-            const existing = localStorage.getItem('daisy_user_id');
-            if (existing) return existing;
-            const id = (crypto?.randomUUID?.() || `guest-${Date.now()}`);
-            localStorage.setItem('daisy_user_id', id);
-            return id;
-        })();
-
         let currentCoins = 0;
         let themeUnlocked = false;
         let pendingTheme = localStorage.getItem("daisy_theme");
@@ -1514,6 +1746,17 @@
         const coinBalanceEl = document.getElementById('coinBalance');
         const streakCountEl = document.getElementById('streakCount');
         const levelValueEl = document.getElementById('levelValue');
+        const levelBadgeEl = document.getElementById('levelBadge');
+        const rewardCoinsEl = document.getElementById('rewardCoins');
+        const rewardLevelEl = document.getElementById('rewardLevel');
+        const rewardStreakEl = document.getElementById('rewardStreak');
+        const streakFlameEl = document.getElementById('streakFlame');
+        const rewardProgressEl = document.getElementById('rewardProgress');
+        const rewardProgressTextEl = document.getElementById('rewardProgressText');
+        const streakWarningEl = document.getElementById('streakWarning');
+        const coinsTodayEl = document.getElementById('coinsToday');
+        const focusMinutesTodayEl = document.getElementById('focusMinutesToday');
+        const streakDaysStatEl = document.getElementById('streakDaysStat');
         const levelProgressTextEl = document.getElementById('levelProgressText');
         const levelProgressBarEl = document.getElementById('levelProgressBar');
 
@@ -1560,6 +1803,56 @@
             setTimeout(() => toast.remove(), 2800);
         }
 
+        function triggerRewardAnimation(amount, bonus = 0) {
+            const layer = document.getElementById('rewardLayer');
+            if (!layer || amount <= 0) return;
+
+            const float = document.createElement('div');
+            float.className = 'coin-float text-lg';
+            float.style.left = '50%';
+            float.style.top = '60%';
+            float.style.transform = 'translateX(-50%)';
+            float.textContent = `+${amount} coins`;
+            layer.appendChild(float);
+
+            const sparkleCount = document.documentElement.classList.contains('confetti-enabled') ? 18 : 8;
+            for (let i = 0; i < sparkleCount; i += 1) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${50 + (Math.random() * 10 - 5)}%`;
+                sparkle.style.top = `${60 + (Math.random() * 10 - 5)}%`;
+                layer.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 900);
+            }
+
+            setTimeout(() => float.remove(), 1200);
+
+            if (bonus > 0) {
+                showToast(`Lucky bonus +${bonus}!`);
+            }
+
+            if (window.Dopamine) {
+                const cx = window.innerWidth / 2;
+                const cy = window.innerHeight * 0.6;
+                window.Dopamine.floatCoins(cx, cy, `+${amount}`);
+                window.Dopamine.sparkleBurst(cx, cy, bonus > 0 ? 16 : 10);
+            }
+        }
+
+        function showAnimeWidget(text = "Nice! +5") {
+            const widget = document.createElement('div');
+            widget.className = 'anime-widget';
+            widget.innerHTML = `
+                <div class="anime-badge">★</div>
+                <div>
+                    <p class="text-sm font-semibold text-gray-800">${text}</p>
+                    <p class="text-[10px] text-gray-500">Keep the streak alive</p>
+                </div>
+            `;
+            document.body.appendChild(widget);
+            setTimeout(() => widget.remove(), 1600);
+        }
+
         function updateBalanceUI(balance, announce = false) {
             const delta = balance.coins - currentCoins;
             if (announce && delta > 0) {
@@ -1567,14 +1860,39 @@
                 playCoinSound();
             }
             animateCounter(coinBalanceEl, currentCoins, balance.coins);
+            animateCounter(rewardCoinsEl, currentCoins, balance.coins);
             currentCoins = balance.coins;
 
             if (streakCountEl) streakCountEl.textContent = balance.streak;
             if (levelValueEl) levelValueEl.textContent = balance.level;
+            if (levelBadgeEl) levelBadgeEl.textContent = balance.level;
+            if (rewardLevelEl) rewardLevelEl.textContent = balance.level;
+            if (rewardStreakEl) rewardStreakEl.textContent = balance.streak;
+            if (streakFlameEl) {
+                const scale = Math.min(1.6, 1 + balance.streak * 0.05);
+                streakFlameEl.style.transform = `scale(${scale})`;
+            }
+
             if (levelProgressTextEl) levelProgressTextEl.textContent = `${balance.level_progress}/100`;
             if (levelProgressBarEl) {
                 const width = Math.min((balance.level_progress / 100) * 100, 100);
                 levelProgressBarEl.style.width = `${width}%`;
+            }
+            if (rewardProgressEl) {
+                const width = Math.min((balance.level_progress / 100) * 100, 100);
+                rewardProgressEl.style.width = `${width}%`;
+            }
+            if (rewardProgressTextEl) rewardProgressTextEl.textContent = `${balance.level_progress}/100`;
+
+            if (coinsTodayEl) coinsTodayEl.textContent = balance.coins_today ?? 0;
+            if (focusMinutesTodayEl) focusMinutesTodayEl.textContent = balance.focus_minutes_today ?? 0;
+            if (streakDaysStatEl) streakDaysStatEl.textContent = balance.streak;
+
+            const today = new Date().toISOString().slice(0, 10);
+            const isActiveToday = balance.last_active_date === today;
+            if (streakWarningEl) {
+                streakWarningEl.classList.toggle('hidden', isActiveToday);
+                if (!isActiveToday) window.Dopamine?.streakWarning?.(streakWarningEl);
             }
 
             themeUnlocked = balance.theme_unlocked;
@@ -1583,13 +1901,14 @@
             } else if (!themeUnlocked) {
                 applyTheme("default");
             }
-            syncThemeButtons();
+            renderShopItems(balance.unlocks);
+            applyUnlocks(balance.unlocks);
         }
 
         async function refreshBalance(announce = false) {
             if (!window.DaisyAPI) return;
             try {
-                const balance = await DaisyAPI.getBalance(userId);
+                const balance = await DaisyAPI.getBalance();
                 updateBalanceUI(balance, announce);
             } catch (err) {
                 showToast(err.message || "Failed to load balance", "error");
@@ -1599,7 +1918,7 @@
         async function refreshHistory() {
             if (!window.DaisyAPI) return;
             try {
-                const data = await DaisyAPI.history(userId);
+                const data = await DaisyAPI.history();
                 const tasksEl = document.getElementById('historyTasks');
                 const pomosEl = document.getElementById('historyPomodoros');
                 const calendarEl = document.getElementById('streakCalendar');
@@ -1635,15 +1954,97 @@
 
                 if (calendarEl) {
                     calendarEl.innerHTML = '';
-                    data.streak_calendar.forEach((d) => {
+                    const today = new Date();
+                    const activeDates = new Set();
+                    data.tasks.forEach((t) => activeDates.add(t.timestamp.slice(0, 10)));
+                    data.pomodoros.forEach((p) => activeDates.add(p.completed_at.slice(0, 10)));
+                    for (let i = 6; i >= 0; i -= 1) {
+                        const d = new Date(today);
+                        d.setDate(today.getDate() - i);
+                        const dateStr = d.toISOString().slice(0, 10);
                         const cell = document.createElement('div');
-                        cell.className = `h-9 rounded-lg flex items-center justify-center border ${d.active ? 'bg-accent text-white border-accent' : 'bg-white/70 text-gray-500 border-black/10'}`;
-                        cell.textContent = d.date.slice(5);
+                        const active = activeDates.has(dateStr);
+                        cell.className = `h-9 rounded-lg flex items-center justify-center border ${active ? 'bg-accent text-white border-accent' : 'bg-white/70 text-gray-500 border-black/10'}`;
+                        cell.textContent = dateStr.slice(5);
                         calendarEl.appendChild(cell);
+                    }
+                }
+
+                const weeklyChart = document.getElementById('weeklyChart');
+                if (weeklyChart) {
+                    weeklyChart.innerHTML = '';
+                    const today = new Date();
+                    const totals = [];
+                    for (let i = 6; i >= 0; i -= 1) {
+                        const d = new Date(today);
+                        d.setDate(today.getDate() - i);
+                        const dateStr = d.toISOString().slice(0, 10);
+                        const taskCoins = data.tasks
+                            .filter((t) => t.timestamp.slice(0, 10) === dateStr)
+                            .reduce((sum, t) => sum + (t.coins || 0), 0);
+                        const pomoCoins = data.pomodoros
+                            .filter((p) => p.completed_at.slice(0, 10) === dateStr)
+                            .reduce((sum, p) => sum + (p.coins || 0), 0);
+                        totals.push(taskCoins + pomoCoins);
+                    }
+                    const max = Math.max(10, ...totals);
+                    totals.forEach((val) => {
+                        const bar = document.createElement('div');
+                        bar.className = 'bg-black/10 rounded-md';
+                        bar.style.height = `${Math.max(12, (val / max) * 96)}px`;
+                        bar.style.background = 'linear-gradient(180deg, #ff7bbe 0%, #6b8cff 100%)';
+                        weeklyChart.appendChild(bar);
                     });
                 }
             } catch (_) {
                 // History is non-critical; ignore errors.
+            }
+        }
+
+        async function refreshQuests() {
+            if (!window.DaisyAPI) return;
+            const list = document.getElementById('questList');
+            const progress = document.getElementById('questProgress');
+            const status = document.getElementById('questStatus');
+            try {
+                const quests = await DaisyAPI.dailyQuestStatus();
+                if (list) list.innerHTML = '';
+                const total = quests.items.length;
+                const done = quests.items.filter((q) => q.done).length;
+                const percent = total ? Math.round((done / total) * 100) : 0;
+                if (progress) progress.style.width = `${percent}%`;
+                if (status) status.textContent = quests.bonus_awarded
+                    ? "Bonus claimed. Great work today."
+                    : "Complete all quests to earn the bonus.";
+
+                quests.items.forEach((q) => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center gap-3';
+                    li.innerHTML = `
+                        <input type="checkbox" ${q.done ? "checked" : ""} data-quest="${q.id}"
+                            class="w-4 h-4 rounded border-black/20 text-black focus:ring-black/20" />
+                        <span class="${q.done ? 'line-through text-gray-400' : 'text-gray-700'}">${q.label}</span>
+                    `;
+                    list?.appendChild(li);
+                });
+
+                list?.querySelectorAll('input[type="checkbox"]').forEach((box) => {
+                    box.addEventListener('change', async (e) => {
+                        const id = e.target.getAttribute('data-quest');
+                        const done = e.target.checked;
+                        await DaisyAPI.setQuestDone(id, done);
+                        const res = await DaisyAPI.completeDailyQuests();
+                        if (res.daily_bonus) {
+                            showToast("Daily quest complete! +20 coins");
+                            triggerRewardAnimation(res.reward.total, res.reward.bonus);
+                            showAnimeWidget("Quest complete! +20");
+                            await refreshBalance(true);
+                        }
+                        await refreshQuests();
+                    });
+                });
+            } catch (_) {
+                // ignore
             }
         }
 
@@ -1660,26 +2061,60 @@
             }
         }
 
-        function syncThemeButtons() {
-            const unlockBtn = document.getElementById('unlockThemeBtn');
-            const applyBtn = document.getElementById('applyThemeBtn');
-            if (!unlockBtn || !applyBtn) return;
+        const shopCatalog = [
+            { id: "pastel", name: "Pastel Premium Theme", cost: 50, desc: "Soft gradients and a calmer mood.", reason: "theme_unlock" },
+            { id: "glow", name: "Glow Hover Effects", cost: 80, desc: "Extra glow on interactive elements.", reason: "glow_unlock" },
+            { id: "confetti", name: "Confetti Reward Burst", cost: 120, desc: "Celebrate wins with confetti.", reason: "confetti_unlock" },
+            { id: "avatar", name: "Avatar Frame", cost: 60, desc: "Cute frame for your profile card.", reason: "avatar_unlock" },
+        ];
 
-            if (themeUnlocked) {
-                unlockBtn.classList.add('hidden');
-                applyBtn.classList.remove('hidden');
-            } else {
-                unlockBtn.classList.remove('hidden');
-                applyBtn.classList.add('hidden');
-            }
+        function renderShopItems(unlocks) {
+            const container = document.getElementById('shopItems');
+            if (!container) return;
+            container.innerHTML = '';
+            shopCatalog.forEach((item) => {
+                const unlocked = !!unlocks?.[item.id];
+                const card = document.createElement('div');
+                card.className = 'glass rounded-[20px] p-5 flex items-center justify-between relative overflow-hidden';
+                card.innerHTML = `
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900">${item.name}</p>
+                        <p class="text-xs text-gray-500">${item.desc}</p>
+                        <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: ${item.cost} coins</p>
+                    </div>
+                    ${unlocked ? '<span class="absolute top-3 right-3 text-[9px] uppercase font-bold tracking-widest bg-green-500/90 text-white px-2 py-1 rounded-full">Unlocked</span>' : '<span class="absolute top-3 right-3 text-[9px] uppercase font-bold tracking-widest bg-black/80 text-white px-2 py-1 rounded-full">Locked</span>'}
+                    <button data-shop="${item.id}"
+                        class="px-4 py-2.5 ${unlocked ? 'glass text-gray-900' : 'bg-accent text-white'} rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
+                        ${unlocked ? 'Apply' : 'Unlock'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function applyUnlocks(unlocks) {
+            const root = document.documentElement;
+            root.classList.toggle('glow-enabled', !!unlocks?.glow);
+            root.classList.toggle('confetti-enabled', !!unlocks?.confetti);
+            root.classList.toggle('avatar-enabled', !!unlocks?.avatar);
         }
 
         // Pomodoro
         let pomodoroTimer = null;
-        const pomodoroTotal = 25 * 60;
-        let pomodoroLeft = pomodoroTotal;
+        const focusDuration = 1 * 60;
+        const breakDuration = 1 * 60;
+        let pomodoroLeft = focusDuration;
+        let pomodoroMode = "focus";
         const pomodoroDisplayEl = document.getElementById('pomodoroDisplay');
         const pomodoroProgressEl = document.getElementById('pomodoroProgress');
+        const pomodoroModeEl = document.getElementById('pomodoroMode');
+        const pomodoroRingEl = document.getElementById('pomodoroRing');
+        const ringRadius = 80;
+        const ringCircumference = 2 * Math.PI * ringRadius;
+        if (pomodoroRingEl) {
+            pomodoroRingEl.style.strokeDasharray = `${ringCircumference} ${ringCircumference}`;
+            pomodoroRingEl.style.strokeDashoffset = `${ringCircumference}`;
+        }
 
         function updatePomodoroUI() {
             const minutes = Math.floor(pomodoroLeft / 60);
@@ -1687,9 +2122,19 @@
             if (pomodoroDisplayEl) {
                 pomodoroDisplayEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
             }
+            if (pomodoroModeEl) {
+                pomodoroModeEl.textContent = pomodoroMode === "focus" ? "Focus" : "Break";
+            }
             if (pomodoroProgressEl) {
-                const done = (pomodoroTotal - pomodoroLeft) / pomodoroTotal;
+                const total = pomodoroMode === "focus" ? focusDuration : breakDuration;
+                const done = (total - pomodoroLeft) / total;
                 pomodoroProgressEl.style.width = `${Math.round(done * 100)}%`;
+            }
+            if (pomodoroRingEl) {
+                const total = pomodoroMode === "focus" ? focusDuration : breakDuration;
+                const progress = (total - pomodoroLeft) / total;
+                const offset = ringCircumference - progress * ringCircumference;
+                pomodoroRingEl.style.strokeDashoffset = `${offset}`;
             }
         }
 
@@ -1702,7 +2147,17 @@
                 } else {
                     clearInterval(pomodoroTimer);
                     pomodoroTimer = null;
-                    await completePomodoro();
+                    if (pomodoroMode === "focus") {
+                        await completePomodoro();
+                        pomodoroMode = "break";
+                        pomodoroLeft = breakDuration;
+                        showToast("Break time! 5 minutes");
+                        startPomodoro();
+                    } else {
+                        pomodoroMode = "focus";
+                        pomodoroLeft = focusDuration;
+                        showToast("Back to focus");
+                    }
                 }
             }, 1000);
         }
@@ -1715,16 +2170,39 @@
 
         function resetPomodoro() {
             pausePomodoro();
-            pomodoroLeft = pomodoroTotal;
+            pomodoroMode = "focus";
+            pomodoroLeft = focusDuration;
             updatePomodoroUI();
         }
 
         async function completePomodoro() {
             try {
-                await DaisyAPI.pomodoroComplete({ user_id: userId, duration: 25 });
+                const res = await DaisyAPI.completePomodoro({ duration_minutes: 1 });
+                const reward = res.reward || { total: 0, bonus: 0 };
                 showToast("Pomodoro complete! +10 coins");
+                triggerRewardAnimation(reward.total, reward.bonus);
+                const celebrate = document.getElementById('pomodoroCelebrate');
+                if (celebrate) {
+                    celebrate.classList.remove('hidden');
+                    celebrate.classList.add('flex');
+                    setTimeout(() => {
+                        celebrate.classList.add('hidden');
+                        celebrate.classList.remove('flex');
+                    }, 1800);
+                }
+                window.Dopamine?.pomodoroCelebration?.();
+                if (window.AIModes) {
+                    await window.AIModes.applyModeReward({
+                        baseCoins: 0,
+                        reason: "pomodoro",
+                        DaisyAPI: window.DaisyAPI,
+                        Dopamine: window.Dopamine,
+                        onReward: (amt, bonus) => triggerRewardAnimation(amt, bonus),
+                    });
+                }
                 await refreshBalance(true);
                 await refreshHistory();
+                await refreshQuests();
             } catch (err) {
                 showToast(err.message || "Pomodoro failed", "error");
             } finally {
@@ -1734,10 +2212,23 @@
 
         async function completeTask() {
             try {
-                await DaisyAPI.earnCoins({ user_id: userId, task_type: "task_completed" });
+                const res = await DaisyAPI.completeTask({});
+                const reward = res.reward || { total: 0, bonus: 0 };
                 showToast("Task complete! +5 coins");
+                triggerRewardAnimation(reward.total, reward.bonus);
+                showAnimeWidget(`Task done! +${reward.total || 5}`);
+                if (window.AIModes) {
+                    await window.AIModes.applyModeReward({
+                        baseCoins: 0,
+                        reason: "task",
+                        DaisyAPI: window.DaisyAPI,
+                        Dopamine: window.Dopamine,
+                        onReward: (amt, bonus) => triggerRewardAnimation(amt, bonus),
+                    });
+                }
                 await refreshBalance(true);
                 await refreshHistory();
+                await refreshQuests();
             } catch (err) {
                 showToast(err.message || "Task failed", "error");
             }
@@ -1750,10 +2241,14 @@
             if (!text) return;
             if (output) output.textContent = "Thinking…";
             try {
-                const res = await DaisyAPI.aiChat({ user_id: userId, message: text });
-                if (output) output.textContent = res.reply;
+                const res = await DaisyAPI.aiChat({ message: text });
+                const mode = window.AIModes?.getMode?.() || "Motivator";
+                const context = { coins: currentCoins, streak: streakCountEl?.textContent || 0, prompted: true };
+                const localReply = window.AIModes?.generateResponse?.(mode, context);
+                if (output) output.textContent = localReply || res.reply;
                 await refreshBalance(true);
                 await refreshHistory();
+                await refreshQuests();
             } catch (err) {
                 if (output) output.textContent = "";
                 showToast(err.message || "Chat failed", "error");
@@ -1766,30 +2261,47 @@
             const openBtn = document.getElementById('openShop');
             const closeBtn = document.getElementById('closeShop');
             const modal = document.getElementById('shopModal');
-            const unlockBtn = document.getElementById('unlockThemeBtn');
-            const applyBtn = document.getElementById('applyThemeBtn');
+            const container = document.getElementById('shopItems');
 
-            openBtn?.addEventListener('click', () => modal?.classList.remove('hidden'));
+            openBtn?.addEventListener('click', async () => {
+                modal?.classList.remove('hidden');
+                try {
+                    const balance = await DaisyAPI.getBalance();
+                    renderShopItems(balance.unlocks);
+                } catch (_) {
+                    // ignore
+                }
+            });
             closeBtn?.addEventListener('click', () => modal?.classList.add('hidden'));
             modal?.addEventListener('click', (e) => {
                 if (e.target === modal) modal.classList.add('hidden');
             });
+            container?.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button[data-shop]');
+                if (!btn) return;
+                const id = btn.getAttribute('data-shop');
+                const item = shopCatalog.find((i) => i.id === id);
+                if (!item) return;
 
-            unlockBtn?.addEventListener('click', async () => {
                 try {
-                    await DaisyAPI.spendCoins({ user_id: userId, amount: 50, reason: "theme_unlock" });
-                    themeUnlocked = true;
-                    applyTheme("pastel");
-                    showToast("Theme unlocked!");
+                    const balance = await DaisyAPI.getBalance();
+                    const isUnlocked = balance.unlocks?.[item.id];
+                    if (isUnlocked) {
+                        if (id === "pastel") applyTheme("pastel");
+                        if (id === "glow") document.documentElement.classList.add('glow-enabled');
+                        if (id === "confetti") document.documentElement.classList.add('confetti-enabled');
+                        if (id === "avatar") document.documentElement.classList.add('avatar-enabled');
+                        showToast("Applied!");
+                        return;
+                    }
+                    await DaisyAPI.spendCoins({ amount: item.cost, reason: item.reason });
+                    if (item.id === "pastel") applyTheme("pastel");
+                    window.Dopamine?.shopUnlock?.(item.name);
+                    showToast("Unlocked!");
                     await refreshBalance(true);
                 } catch (err) {
                     showToast(err.message || "Unlock failed", "error");
                 }
-            });
-
-            applyBtn?.addEventListener('click', () => {
-                applyTheme("pastel");
-                showToast("Pastel theme applied");
             });
         }
 
@@ -1800,6 +2312,36 @@
             document.getElementById('completeTaskBtn')?.addEventListener('click', completeTask);
             document.getElementById('chatSendBtn')?.addEventListener('click', sendChat);
             updatePomodoroUI();
+        }
+
+        function initAIModes() {
+            const select = document.getElementById('aiModeSelect');
+            if (!select || !window.AIModes) return;
+            select.value = window.AIModes.getMode();
+            select.addEventListener('change', (e) => {
+                window.AIModes.setMode(e.target.value);
+                showToast(`Mode: ${e.target.value}`);
+            });
+        }
+
+        function initThemeSwitcher() {
+            const panel = document.getElementById('themePanel');
+            const toggle = document.getElementById('themeToggle');
+            const saved = localStorage.getItem('daisy_bg') || 'default';
+            document.body.setAttribute('data-bg', saved);
+
+            toggle?.addEventListener('click', () => {
+                panel?.classList.toggle('active');
+            });
+
+            panel?.querySelectorAll('.theme-dot').forEach((dot) => {
+                dot.addEventListener('click', (e) => {
+                    const bg = e.currentTarget.getAttribute('data-bg');
+                    document.body.setAttribute('data-bg', bg);
+                    localStorage.setItem('daisy_bg', bg);
+                    panel.classList.remove('active');
+                });
+            });
         }
 
         function initWaitlist() {
@@ -1820,13 +2362,18 @@
             });
         }
 
-        (function initGamification() {
+        (async function initGamification() {
             initActions();
+            initAIModes();
             initShopModal();
             initWaitlist();
+            initThemeSwitcher();
             pendingTheme = localStorage.getItem("daisy_theme");
+            if (window.DaisyAPI?.unlockAll) await window.DaisyAPI.unlockAll();
+            if (window.DaisyAPI?.enableUnlimitedCoins) await window.DaisyAPI.enableUnlimitedCoins();
             refreshBalance(false);
             refreshHistory();
+            refreshQuests();
         })();
     </script>
 </body>

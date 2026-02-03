@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAISY Insights</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        display: ['Poppins', 'Nunito', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Nunito', sans-serif !important;
+            letter-spacing: -0.003em;
+        }
+
+        .font-display {
+            font-family: 'Poppins', 'Nunito', sans-serif !important;
+            letter-spacing: -0.01em;
+        }
+
+        .bg-ambient {
+            background: radial-gradient(1200px 500px at 10% -10%, #ffffff 10%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #f6f6f8 0%, transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, #f2f2f6 0%, transparent 50%),
+                #f7f7f9;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(15, 15, 18, 0.06);
+            box-shadow: 0 12px 40px -18px rgba(0, 0, 0, 0.18);
+        }
+
+        .progress-gradient {
+            background: linear-gradient(90deg, #ff7bbe 0%, #6b8cff 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-ambient text-gray-900 font-sans antialiased">
+    <nav class="w-full py-6">
+        <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+            <a href="web.html" class="flex items-center gap-3">
+                <img src="assets/logo-daisy.svg" alt="Daisy" class="w-9 h-9">
+                <span class="font-display text-xl font-semibold">DAISY</span>
+            </a>
+            <a href="web.html"
+                class="px-4 py-2 rounded-full bg-white/70 border border-white/60 text-xs font-bold uppercase tracking-widest">
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <section class="py-10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h1 class="font-display text-4xl font-bold text-gray-800">Insights</h1>
+                <p class="text-gray-500 mt-3">A calm, dopamine‑friendly snapshot of your focus, streaks, and momentum.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass rounded-[22px] p-6">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Focus Minutes</p>
+                    <p class="text-3xl font-display font-semibold text-gray-900 mt-2" id="insightsFocus">0</p>
+                </div>
+                <div class="glass rounded-[22px] p-6">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Coins Today</p>
+                    <p class="text-3xl font-display font-semibold text-gray-900 mt-2" id="insightsCoins">0</p>
+                </div>
+                <div class="glass rounded-[22px] p-6">
+                    <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Streak</p>
+                    <p class="text-3xl font-display font-semibold text-gray-900 mt-2" id="insightsStreak">0</p>
+                </div>
+            </div>
+
+            <div class="glass rounded-[22px] p-6 mt-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-display text-lg font-semibold text-gray-900">Weekly Momentum</h2>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Last 7 days</span>
+                </div>
+                <div id="insightsChart" class="grid grid-cols-7 gap-2 items-end h-28"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="api.js"></script>
+    <script>
+        (async function initInsights() {
+            if (!window.DaisyAPI) return;
+            const balance = await DaisyAPI.getBalance();
+            document.getElementById('insightsFocus').textContent = balance.focus_minutes_today ?? 0;
+            document.getElementById('insightsCoins').textContent = balance.coins_today ?? 0;
+            document.getElementById('insightsStreak').textContent = balance.streak ?? 0;
+
+            const history = await DaisyAPI.history();
+            const chart = document.getElementById('insightsChart');
+            const today = new Date();
+            const totals = [];
+            for (let i = 6; i >= 0; i -= 1) {
+                const d = new Date(today);
+                d.setDate(today.getDate() - i);
+                const dateStr = d.toISOString().slice(0, 10);
+                const taskCoins = history.tasks
+                    .filter((t) => t.timestamp.slice(0, 10) === dateStr)
+                    .reduce((sum, t) => sum + (t.coins || 0), 0);
+                const pomoCoins = history.pomodoros
+                    .filter((p) => p.completed_at.slice(0, 10) === dateStr)
+                    .reduce((sum, p) => sum + (p.coins || 0), 0);
+                totals.push(taskCoins + pomoCoins);
+            }
+            const max = Math.max(10, ...totals);
+            totals.forEach((val) => {
+                const bar = document.createElement('div');
+                bar.className = 'rounded-md';
+                bar.style.height = `${Math.max(12, (val / max) * 112)}px`;
+                bar.style.background = 'linear-gradient(180deg, #ff7bbe 0%, #6b8cff 100%)';
+                chart.appendChild(bar);
+            });
+        })();
+    </script>
+</body>
+
+</html>
