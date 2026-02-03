@@ -1,6 +1,41 @@
-/* Daisy API helper (local-first mock for website-only mode) */
+/* Daisy API helper (API-first with silent LocalStorage fallback) */
 (() => {
+  const API_BASE = "http://127.0.0.1:8000";
+  const API_TIMEOUT_MS = 1500;
   const STATE_KEY = "daisy_state_v2";
+
+  let apiOnline = true;
+
+  async function apiFetchJson(path, options = {}) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+    try {
+      const res = await fetch(`${API_BASE}${path}`, {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          ...(options.headers || {}),
+        },
+        signal: controller.signal,
+      });
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      return await res.json();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function withFallback(remoteFn, localFn) {
+    if (!apiOnline) return localFn();
+    try {
+      const data = await remoteFn();
+      apiOnline = true;
+      return data;
+    } catch (_) {
+      apiOnline = false;
+      return localFn();
+    }
+  }
 
   function todayStr() {
     const d = new Date();
@@ -81,7 +116,7 @@
     }
   }
 
-  function awardCoins(state, amount, reason) {
+  function awardCoins(state, amount) {
     const date = todayStr();
     maybeResetDaily(state);
     const streakBonus = applyStreak(state, date);
@@ -116,7 +151,23 @@
     };
   }
 
-  const DaisyAPI = {
+  function mergeRemoteBalance(remote) {
+    const state = loadState();
+    state.coins = remote.coins ?? state.coins;
+    state.streak = remote.streak ?? state.streak;
+    state.last_active_date = remote.last_active_date ?? state.last_active_date;
+    state.coins_today = remote.coins_today ?? state.coins_today;
+    state.focus_minutes_today = remote.focus_minutes_today ?? state.focus_minutes_today;
+    saveState(state);
+    const local = balancePayload(state);
+    const merged = { ...local, ...remote };
+    if (merged.level == null) merged.level = levelFromCoins(merged.coins || 0);
+    if (merged.level_progress == null) merged.level_progress = (merged.coins || 0) % 100;
+    if (merged.next_level_at == null) merged.next_level_at = (merged.level + 1) * 100;
+    return merged;
+  }
+
+  const Local = {
     getBalance: async () => {
       const state = loadState();
       maybeResetDaily(state);
@@ -125,7 +176,7 @@
     },
     completeTask: async () => {
       const state = loadState();
-      const reward = awardCoins(state, 5, "task_completed");
+      const reward = awardCoins(state, 5);
       state.history.tasks.unshift({
         type: "task_completed",
         coins: 5,
@@ -138,7 +189,7 @@
     completePomodoro: async ({ duration_minutes }) => {
       const state = loadState();
       const coins = duration_minutes >= 25 ? 10 : 0;
-      const reward = coins ? awardCoins(state, coins, "pomodoro") : { total: 0, bonus: 0, streakBonus: 0 };
+      const reward = coins ? awardCoins(state, coins) : { total: 0, bonus: 0, streakBonus: 0 };
       state.focus_minutes_today += duration_minutes;
       state.history.pomodoros.unshift({
         duration: duration_minutes,
@@ -209,7 +260,7 @@
       const state = loadState();
       const allDone = state.quests.items.every((q) => q.done);
       if (allDone && !state.quests.bonus_awarded) {
-        const reward = awardCoins(state, 20, "daily_quest");
+        const reward = awardCoins(state, 20);
         state.quests.bonus_awarded = true;
         saveState(state);
         return { ...balancePayload(state), reward, daily_bonus: true };
@@ -242,6 +293,53 @@
       saveState(state);
       return balancePayload(state);
     },
+  };
+
+  const DaisyAPI = {
+    getBalance: async () =>
+      withFallback(
+        async () => mergeRemoteBalance(await apiFetchJson("/balance")),
+        Local.getBalance
+      ),
+    completeTask: async ({ title, coins } = {}) =>
+      withFallback(
+        async () => {
+          const remote = await apiFetchJson("/task/complete", {
+            method: "POST",
+            body: JSON.stringify({ title, coins }),
+          });
+          const merged = mergeRemoteBalance(remote);
+          if (remote.reward) merged.reward = remote.reward;
+          return merged;
+        },
+        Local.completeTask
+      ),
+    completePomodoro: async ({ duration_minutes, minutes } = {}) =>
+      withFallback(
+        async () => {
+          const mins = minutes ?? duration_minutes ?? 0;
+          const remote = await apiFetchJson("/pomodoro/complete", {
+            method: "POST",
+            body: JSON.stringify({ minutes: mins }),
+          });
+          const merged = mergeRemoteBalance(remote);
+          if (remote.reward) merged.reward = remote.reward;
+          return merged;
+        },
+        Local.completePomodoro
+      ),
+    getHistory: async () =>
+      withFallback(() => apiFetchJson("/history"), Local.history),
+    history: async () =>
+      withFallback(() => apiFetchJson("/history"), Local.history),
+    spendCoins: Local.spendCoins,
+    aiChat: Local.aiChat,
+    dailyQuestStatus: Local.dailyQuestStatus,
+    setQuestDone: Local.setQuestDone,
+    completeDailyQuests: Local.completeDailyQuests,
+    waitlist: Local.waitlist,
+    unlockAll: Local.unlockAll,
+    enableUnlimitedCoins: Local.enableUnlimitedCoins,
   };
 
   window.DaisyAPI = DaisyAPI;

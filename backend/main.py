@@ -1,139 +1,151 @@
-from fastapi import FastAPI, Depends, HTTPException
+"""
+Run:
+    uvicorn main:app --reload
+"""
+from datetime import datetime
+from typing import Any, Dict, List, Optional
+import random
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from .database import Base, SessionLocal, engine
-from . import schemas, crud
-from .services.llm import chat as llm_chat
-from datetime import datetime, timedelta
+from pydantic import BaseModel, Field
 
-Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="Daisy Coin API")
+app = FastAPI(title="Daisy API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# ---------------------------
+# In-memory store (single user)
+# ---------------------------
+STORE: Dict[str, Any] = {
+    "coins": 0,
+    "streak": 0,
+    "last_active_date": None,  # YYYY-MM-DD
+    "coins_today": 0,
+    "focus_minutes_today": 0,
+    "history": {
+        "tasks": [],
+        "pomodoros": [],
+    },
+}
 
 
-def build_balance(db: Session, user_id: str):
-    user = crud.get_or_create_user(db, user_id)
-    level = user.coins // 100
-    level_progress = user.coins % 100
-    next_level_at = (level + 1) * 100
+def today_str() -> str:
+    return datetime.utcnow().date().isoformat()
+
+
+def maybe_reset_daily() -> None:
+    today = today_str()
+    if STORE["last_active_date"] and STORE["last_active_date"] != today:
+        STORE["coins_today"] = 0
+        STORE["focus_minutes_today"] = 0
+
+
+def apply_streak(activity_date: str) -> int:
+    if not STORE["last_active_date"]:
+        STORE["streak"] = 1
+        STORE["last_active_date"] = activity_date
+        return 0
+    if STORE["last_active_date"] == activity_date:
+        return 0
+    last = datetime.fromisoformat(STORE["last_active_date"]).date()
+    current = datetime.fromisoformat(activity_date).date()
+    diff_days = (current - last).days
+    if diff_days == 1:
+        STORE["streak"] += 1
+        STORE["last_active_date"] = activity_date
+        return 20
+    STORE["streak"] = 1
+    STORE["last_active_date"] = activity_date
+    return 0
+
+
+def award_coins(amount: int) -> Dict[str, int]:
+    maybe_reset_daily()
+    activity_date = today_str()
+    streak_bonus = apply_streak(activity_date)
+    bonus = 5 if random.random() < 0.1 else 0
+    total = amount + streak_bonus + bonus
+    STORE["coins"] += total
+    STORE["coins_today"] += total
+    return {"total": total, "bonus": bonus, "streakBonus": streak_bonus}
+
+
+def level_from_coins(coins: int) -> int:
+    return coins // 100
+
+
+def balance_payload() -> Dict[str, Any]:
+    level = level_from_coins(STORE["coins"])
     return {
-        "user_id": user.id,
-        "coins": user.coins,
-        "streak": user.streak,
+        "coins": STORE["coins"],
+        "streak": STORE["streak"],
+        "last_active_date": STORE["last_active_date"],
         "level": level,
-        "level_progress": level_progress,
-        "next_level_at": next_level_at,
-        "theme_unlocked": crud.theme_unlocked(db, user.id),
+        "level_progress": STORE["coins"] % 100,
+        "next_level_at": (level + 1) * 100,
+        "coins_today": STORE["coins_today"],
+        "focus_minutes_today": STORE["focus_minutes_today"],
     }
 
 
-@app.get("/balance/{user_id}", response_model=schemas.BalanceResponse)
-def get_balance(user_id: str, db: Session = Depends(get_db)):
-    return build_balance(db, user_id)
+class TaskCompleteRequest(BaseModel):
+    title: Optional[str] = None
+    coins: Optional[int] = Field(default=None, ge=0)
 
 
-@app.post("/earn-coins", response_model=schemas.BalanceResponse)
-def earn_coins(payload: schemas.EarnCoinsRequest, db: Session = Depends(get_db)):
-    user = crud.award_coins(db, payload.user_id, 5, payload.task_type or "task_completed")
-    return build_balance(db, user.id)
+class PomodoroCompleteRequest(BaseModel):
+    minutes: int = Field(ge=0)
 
 
-@app.post("/spend-coins", response_model=schemas.BalanceResponse)
-def spend_coins(payload: schemas.SpendCoinsRequest, db: Session = Depends(get_db)):
-    if payload.amount <= 0:
-        raise HTTPException(status_code=400, detail="Amount must be positive")
-    if payload.reason == "theme_unlock" and crud.theme_unlocked(db, payload.user_id):
-        return build_balance(db, payload.user_id)
-    try:
-        user = crud.spend_coins(db, payload.user_id, payload.amount, payload.reason)
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
-    return build_balance(db, user.id)
+@app.get("/balance")
+def get_balance() -> Dict[str, Any]:
+    maybe_reset_daily()
+    return balance_payload()
 
 
-@app.post("/log-task", response_model=schemas.BalanceResponse)
-def log_task(payload: schemas.LogTaskRequest, db: Session = Depends(get_db)):
-    if payload.coins_earned < 0:
-        raise HTTPException(status_code=400, detail="coins_earned must be non-negative")
-    user = crud.create_task(db, payload.user_id, payload.type, payload.coins_earned)
-    return build_balance(db, user.id)
+@app.post("/task/complete")
+def complete_task(payload: TaskCompleteRequest) -> Dict[str, Any]:
+    base = payload.coins if payload.coins is not None else 5
+    reward = award_coins(base)
+    STORE["history"]["tasks"].insert(
+        0,
+        {
+            "type": "task_completed",
+            "title": payload.title,
+            "coins": base,
+            "timestamp": datetime.utcnow().isoformat(),
+        },
+    )
+    return {**balance_payload(), "reward": reward}
 
 
-@app.post("/pomodoro-complete", response_model=schemas.BalanceResponse)
-def pomodoro_complete(
-    payload: schemas.PomodoroCompleteRequest, db: Session = Depends(get_db)
-):
-    if payload.duration <= 0:
-        raise HTTPException(status_code=400, detail="Duration must be positive")
-    coins = 10 if payload.duration >= 25 else 0
-    user = crud.create_pomodoro(db, payload.user_id, payload.duration, coins)
-    return build_balance(db, user.id)
+@app.post("/pomodoro/complete")
+def complete_pomodoro(payload: PomodoroCompleteRequest) -> Dict[str, Any]:
+    base = (payload.minutes // 5) * 2
+    reward = award_coins(base) if base > 0 else {"total": 0, "bonus": 0, "streakBonus": 0}
+    STORE["focus_minutes_today"] += payload.minutes
+    STORE["history"]["pomodoros"].insert(
+        0,
+        {
+            "duration": payload.minutes,
+            "coins": base,
+            "completed_at": datetime.utcnow().isoformat(),
+        },
+    )
+    return {**balance_payload(), "reward": reward}
 
 
-@app.post("/ai-chat")
-async def ai_chat(payload: schemas.AIChatRequest, db: Session = Depends(get_db)):
-    user = crud.get_or_create_user(db, payload.user_id)
-    if user.coins < 1:
-        raise HTTPException(status_code=400, detail="Not enough coins for AI chat")
-    try:
-        reply = await llm_chat(payload.message)
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc))
-
-    try:
-        crud.spend_coins(db, payload.user_id, 1, "ai_chat")
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
-
-    return {"reply": reply}
-
-
-@app.post("/waitlist")
-def waitlist(payload: schemas.WaitlistRequest, db: Session = Depends(get_db)):
-    if "@" not in payload.email or "." not in payload.email:
-        raise HTTPException(status_code=400, detail="Invalid email")
-    entry = crud.add_waitlist(db, payload.email.lower())
-    return {"status": "ok", "email": entry.email}
-
-
-@app.get("/history/{user_id}", response_model=schemas.HistoryResponse)
-def history(user_id: str, db: Session = Depends(get_db)):
-    tasks, pomodoros = crud.get_history(db, user_id)
-    task_items = [
-        {"type": t.type, "coins": t.coins_earned, "timestamp": t.timestamp.isoformat()}
-        for t in tasks
-    ]
-    pomo_items = [
-        {"duration": p.duration, "coins": p.coins_earned, "completed_at": p.completed_at.isoformat()}
-        for p in pomodoros
-    ]
-
-    today = datetime.utcnow().date()
-    streak_days = []
-    for i in range(6, -1, -1):
-        day = today - timedelta(days=i)
-        active = any(t.timestamp.date() == day for t in tasks) or any(
-            p.completed_at.date() == day for p in pomodoros
-        )
-        streak_days.append({"date": day.isoformat(), "active": active})
-
-    return {"tasks": task_items, "pomodoros": pomo_items, "streak_calendar": streak_days}
+@app.get("/history")
+def get_history() -> Dict[str, List[Dict[str, Any]]]:
+    return {
+        "tasks": STORE["history"]["tasks"],
+        "pomodoros": STORE["history"]["pomodoros"],
+    }
