@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -1556,6 +1557,173 @@
 
         .float-arrow:nth-child(3) {
             animation-delay: 0.4s;
+        }
+
+        /* === POMODORO SPLIT LAYOUT (FOCUS MODE PANEL) === */
+        .pm-split {
+            background: #f8f9fb;
+            border: 1px solid rgba(15, 17, 21, 0.08);
+            width: 100%;
+            min-height: 100vh;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .pm-split-shell {
+            display: grid;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: 24px;
+            width: 100%;
+            height: 100%;
+            align-items: stretch;
+            min-height: 100vh;
+            padding: 24px 32px;
+        }
+
+        .pm-split-panel {
+            background: #ffffff;
+            border: 1px solid rgba(15, 17, 21, 0.1);
+            border-radius: 18px;
+            padding: 20px;
+            display: grid;
+            gap: 18px;
+            height: 100%;
+            min-height: 0;
+        }
+
+        .pm-split-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .pm-split-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.34em;
+            font-weight: 700;
+            color: #6e7781;
+        }
+
+        .pm-split-subtle {
+            font-size: 11px;
+            color: #6e7781;
+        }
+
+        .pm-split-notes-canvas {
+            flex: 1;
+            border: 1px solid rgba(15, 17, 21, 0.1);
+            border-radius: 14px;
+            background: #fbfbfb;
+            padding: 14px;
+        }
+
+        .pm-split-notes-canvas textarea {
+            width: 100%;
+            min-height: 360px;
+            border: none;
+            outline: none;
+            resize: vertical;
+            background: transparent;
+            color: #0b0b0d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .pm-split-tools {
+            display: grid;
+            gap: 16px;
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+
+        .pm-split-tool {
+            border: 1px solid rgba(15, 17, 21, 0.08);
+            border-radius: 16px;
+            padding: 16px;
+            background: #ffffff;
+            display: grid;
+            gap: 14px;
+            min-height: 0;
+        }
+
+        .pm-split-timer {
+            display: grid;
+            gap: 14px;
+            justify-items: center;
+        }
+
+        .pm-split-time {
+            font-family: "VT323", "SF Mono", "Menlo", "Monaco", monospace;
+            font-size: 70px;
+            letter-spacing: 0.18em;
+            color: #0b0b0d;
+        }
+
+        .pm-split-progress {
+            width: 220px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(15, 17, 21, 0.08);
+            overflow: hidden;
+        }
+
+        .pm-split-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #0b0b0d;
+            transition: width 0.6s ease;
+        }
+
+        .pm-split-controls {
+            justify-content: center;
+        }
+
+        .pm-split-box {
+            border: 1px dashed rgba(15, 17, 21, 0.15);
+            border-radius: 14px;
+            padding: 14px;
+            font-size: 12px;
+            color: rgba(15, 17, 21, 0.6);
+        }
+
+        .pm-split-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pm-split-pill {
+            border: 1px solid rgba(15, 17, 21, 0.2);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .pm-split-placeholder-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .pm-split-placeholder {
+            height: 34px;
+            border-radius: 10px;
+            background: rgba(15, 17, 21, 0.06);
+        }
+
+        @media (max-width: 1024px) {
+            .pm-split-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .pm-split-tools {
+                grid-template-rows: auto;
+            }
         }
     </style>
 </head>
@@ -4403,93 +4571,78 @@
             </div>
 
             <div class="nw-grid">
-                <section id="focusModePanel" class="nw-panel hidden">
-                    <div class="nw-panel-header">
-                        <div>
-                            <p class="nw-kicker">Protocol // System Primed</p>
-                            <h2 class="nw-heading">Focus Mode</h2>
-                        </div>
-                        <div id="pomodoroModeDisplayContainer" class="nw-pill">
-                            <span id="pomodoroModeDisplay" class="nw-pill-text">Focus</span>
-                        </div>
-                    </div>
-
-                    <div class="nw-focus-grid">
-                        <div class="nw-hero">
-                            <div class="text-center">
-                                <span id="focusTimer" class="nw-timer-value">25:00</span>
-                                <div class="nw-progress">
-                                    <div id="focusProgress" class="nw-progress-bar"></div>
-                                </div>
+                <section id="focusModePanel" class="nw-panel hidden pm-split">
+                    <div class="pm-split-shell">
+                        <div class="pm-split-panel pm-split-notes">
+                            <div class="pm-split-header">
+                                <span class="pm-split-label">Notes</span>
+                                <span class="pm-split-subtle">Auto-saved</span>
                             </div>
-                            <p class="nw-label">Protocol Active</p>
+                            <div class="pm-split-notes-canvas">
+                                <textarea id="focusNotes" placeholder="Write tasks, ideas, or study notes..."></textarea>
+                            </div>
                         </div>
 
-                        <div class="nw-side">
-                            <div>
-                                <p class="nw-kicker">Controls</p>
-                                <p class="text-sm text-gray-500 mt-2">Center control starts the session.</p>
-                            </div>
-
-                            <div class="nw-controls">
-                                <button id="focusReset" type="button" onclick="IntegratedPomodoro.reset()" class="nw-control haptic-pop text-gray-600 hover:text-gray-900">
-                                    <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
-                                </button>
-                                <button id="focusToggle" type="button" onclick="IntegratedPomodoro.toggle()"
-                                    class="nw-control nw-control--primary haptic-pop flex items-center justify-center">
-                                    <i data-lucide="play" id="focusIcon" class="w-8 h-8 fill-current"></i>
-                                </button>
-                                <button id="focusSkip" type="button" onclick="IntegratedPomodoro.skip()" class="nw-control haptic-pop text-gray-600 hover:text-gray-900">
-                                    <i data-lucide="skip-forward" class="w-5 h-5"></i>
-                                </button>
-                            </div>
-
-                            <div class="nw-stats">
-                                <div class="nw-stat-row">
-                                    <span>Sessions</span>
-                                    <strong id="sessionCount">0 Sessions</strong>
+                        <div class="pm-split-panel pm-split-tools">
+                            <div class="pm-split-tool">
+                                <div class="pm-split-header">
+                                    <span class="pm-split-label">Pomodoro Timer</span>
+                                    <div id="pomodoroModeDisplayContainer" class="nw-pill">
+                                        <span id="pomodoroModeDisplay" class="nw-pill-text">Focus</span>
+                                    </div>
                                 </div>
-                                <div class="nw-stat-row">
-                                    <span>Cycle</span>
-                                    <strong id="cycleDisplay">25 / 5</strong>
+                                <div class="pm-split-timer">
+                                    <div class="pm-split-time" id="focusTimer">25:00</div>
+                                    <div class="pm-split-progress">
+                                        <div id="focusProgress" class="pm-split-progress-bar"></div>
+                                    </div>
+                                    <div class="nw-controls pm-split-controls">
+                                        <button id="focusReset" type="button" onclick="IntegratedPomodoro.reset()"
+                                            class="nw-control haptic-pop text-gray-600 hover:text-gray-900">
+                                            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                                        </button>
+                                        <button id="focusToggle" type="button" onclick="IntegratedPomodoro.toggle()"
+                                            class="nw-control nw-control--primary haptic-pop flex items-center justify-center">
+                                            <i data-lucide="play" id="focusIcon" class="w-8 h-8 fill-current"></i>
+                                        </button>
+                                        <button id="focusSkip" type="button" onclick="IntegratedPomodoro.skip()"
+                                            class="nw-control haptic-pop text-gray-600 hover:text-gray-900">
+                                            <i data-lucide="skip-forward" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="nw-kicker mt-2">Presets</div>
-                            <div class="nw-preset-row">
-                                <button type="button" class="nw-preset active" data-focus="25" data-break="5">25 / 5</button>
-                                <button type="button" class="nw-preset" data-focus="50" data-break="10">50 / 10</button>
-                                <button type="button" class="nw-preset" data-focus="90" data-break="20">90 / 20</button>
-                            </div>
-
-                            <div class="nw-toggle">
-                                <span>Auto-break</span>
-                                <button type="button" id="autoBreakToggle" class="active" aria-label="Toggle auto-break"></button>
-                            </div>
-                            <div class="nw-toggle">
-                                <span>Auto-resume</span>
-                                <button type="button" id="autoResumeToggle" aria-label="Toggle auto-resume"></button>
-                            </div>
-
-                            <div class="nw-goal">
-                                <div class="flex items-center justify-between">
-                                    <span>Daily goal</span>
-                                    <strong id="goalCount">0 / 4</strong>
+                            <div class="pm-split-tool">
+                                <div class="pm-split-header">
+                                    <span class="pm-split-label">GitHub Square</span>
+                                    <span class="pm-split-subtle">Placeholder</span>
                                 </div>
-                                <div class="nw-goal-bar">
-                                    <span id="goalProgress"></span>
+                                <div class="pm-split-box">
+                                    <p>Link your GitHub activity, repos, or commit stats here.</p>
+                                    <div class="pm-split-row">
+                                        <span class="pm-split-pill">github.com/you</span>
+                                        <span class="pm-split-pill">Last commit: 2h</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pm-split-tool">
+                                <div class="pm-split-header">
+                                    <span class="pm-split-label">Extra Features</span>
+                                    <span class="pm-split-subtle">Reserved</span>
+                                </div>
+                                <div class="pm-split-box">
+                                    <p>Space for tasks, streaks, integrations, or stats.</p>
+                                    <div class="pm-split-placeholder-row">
+                                        <div class="pm-split-placeholder"></div>
+                                        <div class="pm-split-placeholder"></div>
+                                        <div class="pm-split-placeholder"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="nw-activity">
-                        <div class="nw-activity-label">Recent Sessions</div>
-                        <div id="focusLog" class="nw-activity-strip custom-scrollbar">
-                            <div class="focus-placeholder text-xs text-gray-400 italic">Ready to start.</div>
-                        </div>
-                    </div>
-                    <div class="nw-quote" id="motivationQuote">Small steps. Quiet focus. Big results.</div>
                 </section>
 
                 <section id="taskChatPanel" class="nw-panel hidden">
@@ -4528,6 +4681,17 @@
 
 
 
+    <script>
+        (function () {
+            const notesEl = document.getElementById('focusNotes');
+            const key = 'daisy_focus_notes';
+            if (!notesEl) return;
+            notesEl.value = localStorage.getItem(key) || '';
+            notesEl.addEventListener('input', () => {
+                localStorage.setItem(key, notesEl.value);
+            });
+        })();
+    </script>
 </body>
 
 </html>
