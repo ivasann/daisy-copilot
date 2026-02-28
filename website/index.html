@@ -1,1 +1,1262 @@
-<!DOCTYPE html><html lang="en" class="scroll-smooth"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>DAISY - Your Personal AI Life Copilot</title>    <meta name="description"        content="DAISY is your minimalist AI life copilot, designed for deep focus and aesthetic productivity.">    <meta name="keywords" content="AI, productivity, pomodoro, focus, minimalist, deep work">    <!-- Open Graph / Facebook -->    <meta property="og:type" content="website">    <meta property="og:url" content="https://daisy.ai/">    <meta property="og:title" content="DAISY - Your Personal AI Life Copilot">    <meta property="og:description"        content="DAISY is your minimalist AI life copilot, designed for deep focus and aesthetic productivity.">    <meta property="og:image" content="/assets/og-image.png">    <!-- Twitter -->    <meta property="twitter:card" content="summary_large_image">    <meta property="twitter:url" content="https://daisy.ai/">    <meta property="twitter:title" content="DAISY - Your Personal AI Life Copilot">    <meta property="twitter:description"        content="DAISY is your minimalist AI life copilot, designed for deep focus and aesthetic productivity.">    <meta property="twitter:image" content="/assets/og-image.png">    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">    <script src="https://unpkg.com/lucide@latest"></script>    <link rel="preconnect" href="https://fonts.googleapis.com">    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <link        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"        rel="stylesheet">    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"></head><body class="bg-white text-ink font-sans antialiased selection:bg-black selection:text-white overflow-x-hidden noise">    <!-- Global Layout Wrapper -->    <div class="relative min-h-screen">        <!-- Reward Bar removed: replaced by inline hero badges -->        <!-- Atmospheric Background -->        <div class="fixed inset-0 pointer-events-none z-0 mesh-gradient opacity-40">            <div class="absolute inset-0 noise opacity-[0.03]"></div>        </div>        <!-- Navigation -->        <nav class="fixed w-full z-50 transition-all duration-500 border-b border-transparent glass" id="navbar">            <div class="max-w-7xl mx-auto px-6 lg:px-8">                <div class="flex justify-between items-center h-20 transition-all duration-500" id="navContainer">                    <div class="flex items-center gap-2.5 group cursor-pointer"                        onclick="window.scrollTo({top:0, behavior:'smooth'})">                        <div                            class="logo-mark flex items-center justify-center bg-black rounded-lg w-8 h-8 group-hover:scale-105 transition-transform duration-500">                            <svg viewBox="0 0 32 32" fill="none" class="w-5 h-5">                                <circle cx="16" cy="16" r="6" fill="white" />                            </svg>                        </div>                        <span class="text-xl font-bold tracking-tight text-ink">daisy</span>                    </div>                    <div class="hidden md:flex items-center gap-8">                        <a href="#modes"                            class="text-[13px] font-medium text-muted hover:text-ink transition-colors">Intelligence</a>                        <a href="#about"                            class="text-[13px] font-medium text-muted hover:text-ink transition-colors">About</a>                        <a href="#community"                            class="text-[13px] font-medium text-muted hover:text-ink transition-colors">Safety</a>                    </div>                    <div class="flex items-center gap-4">                        <button class="text-muted hover:text-ink transition-colors">                            <i data-lucide="search" class="w-5 h-5"></i>                        </button>                        <button                            class="bg-black text-white px-5 py-2 rounded-full text-[13px] font-medium hover:bg-black/90 transition-all haptic-pop">                            Try Beta                        </button>                    </div>                </div>            </div>        </nav>        <!-- Hero Section -->        <section class="relative z-10 pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">            <div class="max-w-7xl mx-auto px-6 lg:px-8">                <div class="text-center relative">                    <!-- Hero Badge -->                    <div                        class="reveal-init transition-all duration-1000 delay-100 opacity-0 translate-y-4 reveal-active inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 border border-black/5 text-muted text-[11px] font-semibold uppercase tracking-widest mb-8">                        <span class="w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>                        Now in Public Beta                    </div>                    <!-- Main Title -->                    <h1                        class="reveal-init reveal-active text-5xl lg:text-7xl font-bold tracking-tight text-ink mb-8 text-balance">                        Intelligence, <br class="hidden sm:block">                        refined for <span class="text-muted">focus.</span>                    </h1>                    <p                        class="reveal-init reveal-active delay-200 text-lg lg:text-xl text-muted max-w-2xl mx-auto mb-12 leading-relaxed text-balance">                        DAISY is your minimalist AI life copilot, designed to help you do your best work without the                        noise.                    </p>                    <!-- Search / Command Bar -->                    <div class="reveal-init reveal-active delay-300 max-w-xl mx-auto group">                        <div                            class="relative glass rounded-[24px] p-2 flex items-center ios-shadow-lg transition-all group-focus-within:ring-2 ring-black/5">                            <i data-lucide="sparkles"                                class="w-5 h-5 ml-4 text-muted group-focus-within:text-black transition-colors"></i>                            <input type="text" placeholder="What would you like to focus on?"                                class="w-full bg-transparent px-4 py-3 text-sm focus:outline-none text-ink placeholder-muted"                                id="heroQueryInput">                            <button                                class="bg-black text-white px-6 py-2.5 rounded-[18px] text-[13px] font-medium hover:bg-black/90 transition-all">                                Start Focus                            </button>                        </div>                        <!-- Mode Suggestions -->                        <div class="flex flex-wrap justify-center gap-3 mt-6">                            <button onclick="selectMode('Focus Mode')"                                class="px-4 py-2 rounded-full glass border border-black/5 text-[12px] font-medium text-ink hover:bg-black hover:text-white transition-all">                                ?? Deep Work                            </button>                            <button onclick="selectMode('Coding Buddy')"                                class="px-4 py-2 rounded-full glass border border-black/5 text-[12px] font-medium text-ink hover:bg-black hover:text-white transition-all">                                ?? Coding Buddy                            </button>                            <button onclick="selectMode('Creative')"                                class="px-4 py-2 rounded-full glass border border-black/5 text-[12px] font-medium text-ink hover:bg-black hover:text-white transition-all">                                ? Creative                            </button>                        </div>                        <p class="text-sm mt-8 text-muted/60 min-h-[1.5em]" id="typewriter">                            <!-- Content injected by JS -->                        </p>                        <!-- Trust Stack -->                        <div class="flex items-center justify-center gap-4 pt-10">                            <div class="flex -space-x-3">                                <img src="https://i.pravatar.cc/100?img=1"                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U1">                                <img src="https://i.pravatar.cc/100?img=2"                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U2">                                <img src="https://i.pravatar.cc/100?img=3"                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U3">                                <img src="https://i.pravatar.cc/100?img=4"                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U4">                            </div>                            <div class="flex items-center gap-2">                                <div class="flex gap-0.5">                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>                                </div>                                <p class="text-[13px] text-muted font-medium">Loved by 12,000+ users</p>                            </div>                        </div>                    </div>                </div>            </div>        </section>        <!-- Intelligence Suite Section -->        <section id="modes" class="py-24 relative z-10 reveal-init reveal-active">            <div class="max-w-7xl mx-auto px-6 lg:px-8">                <div class="text-center max-w-3xl mx-auto mb-16">                    <div                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-muted text-[10px] font-bold uppercase tracking-widest mb-4">                        Intelligence Suite                    </div>                    <h2 class="text-4xl font-bold text-ink mb-4 tracking-tight">One brain. Twelve modes.</h2>                    <p class="text-muted text-sm max-w-lg mx-auto leading-relaxed">Daisy's DNA evolves through every                        interaction. Explore specialized modes designed to amplify your focus.</p>                </div>                <!-- Intelligence Workspace -->                <div id="suiteWorkspace" class="min-h-[500px] relative">                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" id="productsGrid">                        <!-- Cards injected by JS -->                    </div>                </div>            </div>        </section>        <!-- How It Works -->        <section id="how" class="py-24 relative z-10 reveal-init reveal-active">            <div class="max-w-7xl mx-auto px-6 lg:px-8">                <div class="text-center max-w-3xl mx-auto mb-16">                    <div                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-muted text-[10px] font-bold uppercase tracking-widest mb-4">                        Process                    </div>                    <h2 class="text-3xl font-bold text-ink mb-4">A Copilot That Learns You</h2>                    <p class="text-muted text-sm">Daisy adapts quietly in the background while you stay in control.</p>                </div>                <div class="grid md:grid-cols-3 gap-8">                    <div class="apple-card p-8">                        <span class="text-4xl font-bold text-black/5 mb-6 block">01</span>                        <h3 class="text-xl font-bold text-ink mb-3 tracking-tight">Onboard Once</h3>                        <p class="text-sm text-muted leading-relaxed">Share your goals and preferences. Daisy builds a                            baseline profile that respects your privacy.</p>                    </div>                    <div class="apple-card p-8">                        <span class="text-4xl font-bold text-black/5 mb-6 block">02</span>                        <h3 class="text-xl font-bold text-ink mb-3 tracking-tight">Assist Daily</h3>                        <p class="text-sm text-muted leading-relaxed">From planning to coaching, Daisy adapts to your                            rhythm, offering help only when needed.</p>                    </div>                    <div class="apple-card p-8">                        <span class="text-4xl font-bold text-black/5 mb-6 block">03</span>                        <h3 class="text-xl font-bold text-ink mb-3 tracking-tight">Evolve With You</h3>                        <p class="text-sm text-muted leading-relaxed">Your preferences sharpen over time. Suggestions                            get cleaner, faster, and more intuitive.</p>                    </div>                </div>            </div>        </section>        <!-- Trust & Privacy -->        <section id="trust" class="py-24 relative z-10 reveal-init reveal-active">            <div class="max-w-7xl mx-auto px-6 lg:px-8">                <div class="glass rounded-[40px] p-12 lg:p-20 ios-shadow-lg overflow-hidden relative">                    <div class="relative z-10 flex flex-col lg:flex-row items-center gap-16">                        <div class="flex-1">                            <div                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black text-white text-[10px] font-bold uppercase tracking-widest mb-6">                                Privacy First                            </div>                            <h2 class="text-4xl font-bold text-ink mb-6 tracking-tight">Designed for Safety by Default                            </h2>                            <p class="text-muted text-lg mb-8 leading-relaxed">Control your data, manage your memory,                                and stay informed with transparent, easy-to-use settings.</p>                            <button                                class="bg-black text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-black/80 transition-all">                                Security Whitepaper                            </button>                        </div>                        <div class="flex-1 grid sm:grid-cols-2 gap-4 w-full">                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">                                <i data-lucide="shield" class="w-6 h-6 text-black mb-4"></i>                                <p class="text-sm font-bold text-ink mb-1">Private by Design</p>                                <p class="text-xs text-muted">Clear controls and full audit trails.</p>                            </div>                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">                                <i data-lucide="lock" class="w-6 h-6 text-black mb-4"></i>                                <p class="text-sm font-bold text-ink mb-1">Encrypted Memory</p>                                <p class="text-xs text-muted">Your data stays protected, always.</p>                            </div>                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">                                <i data-lucide="eye-off" class="w-6 h-6 text-black mb-4"></i>                                <p class="text-sm font-bold text-ink mb-1">No Data Selling</p>                                <p class="text-xs text-muted">Your intelligence is not for sale.</p>                            </div>                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">                                <i data-lucide="refresh-cw" class="w-6 h-6 text-black mb-4"></i>                                <p class="text-sm font-bold text-ink mb-1">Stay in Control</p>                                <p class="text-xs text-muted">Pause or delete memory any time.</p>                            </div>                        </div>                    </div>                </div>            </div>        </section>        <!-- FAQ Section -->        <section id="faq" class="py-24 relative z-10 reveal-init reveal-active">            <div class="max-w-3xl mx-auto px-6 lg:px-8">                <div class="text-center mb-16">                    <div                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-muted text-[10px] font-bold uppercase tracking-widest mb-4">                        FAQ                    </div>                    <h2 class="text-3xl font-bold text-ink mb-2 tracking-tight">Answers, Clearly</h2>                    <p class="text-muted text-sm">Short and direct. No noise.</p>                </div>                <div class="space-y-4">                    <details class="apple-card p-6 cursor-pointer group">                        <summary class="list-none flex justify-between items-center text-sm font-bold text-ink">                            What exactly is Daisy?                            <i data-lucide="plus"                                class="w-4 h-4 text-muted group-open:rotate-45 transition-transform"></i>                        </summary>                        <p class="text-sm text-muted mt-4 leading-relaxed">Daisy is a minimalist AI copilot that blends                            deep focus tools, personalized modes, and evolving memory into a single, calm experience.                        </p>                    </details>                    <details class="apple-card p-6 cursor-pointer group">                        <summary class="list-none flex justify-between items-center text-sm font-bold text-ink">                            How does the memory work?                            <i data-lucide="plus"                                class="w-4 h-4 text-muted group-open:rotate-45 transition-transform"></i>                        </summary>                        <p class="text-sm text-muted mt-4 leading-relaxed">Daisy learns your preferences over time. You                            have full control — you can pause, review, or delete memory anytime in settings.</p>                    </details>                    <details class="apple-card p-6 cursor-pointer group">                        <summary class="list-none flex justify-between items-center text-sm font-bold text-ink">                            Is my data secure?                            <i data-lucide="plus"                                class="w-4 h-4 text-muted group-open:rotate-45 transition-transform"></i>                        </summary>                        <p class="text-sm text-muted mt-4 leading-relaxed">Always. We use end-to-end encryption for your                            personal memory profiles and never sell your data to third parties.</p>                    </details>                </div>            </div>        </section>        <!-- Testimonials -->        <section id="testimonials" class="py-24 relative z-10 reveal-init reveal-active">            <div class="max-w-7xl mx-auto px-6 lg:px-8">                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">                    <div class="space-y-8">                        <div class="apple-card p-8">                            <p class="text-ink text-lg font-medium leading-relaxed mb-8">“The most calm software I've                                used in years. It quietly nudges me toward focus without ever feeling intrusive.”</p>                            <div class="flex items-center gap-4">                                <img src="https://i.pravatar.cc/100?img=11"                                    class="w-10 h-10 rounded-full border border-black/5" alt="Ava">                                <div>                                    <p class="text-[13px] font-bold text-ink">Ava K.</p>                                    <p class="text-[11px] text-muted">Product Designer</p>                                </div>                            </div>                        </div>                    </div>                    <div class="space-y-8 pt-12 md:pt-0">                        <div class="apple-card p-8 bg-black text-white border-none">                            <p class="text-lg font-medium leading-relaxed mb-8">“Daisy has fundamentally changed how I                                approach my work day. The context switching is finally gone.”</p>                            <div class="flex items-center gap-4">                                <img src="https://i.pravatar.cc/100?img=22"                                    class="w-10 h-10 rounded-full border border-white/10" alt="Noah">                                <div>                                    <p class="text-[13px] font-bold">Noah R.</p>                                    <p class="text-[11px] opacity-60">Founder</p>                                </div>                            </div>                        </div>                    </div>                    <div class="space-y-8 pt-12 lg:pt-0">                        <div class="apple-card p-8">                            <p class="text-ink text-lg font-medium leading-relaxed mb-8">“It feels less like a tool and                                more like a partner. The memory profile is surprisingly intuitive.”</p>                            <div class="flex items-center gap-4">                                <img src="https://i.pravatar.cc/100?img=33"                                    class="w-10 h-10 rounded-full border border-black/5" alt="Maya">                                <div>                                    <p class="text-[13px] font-bold text-ink">Maya S.</p>                                    <p class="text-[11px] text-muted">Researcher</p>                                </div>                            </div>                        </div>                    </div>                </div>            </div>        </section>        <!-- About Section -->        <div            class="p-8 rounded-[2.5rem] bg-white border border-primary/5 shadow-lg shadow-primary/5 hover:-translate-y-2 transition-transform">            <div class="w-12 h-12 bg-pastel-green rounded-[24%] flex items-center justify-center mb-6 shadow-sm">                <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>            </div>            <h3 class="font-display text-xl font-bold text-gray-800 mb-4">Safe & Respectful</h3>            <p class="text-gray-500 text-sm leading-relaxed">Your data never leaves your device's reach.                Daisy                is encrypted, non-judgmental, and programmed with strict safety and respect protocols.</p>        </div>    </div>    </div>    </section>    <!-- CTA Section -->    <section class="py-24 relative z-10 overflow-hidden">        <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-30"></div>        <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10 text-center">            <h2 class="font-display text-3xl font-bold text-gray-800 mb-6">Experience the Evolution</h2>            <p class="text-gray-500 mb-10 max-w-xl mx-auto uppercase text-xs tracking-[0.2em] font-bold">Daisy                learns                from every interaction to better serve your unique lifestyle.</p>            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-8"                onsubmit="event.preventDefault(); alert('Welcome to Nomad!');">                <input type="email" placeholder="Enter your email"                    class="flex-1 px-6 py-4 rounded-full bg-white/10 border border-white/10 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">                <button type="submit"                    class="px-8 py-4 bg-primary text-dark font-bold rounded-full hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 whitespace-nowrap haptic-pop">                    Get Started                </button>            </form>            <p class="text-sm text-gray-600 dark:text-gray-500">Free forever. Upgrade anytime for premium features.            </p>        </div>    </section>    <!-- Footer -->    <footer class="border-t border-white/5 pt-16 pb-8 relative z-10 glass-strong">        <div class="max-w-7xl mx-auto px-6 lg:px-8">            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">                <div class="col-span-2">                    <div class="flex items-center gap-2 mb-4">                        <span class="font-display font-bold text-xl text-primary tracking-[0.2em]">DAISY</span>                    </div>                    <p                        class="text-[10px] uppercase font-bold tracking-widest text-gray-400 leading-relaxed mb-4 max-w-xs">                        An evolving digital companion designed to help you navigate life with ease.                    </p>                    <div class="flex gap-4">                        <a href="#"                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">                            <i data-lucide="twitter" class="w-5 h-5"></i>                        </a>                        <a href="#"                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">                            <i data-lucide="instagram" class="w-5 h-5"></i>                        </a>                        <a href="#"                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">                            <i data-lucide="youtube" class="w-5 h-5"></i>                        </a>                    </div>                </div>                <div>                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Intelligence</h4>                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">                        <li><a href="#modes" class="hover:text-primary transition-colors">AI Modes</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Personalization</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Memory</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Voice</a></li>                    </ul>                </div>                <div>                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Company</h4>                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">                        <li><a href="#" class="hover:text-primary transition-colors">Our Mission</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Privacy First</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Radical Trust</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Contact</a></li>                    </ul>                </div>                <div>                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Legal</h4>                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">                        <li><a href="#" class="hover:text-primary transition-colors">Privacy</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Terms</a></li>                        <li><a href="#" class="hover:text-primary transition-colors">Cookies</a></li>                    </ul>                </div>            </div>            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">                <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">© 2024 DAISY AI. All rights                    reserved.</p>                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-500">                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>                    All systems operational                </div>            </div>        </div>    </footer>    <script>        // Daisy AI Modes data (12 Modes)        // Initialize Everything        function initApp() {            // Render main grid (bottom section)            const mainGrid = document.getElementById('productsGrid');            if (mainGrid) {                mainGrid.innerHTML = '';                daisyModes.forEach((mode, index) => {                    const card = document.createElement('div');                    card.className = `glass rounded-[2.5rem] overflow-hidden card-hover group cursor-pointer p-8 bg-white/70 flex flex-col items-center text-center ios-shadow border border-white/40 backdrop-blur-md`;                    card.style.opacity = '0';                    card.style.transform = 'translateY(20px)';                    card.style.transition = `all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) ${index * 0.1}s`;                    card.innerHTML = `                        <div class="w-20 h-20 ${mode.bg} rounded-[28%] flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 ring-4 ring-white/50">                            <i data-lucide="${mode.icon}" class="w-10 h-10 ${mode.text}"></i>                        </div>                        <h3 class="font-display text-base font-bold text-gray-800 mb-1 leading-tight">${mode.name}</h3>                        <p class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mb-3">${mode.category}</p>                        <p class="text-[11px] text-gray-500 leading-relaxed line-clamp-2">${mode.desc}</p>                    `;                    card.onclick = () => selectMode(mode.name);                    mainGrid.appendChild(card);                    revealObserver.observe(card);                });            }            if (typeof type === 'function') setTimeout(type, 1000);            if (typeof lucide !== 'undefined') lucide.createIcons();            // Re-initialize reveals for all marked elements            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));        }        document.addEventListener('DOMContentLoaded', initApp);        function applyTheme(theme) {            const root = document.documentElement;            if (theme === "pastel") {                root.classList.add("theme-pastel");                localStorage.setItem("daisy_theme", "pastel");                pendingTheme = "pastel";            } else {                root.classList.remove("theme-pastel");                localStorage.setItem("daisy_theme", "default");                pendingTheme = "default";            }        }        const shopCatalog = [            {                id: "pastel", name: "Pastel Premium Theme", cost: 50, desc: "Soft gradients and a calmer mood.",                reason: "theme_unlock"            },            {                id: "glow", name: "Glow Hover Effects", cost: 80, desc: "Extra glow on interactive elements.", reason:                    "glow_unlock"            },            {                id: "confetti", name: "Confetti Reward Burst", cost: 120, desc: "Celebrate wins with confetti.",                reason: "confetti_unlock"            },            {                id: "avatar", name: "Avatar Frame", cost: 60, desc: "Cute frame for your profile card.", reason:                    "avatar_unlock"            },        ];        function renderShopItems(unlocks) {            const container = document.getElementById('shopItems');            if (!container) return;            container.innerHTML = '';            shopCatalog.forEach((item) => {                const unlocked = !!unlocks?.[item.id];                const card = document.createElement('div');                card.className = 'glass rounded-[20px] p-5 flex items-center justify-between relative overflow-hidden';                card.innerHTML = `                        <div>                            <p class="text-sm font-semibold text-gray-900">${item.name}</p>                            <p class="text-xs text-gray-500">${item.desc}</p>                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: ${item.cost} coins</p>                        </div>                        ${unlocked ? '<span class="absolute top-3 right-3 text-[9px] uppercase font-bold tracking-widest bg-green-500/90 text-white px-2 py-1 rounded-full">Unlocked</span>'                        : '<span class="absolute top-3 right-3 text-[9px] uppercase font-bold tracking-widest bg-black/80 text-white px-2 py-1 rounded-full">Locked</span>'}                        <button data-shop="${item.id}" class="px-4 py-2.5 ${unlocked ? 'glass text-gray-900' : 'bg-accent text-white'} rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">                            ${unlocked ? 'Apply' : 'Unlock'}                        </button>                    `;                container.appendChild(card);            });        }        function applyUnlocks(unlocks) {            const root = document.documentElement;            root.classList.toggle('glow-enabled', !!unlocks?.glow);            root.classList.toggle('confetti-enabled', !!unlocks?.confetti);            root.classList.toggle('avatar-enabled', !!unlocks?.avatar);        }        // Integrated Focus Mode Logic (Study Focus)        const IntegratedPomodoro = {            timer: null,            timeLeft: 25 * 60,            duration: 25 * 60,            focusDuration: 25 * 60,            breakDuration: 5 * 60,            mode: 'focus', // 'focus' or 'break'            isRunning: false,            sessionsCompleted: 0,            autoBreak: true,            autoResume: false,            goalTarget: 4,            init() {                this.loadState();                this.updateUI();                this.setupListeners();            },            loadState() {                const saved = localStorage.getItem('daisy_focus_history');                if (saved) {                    try {                        const data = JSON.parse(saved);                        this.sessionsCompleted = data.sessionsCompleted || 0;                        const logContainer = document.getElementById('focusLog');                        if (logContainer && data.history && data.history.length > 0) {                            logContainer.innerHTML = '';                            data.history.forEach(entry => this.appendLogEntry(entry.title, entry.time, entry.timestamp));                        }                        this.updateSessionCount();                    } catch (e) { console.error("Failed to load focus history", e); }                }                const preset = localStorage.getItem('daisy_focus_preset');                if (preset) {                    try {                        const data = JSON.parse(preset);                        this.setPreset(data.focus, data.break, false);                    } catch (_) { }                }                const autoBreak = localStorage.getItem('daisy_auto_break');                if (autoBreak !== null) {                    this.autoBreak = autoBreak === 'true';                }                const autoResume = localStorage.getItem('daisy_auto_resume');                if (autoResume !== null) {                    this.autoResume = autoResume === 'true';                }            },            saveState() {                const logContainer = document.getElementById('focusLog');                const history = Array.from(logContainer.querySelectorAll('.focus-entry')).map(el => ({                    title: el.querySelector('.entry-title').textContent,                    time: el.querySelector('.entry-time').textContent,                    timestamp: el.querySelector('.entry-timestamp').textContent                }));                localStorage.setItem('daisy_focus_history', JSON.stringify({                    sessionsCompleted: this.sessionsCompleted,                    history: history                }));            },            setupListeners() {                const toggleBtn = document.getElementById('focusToggle');                const resetBtn = document.getElementById('focusReset');                const skipBtn = document.getElementById('focusSkip');                toggleBtn?.addEventListener('click', () => this.toggle());                resetBtn?.addEventListener('click', () => this.reset());                skipBtn?.addEventListener('click', () => this.skip());                document.querySelectorAll('.nw-preset').forEach((btn) => {                    btn.addEventListener('click', () => {                        const focus = Number(btn.getAttribute('data-focus')) || 25;                        const brk = Number(btn.getAttribute('data-break')) || 5;                        this.setPreset(focus, brk, true);                        document.querySelectorAll('.nw-preset').forEach((b) => b.classList.remove('active'));                        btn.classList.add('active');                    });                });                const autoBreakBtn = document.getElementById('autoBreakToggle');                if (autoBreakBtn) {                    autoBreakBtn.classList.toggle('active', this.autoBreak);                    autoBreakBtn.addEventListener('click', () => {                        this.autoBreak = !this.autoBreak;                        autoBreakBtn.classList.toggle('active', this.autoBreak);                        localStorage.setItem('daisy_auto_break', `${this.autoBreak}`);                    });                }                const autoResumeBtn = document.getElementById('autoResumeToggle');                if (autoResumeBtn) {                    autoResumeBtn.classList.toggle('active', this.autoResume);                    autoResumeBtn.addEventListener('click', () => {                        this.autoResume = !this.autoResume;                        autoResumeBtn.classList.toggle('active', this.autoResume);                        localStorage.setItem('daisy_auto_resume', `${this.autoResume}`);                    });                }                document.addEventListener('keydown', (e) => {                    const tag = document.activeElement?.tagName?.toLowerCase();                    if (tag === 'input' || tag === 'textarea') return;                    if (e.code === 'Space') {                        e.preventDefault();                        this.toggle();                    }                    if (e.key.toLowerCase() === 'r') this.reset();                    if (e.key.toLowerCase() === 's') this.skip();                });            },            toggle() {                if (this.isRunning) {                    this.pause();                } else {                    this.start();                }            },            start() {                if (this.isRunning) return;                this.isRunning = true;                this.playSound('play');                document.getElementById('focusModePanel')?.classList.add('timer-active');                this.timer = setInterval(() => {                    if (this.timeLeft > 0) {                        this.timeLeft--;                        this.updateUI();                    } else {                        this.complete();                    }                }, 1000);            },            pause() {                this.isRunning = false;                document.getElementById('focusModePanel')?.classList.remove('timer-active');                clearInterval(this.timer);                this.updateToggleButton();            },            reset() {                this.pause();                this.timeLeft = this.duration;                this.updateUI();            },            skip() {                const confirmed = confirm("Skip this session?");                if (confirmed) {                    this.timeLeft = 0;                    this.complete();                }            },            complete() {                this.pause();                const workspace = document.getElementById('neuralWorkspace');                if (workspace) {                    workspace.classList.add('session-complete');                    setTimeout(() => workspace.classList.remove('session-complete'), 1200);                }                if (this.mode === 'focus') {                    this.sessionsCompleted++;                    this.awardRewards();                    this.logSession('Deep Work', `${Math.round(this.focusDuration / 60)}m`);                    this.saveState();                    showToast(`Session Complete! ${Math.round(this.focusDuration / 60)}m • ${this.sessionsCompleted}/${this.goalTarget}`, "success");                    if (this.autoBreak) {                        this.mode = 'break';                        this.duration = this.breakDuration;                        this.timeLeft = this.duration;                        showToast(`Break started. Relax for ${Math.round(this.breakDuration / 60)} mins.`, "info");                    } else {                        this.mode = 'focus';                        this.duration = this.focusDuration;                        this.timeLeft = this.duration;                        showToast("Ready for the next session.", "info");                    }                } else {                    // Switch to focus                    this.mode = 'focus';                    this.duration = this.focusDuration;                    this.timeLeft = this.duration;                    showToast("Break over. Back to focus!", "info");                    if (this.autoResume) this.start();                }                this.updateUI();                this.updateNeuralSync();            },            awardRewards() {                if (window.RewardsEngine) {                    RewardsEngine.addCoins(10);                    RewardsEngine.addXP(20);                }            },            logSession(title, time) {                this.appendLogEntry(title, time, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));                this.updateSessionCount();            },            appendLogEntry(title, time, timestamp) {                const logContainer = document.getElementById('focusLog');                if (!logContainer) return;                if (logContainer.querySelector('.focus-placeholder')) {                    logContainer.innerHTML = '';                }                const entry = document.createElement('div');                entry.className = 'focus-entry flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 border border-black/5 text-sm text-gray-700 whitespace-nowrap animate-fade-in';                entry.innerHTML = `                    <span class="entry-title text-sm font-medium">${title}</span>                    <span class="entry-time text-xs text-gray-500">${time}</span>                    <span class="entry-timestamp text-xs text-gray-400">${timestamp}</span>                `;                logContainer.prepend(entry);                lucide.createIcons();            },            updateSessionCount() {                const countEl = document.getElementById('sessionCount');                if (countEl) countEl.textContent = `${this.sessionsCompleted} Session${this.sessionsCompleted !== 1 ? 's' : ''}`;                const goalCountEl = document.getElementById('goalCount');                const goalProgressEl = document.getElementById('goalProgress');                if (goalCountEl) goalCountEl.textContent = `${this.sessionsCompleted} / ${this.goalTarget}`;                if (goalProgressEl) {                    const pct = Math.min(100, (this.sessionsCompleted / this.goalTarget) * 100);                    goalProgressEl.style.width = `${pct}%`;                }            },            updateUI() {                const timerEl = document.getElementById('focusTimer');                const progressEl = document.getElementById('focusProgress');                const modeEl = document.getElementById('pomodoroModeDisplay');                const mins = Math.floor(this.timeLeft / 60);                const secs = this.timeLeft % 60;                const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;                if (timerEl) {                    timerEl.textContent = timeStr;                }                if (progressEl) {                    const progress = this.timeLeft / this.duration;                    const percent = Math.max(0, Math.min(100, progress * 100));                    progressEl.style.width = `${percent}%`;                    const ring = document.getElementById('focusRing');                    if (ring) ring.style.setProperty('--ring-progress', `${percent}%`);                }                if (modeEl) {                    modeEl.textContent = this.mode === 'focus' ? 'Focus' : 'Break';                    const container = document.getElementById('pomodoroModeDisplayContainer');                    if (container) {                        container.className = "pm-mode-chip";                    }                    modeEl.className = "";                }                this.updateNeuralSync(timeStr);                const cycleEl = document.getElementById('cycleDisplay');                if (cycleEl) cycleEl.textContent = `${Math.round(this.focusDuration / 60)} / ${Math.round(this.breakDuration / 60)}`;            },            updateNeuralSync(timeStr) {                const phoneBody = document.getElementById('appBody');                if (!phoneBody || !phoneBody.querySelector('.neural-sync-active')) return;                const phoneTimer = phoneBody.querySelector('#phoneFocusTimer');                const phoneRing = phoneBody.querySelector('#phoneFocusRing');                if (phoneTimer) phoneTimer.textContent = timeStr || "25:00";                if (phoneRing) {                    const circumference = 534; // radius 85 in phone mockup                    const progress = this.timeLeft / this.duration;                    const offset = circumference * (1 - progress);                    phoneRing.style.strokeDashoffset = offset;                }            },            updateToggleButton() {                const iconEl = document.getElementById('focusIcon');                if (iconEl) {                    iconEl.setAttribute('data-lucide', this.isRunning ? 'pause' : 'play');                    lucide.createIcons();                }                const toggleBtn = document.getElementById('focusToggle');                if (toggleBtn) toggleBtn.classList.toggle('is-playing', this.isRunning);                const workspace = document.getElementById('neuralWorkspace');                if (workspace) workspace.classList.toggle('session-active', this.isRunning);                this.updateNeuralSync();            },            setPreset(focusMinutes, breakMinutes, persist = true) {                this.focusDuration = Math.max(5, focusMinutes) * 60;                this.breakDuration = Math.max(1, breakMinutes) * 60;                this.duration = this.mode === 'focus' ? this.focusDuration : this.breakDuration;                this.timeLeft = this.duration;                if (persist) {                    localStorage.setItem('daisy_focus_preset', JSON.stringify({                        focus: focusMinutes,                        break: breakMinutes                    }));                }                this.updateUI();            }        };        // Initialize IntegratedPomodoro        IntegratedPomodoro.init();        const focusQuotes = [            "Small steps. Quiet focus. Big results.",            "Do the work. Let the noise fade.",            "One session at a time.",            "Focus is a choice you make every minute.",            "Start simple. Finish strong.",            "Silence the rest. Keep the promise.",            "Progress loves consistency.",            "Make this minute count."        ];        function rotateQuote() {            const el = document.getElementById('motivationQuote');            if (!el) return;            const next = focusQuotes[Math.floor(Math.random() * focusQuotes.length)];            el.textContent = next;        }        rotateQuote();        setInterval(rotateQuote, 60000);        async function completeTask() {            try {                const reward = await DaisyAPI.spendCoins({ amount: 0, reason: "task_complete" });                triggerRewardAnimation(reward.total, reward.bonus);                showAnimeWidget(`Task done! + ${reward.total || 5} `);                if (window.AIModes) {                    await window.AIModes.applyModeReward({                        baseCoins: 0,                        reason: "task",                        DaisyAPI: window.DaisyAPI,                        Dopamine: window.Dopamine,                        onReward: (amt, bonus) => triggerRewardAnimation(amt, bonus),                    });                }                await refreshBalance(true);                await refreshHistory();                await refreshQuests();            } catch (err) {                showToast(err.message || "Task failed", "error");            }        }        async function sendChat() {            const input = document.getElementById('chatInputWorkspace');            const display = document.getElementById('chatDisplay');            const text = input?.value?.trim();            if (!text || !display) return;            // Append User Message            const userMsg = document.createElement('div');            userMsg.className = "bg-black text-white p-6 rounded-[40px] rounded-tr-none self-end max-w-[85%] border border-black/10 shadow-lg animate-fade-in";            userMsg.innerHTML = `<p class="text-base leading-relaxed">${text}</p>`;            display.appendChild(userMsg);            display.scrollTop = display.scrollHeight;            input.value = "";            try {                const res = await DaisyAPI.aiChat({ message: text });                const mode = window.AIModes?.getMode?.() || "Motivator";                const context = { coins: currentCoins, streak: streakCountEl?.textContent || 0, prompted: true };                const localReply = window.AIModes?.generateResponse?.(mode, context);                const replyText = localReply || res.reply;                // Append Daisy Message                const daisyMsg = document.createElement('div');                daisyMsg.className = "bg-white/70 p-6 rounded-[32px] rounded-tl-none self-start max-w-[85%] border border-black/5 shadow-sm animate-fade-in";                daisyMsg.innerHTML = `<p class="text-base text-gray-700 leading-relaxed font-medium">${replyText}</p>`;                display.appendChild(daisyMsg);                display.scrollTop = display.scrollHeight;                await refreshBalance(true);                await refreshHistory();                await refreshQuests();            } catch (err) {                showToast(err.message || "Chat failed", "error");            }        }        function initShopModal() {            const openBtn = document.getElementById('openShop');            const closeBtn = document.getElementById('closeShop');            const modal = document.getElementById('shopModal');            const container = document.getElementById('shopItems');            openBtn?.addEventListener('click', async () => {                modal?.classList.remove('hidden');                try {                    const balance = await DaisyAPI.getBalance();                    renderShopItems(balance.unlocks);                } catch (_) {                    // ignore                }            });            closeBtn?.addEventListener('click', () => modal?.classList.add('hidden'));            modal?.addEventListener('click', (e) => {                if (e.target === modal) modal.classList.add('hidden');            });            container?.addEventListener('click', async (e) => {                const btn = e.target.closest('button[data-shop]');                if (!btn) return;                const id = btn.getAttribute('data-shop');                const item = shopCatalog.find((i) => i.id === id);                if (!item) return;                try {                    const balance = await DaisyAPI.getBalance();                    const isUnlocked = balance.unlocks?.[item.id];                    if (isUnlocked) {                        if (id === "pastel") applyTheme("pastel");                        if (id === "glow") document.documentElement.classList.add('glow-enabled');                        if (id === "confetti") document.documentElement.classList.add('confetti-enabled');                        if (id === "avatar") document.documentElement.classList.add('avatar-enabled');                        showToast("Applied!");                        return;                    }                    await DaisyAPI.spendCoins({ amount: item.cost, reason: item.reason });                    if (item.id === "pastel") applyTheme("pastel");                    window.Dopamine?.shopUnlock?.(item.name);                    showToast("Unlocked!");                    await refreshBalance(true);                } catch (err) {                    showToast(err.message || "Unlock failed", "error");                }            });        }        function initActions() {            const searchInput = document.getElementById('heroSearch');            searchInput?.addEventListener('keydown', (e) => {                if (e.key === 'Enter' && window.topSearchMatch) {                    selectMode(window.topSearchMatch);                    searchInput.blur();                }            });            document.getElementById('completeTaskBtn')?.addEventListener('click', completeTask);            document.getElementById('chatSendBtnWorkspace')?.addEventListener('click', sendChat);        }        function initAIModes() {            const select = document.getElementById('aiModeSelect');            if (!select || !window.AIModes) return;            select.value = window.AIModes.getMode();            select.addEventListener('change', (e) => {                window.AIModes.setMode(e.target.value);                showToast(`Mode: ${e.target.value}`);            });        }        function initThemeSwitcher() {            const panel = document.getElementById('themePanel');            const toggle = document.getElementById('themeToggle');            const saved = localStorage.getItem('daisy_bg') || 'default';            document.body.setAttribute('data-bg', saved);            toggle?.addEventListener('click', () => {                panel?.classList.toggle('active');            });            panel?.querySelectorAll('.theme-dot').forEach((dot) => {                dot.addEventListener('click', (e) => {                    const bg = e.currentTarget.getAttribute('data-bg');                    document.body.setAttribute('data-bg', bg);                    localStorage.setItem('daisy_bg', bg);                    panel.classList.remove('active');                });            });        }        function initWaitlist() {            const btn = document.getElementById('waitlistSubmit');            const input = document.getElementById('waitlistEmail');            const status = document.getElementById('waitlistStatus');            btn?.addEventListener('click', async () => {                const email = input?.value?.trim();                if (!email) return;                if (status) status.textContent = "Submitting...";                try {                    await DaisyAPI.waitlist({ email });                    if (status) status.textContent = "You're in. Welcome to the waitlist.";                    if (input) input.value = "";                } catch (err) {                    if (status) status.textContent = err.message || "Unable to submit.";                }            });        }        (async function initGamification() {            initActions();            initAIModes();            initShopModal();            initWaitlist();            initThemeSwitcher();            pendingTheme = localStorage.getItem("daisy_theme");            if (window.DaisyAPI?.unlockAll) await window.DaisyAPI.unlockAll();            if (window.DaisyAPI?.enableUnlimitedCoins) await window.DaisyAPI.enableUnlimitedCoins();            refreshBalance(false);            refreshHistory();            refreshQuests();        })();        // Soundscape Engine        const SoundEngine = {            activeSound: null,            audioCtx: null,            oscillators: [],            currentTrackIndex: 0,            playlist: [                {                    title: 'Clair de Lune',                    artist: 'Claude Debussy',                    url: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Debussy_-_Clair_de_Lune.mp3'                },                {                    title: 'Gymnopédie No. 1',                    artist: 'Erik Satie',                    url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Gymnopedie_No._1.mp3'                },                {                    title: 'Nocturne Op. 9 No. 2',                    artist: 'Frédéric Chopin',                    url: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Nocturne_in_E_flat_major%2C_Op._9_no._2.mp3'                }            ],            init() {                if (!this.audioCtx) {                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();                }                if (this.audioCtx.state === 'suspended') {                    this.audioCtx.resume();                }            },            play(index = null) {                this.init();                this.stop();                if (index !== null) this.currentTrackIndex = index;                const track = this.playlist[this.currentTrackIndex];                // Update UI Metadata                const trackEl = document.getElementById('pomoTrackName');                const artistEl = document.getElementById('pomoArtistName');                if (trackEl) trackEl.textContent = track.title;                if (artistEl) artistEl.textContent = track.artist;                const audio = new Audio();                audio.src = track.url;                audio.loop = true;                audio.volume = 0.5;                audio.preload = "auto";                if (window.DaisyAPI) window.DaisyAPI.showNotification(`Loading ${track.title}...`, 'info');                // Add loading timeout                this.loadTimeout = setTimeout(() => {                    if (audio.readyState < 2) {                        console.error('Music load timeout:', track.title);                        if (window.DaisyAPI) window.DaisyAPI.showNotification(`Network slow: ${track.title} is taking a while.`, 'warning');                    }                }, 10000);                audio.addEventListener('canplay', () => {                    clearTimeout(this.loadTimeout);                    audio.play().then(() => {                        if (window.DaisyAPI) window.DaisyAPI.showNotification(`Playing: ${track.title}`, 'success');                        this.startTracking();                    }).catch(err => {                        console.error('Music playback blocked:', err);                        if (window.DaisyAPI) window.DaisyAPI.showNotification('Playback blocked. Click anywhere to enable music.', 'warning');                        this.stop();                    });                }, { once: true });                audio.addEventListener('timeupdate', () => {                    if (this.onProgress) this.onProgress(audio.currentTime, audio.duration);                });                audio.addEventListener('error', (e) => {                    clearTimeout(this.loadTimeout);                    console.error('Audio source error:', e);                    if (window.DaisyAPI) window.DaisyAPI.showNotification('Failed to load track. Connection interrupted.', 'error');                    this.stop();                });                audio.load(); // Explicit load                this.activeSound = { music: audio, type: 'music' };            },            loadTimeout: null,            onProgress: null,            seek(percent) {                if (this.activeSound && this.activeSound.music) {                    const audio = this.activeSound.music;                    audio.currentTime = audio.duration * (percent / 100);                }            },            startTracking() {                PomoTimer.isMusicPlaying = true;                PomoTimer.updateMusicUI(true);            },            stop() {                if (this.activeSound) {                    if (this.activeSound.music) {                        this.activeSound.music.pause();                        this.activeSound.music.src = "";                    }                    this.activeSound = null;                }                PomoTimer.isMusicPlaying = false;                PomoTimer.updateMusicUI(false);            },        };        function toggleSound(type, btn) {            PomoTimer.toggleZen(type, btn);        }        function toggleBreatheMode() {            const overlay = document.getElementById('breatheOverlay');            if (!overlay) return;            if (overlay.style.opacity === '1') {                overlay.style.opacity = '0';                overlay.style.pointerEvents = 'none';            } else {                overlay.style.opacity = '1';                overlay.style.pointerEvents = 'auto';            }        }    </script></body></html>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAISY - Your Personal AI Life Copilot</title>
+    <meta name="description"
+        content="DAISY is your minimalist AI life copilot, designed for deep focus and aesthetic productivity.">
+    <meta name="keywords" content="AI, productivity, pomodoro, focus, minimalist, deep work">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://daisy.ai/">
+    <meta property="og:title" content="DAISY - Your Personal AI Life Copilot">
+    <meta property="og:description"
+        content="DAISY is your minimalist AI life copilot, designed for deep focus and aesthetic productivity.">
+    <meta property="og:image" content="/assets/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://daisy.ai/">
+    <meta property="twitter:title" content="DAISY - Your Personal AI Life Copilot">
+    <meta property="twitter:description"
+        content="DAISY is your minimalist AI life copilot, designed for deep focus and aesthetic productivity.">
+    <meta property="twitter:image" content="/assets/og-image.png">
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-white text-ink font-sans antialiased selection:bg-black selection:text-white overflow-x-hidden noise">
+
+    <!-- Global Layout Wrapper -->
+    <div class="relative min-h-screen">
+
+        <!-- Reward Bar removed: replaced by inline hero badges -->
+
+        <!-- Atmospheric Background -->
+        <div class="fixed inset-0 pointer-events-none z-0 mesh-gradient opacity-40">
+            <div class="absolute inset-0 noise opacity-[0.03]"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 transition-all duration-500 border-b border-transparent glass" id="navbar">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20 transition-all duration-500" id="navContainer">
+                    <div class="flex items-center gap-2.5 group cursor-pointer"
+                        onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                        <div
+                            class="logo-mark flex items-center justify-center bg-black rounded-lg w-8 h-8 group-hover:scale-105 transition-transform duration-500">
+                            <svg viewBox="0 0 32 32" fill="none" class="w-5 h-5">
+                                <circle cx="16" cy="16" r="6" fill="white" />
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-ink">daisy</span>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-8">
+                        <a href="#modes"
+                            class="text-[13px] font-medium text-muted hover:text-ink transition-colors">Intelligence</a>
+                        <a href="#about"
+                            class="text-[13px] font-medium text-muted hover:text-ink transition-colors">About</a>
+                        <a href="#community"
+                            class="text-[13px] font-medium text-muted hover:text-ink transition-colors">Safety</a>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <button class="text-muted hover:text-ink transition-colors">
+                            <i data-lucide="search" class="w-5 h-5"></i>
+                        </button>
+                        <button
+                            class="bg-black text-white px-5 py-2 rounded-full text-[13px] font-medium hover:bg-black/90 transition-all haptic-pop">
+                            Try Beta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="relative z-10 pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center relative">
+                    <!-- Hero Badge -->
+                    <div
+                        class="reveal-init transition-all duration-1000 delay-100 opacity-0 translate-y-4 reveal-active inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 border border-black/5 text-muted text-[11px] font-semibold uppercase tracking-widest mb-8">
+                        <span class="w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>
+                        Now in Public Beta
+                    </div>
+
+                    <!-- Main Title -->
+                    <h1
+                        class="reveal-init reveal-active text-5xl lg:text-7xl font-bold tracking-tight text-ink mb-8 text-balance">
+                        Intelligence, <br class="hidden sm:block">
+                        refined for <span class="text-muted">focus.</span>
+                    </h1>
+
+                    <p
+                        class="reveal-init reveal-active delay-200 text-lg lg:text-xl text-muted max-w-2xl mx-auto mb-12 leading-relaxed text-balance">
+                        DAISY is your minimalist AI life copilot, designed to help you do your best work without the
+                        noise.
+                    </p>
+
+                    <!-- Search / Command Bar -->
+                    <div class="reveal-init reveal-active delay-300 max-w-xl mx-auto group">
+                        <div
+                            class="relative glass rounded-[24px] p-2 flex items-center ios-shadow-lg transition-all group-focus-within:ring-2 ring-black/5">
+                            <i data-lucide="sparkles"
+                                class="w-5 h-5 ml-4 text-muted group-focus-within:text-black transition-colors"></i>
+                            <input type="text" placeholder="What would you like to focus on?"
+                                class="w-full bg-transparent px-4 py-3 text-sm focus:outline-none text-ink placeholder-muted"
+                                id="heroQueryInput">
+                            <button
+                                class="bg-black text-white px-6 py-2.5 rounded-[18px] text-[13px] font-medium hover:bg-black/90 transition-all">
+                                Start Focus
+                            </button>
+                        </div>
+
+                        <!-- Mode Suggestions -->
+                        <div class="flex flex-wrap justify-center gap-3 mt-6">
+                            <button onclick="selectMode('Focus Mode')"
+                                class="px-4 py-2 rounded-full glass border border-black/5 text-[12px] font-medium text-ink hover:bg-black hover:text-white transition-all">
+                                ?? Deep Work
+                            </button>
+                            <button onclick="selectMode('Coding Buddy')"
+                                class="px-4 py-2 rounded-full glass border border-black/5 text-[12px] font-medium text-ink hover:bg-black hover:text-white transition-all">
+                                ?? Coding Buddy
+                            </button>
+                            <button onclick="selectMode('Creative')"
+                                class="px-4 py-2 rounded-full glass border border-black/5 text-[12px] font-medium text-ink hover:bg-black hover:text-white transition-all">
+                                ? Creative
+                            </button>
+                        </div>
+
+                        <p class="text-sm mt-8 text-muted/60 min-h-[1.5em]" id="typewriter">
+                            <!-- Content injected by JS -->
+                        </p>
+
+                        <!-- Trust Stack -->
+                        <div class="flex items-center justify-center gap-4 pt-10">
+                            <div class="flex -space-x-3">
+                                <img src="https://i.pravatar.cc/100?img=1"
+                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U1">
+                                <img src="https://i.pravatar.cc/100?img=2"
+                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U2">
+                                <img src="https://i.pravatar.cc/100?img=3"
+                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U3">
+                                <img src="https://i.pravatar.cc/100?img=4"
+                                    class="w-9 h-9 rounded-full border-2 border-white" alt="U4">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="flex gap-0.5">
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-black text-black"></i>
+                                </div>
+                                <p class="text-[13px] text-muted font-medium">Loved by 12,000+ users</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intelligence Suite Section -->
+        <section id="modes" class="py-24 relative z-10 reveal-init reveal-active">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-muted text-[10px] font-bold uppercase tracking-widest mb-4">
+                        Intelligence Suite
+                    </div>
+                    <h2 class="text-4xl font-bold text-ink mb-4 tracking-tight">One brain. Twelve modes.</h2>
+                    <p class="text-muted text-sm max-w-lg mx-auto leading-relaxed">Daisy's DNA evolves through every
+                        interaction. Explore specialized modes designed to amplify your focus.</p>
+                </div>
+
+                <!-- Intelligence Workspace -->
+                <div id="suiteWorkspace" class="min-h-[500px] relative">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" id="productsGrid">
+                        <!-- Cards injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how" class="py-24 relative z-10 reveal-init reveal-active">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-muted text-[10px] font-bold uppercase tracking-widest mb-4">
+                        Process
+                    </div>
+                    <h2 class="text-3xl font-bold text-ink mb-4">A Copilot That Learns You</h2>
+                    <p class="text-muted text-sm">Daisy adapts quietly in the background while you stay in control.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="apple-card p-8">
+                        <span class="text-4xl font-bold text-black/5 mb-6 block">01</span>
+                        <h3 class="text-xl font-bold text-ink mb-3 tracking-tight">Onboard Once</h3>
+                        <p class="text-sm text-muted leading-relaxed">Share your goals and preferences. Daisy builds a
+                            baseline profile that respects your privacy.</p>
+                    </div>
+                    <div class="apple-card p-8">
+                        <span class="text-4xl font-bold text-black/5 mb-6 block">02</span>
+                        <h3 class="text-xl font-bold text-ink mb-3 tracking-tight">Assist Daily</h3>
+                        <p class="text-sm text-muted leading-relaxed">From planning to coaching, Daisy adapts to your
+                            rhythm, offering help only when needed.</p>
+                    </div>
+                    <div class="apple-card p-8">
+                        <span class="text-4xl font-bold text-black/5 mb-6 block">03</span>
+                        <h3 class="text-xl font-bold text-ink mb-3 tracking-tight">Evolve With You</h3>
+                        <p class="text-sm text-muted leading-relaxed">Your preferences sharpen over time. Suggestions
+                            get cleaner, faster, and more intuitive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust & Privacy -->
+        <section id="trust" class="py-24 relative z-10 reveal-init reveal-active">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="glass rounded-[40px] p-12 lg:p-20 ios-shadow-lg overflow-hidden relative">
+                    <div class="relative z-10 flex flex-col lg:flex-row items-center gap-16">
+                        <div class="flex-1">
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black text-white text-[10px] font-bold uppercase tracking-widest mb-6">
+                                Privacy First
+                            </div>
+                            <h2 class="text-4xl font-bold text-ink mb-6 tracking-tight">Designed for Safety by Default
+                            </h2>
+                            <p class="text-muted text-lg mb-8 leading-relaxed">Control your data, manage your memory,
+                                and stay informed with transparent, easy-to-use settings.</p>
+                            <button
+                                class="bg-black text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-black/80 transition-all">
+                                Security Whitepaper
+                            </button>
+                        </div>
+                        <div class="flex-1 grid sm:grid-cols-2 gap-4 w-full">
+                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">
+                                <i data-lucide="shield" class="w-6 h-6 text-black mb-4"></i>
+                                <p class="text-sm font-bold text-ink mb-1">Private by Design</p>
+                                <p class="text-xs text-muted">Clear controls and full audit trails.</p>
+                            </div>
+                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">
+                                <i data-lucide="lock" class="w-6 h-6 text-black mb-4"></i>
+                                <p class="text-sm font-bold text-ink mb-1">Encrypted Memory</p>
+                                <p class="text-xs text-muted">Your data stays protected, always.</p>
+                            </div>
+                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">
+                                <i data-lucide="eye-off" class="w-6 h-6 text-black mb-4"></i>
+                                <p class="text-sm font-bold text-ink mb-1">No Data Selling</p>
+                                <p class="text-xs text-muted">Your intelligence is not for sale.</p>
+                            </div>
+                            <div class="bg-white/50 rounded-3xl p-6 border border-black/5">
+                                <i data-lucide="refresh-cw" class="w-6 h-6 text-black mb-4"></i>
+                                <p class="text-sm font-bold text-ink mb-1">Stay in Control</p>
+                                <p class="text-xs text-muted">Pause or delete memory any time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-24 relative z-10 reveal-init reveal-active">
+            <div class="max-w-3xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-muted text-[10px] font-bold uppercase tracking-widest mb-4">
+                        FAQ
+                    </div>
+                    <h2 class="text-3xl font-bold text-ink mb-2 tracking-tight">Answers, Clearly</h2>
+                    <p class="text-muted text-sm">Short and direct. No noise.</p>
+                </div>
+                <div class="space-y-4">
+                    <details class="apple-card p-6 cursor-pointer group">
+                        <summary class="list-none flex justify-between items-center text-sm font-bold text-ink">
+                            What exactly is Daisy?
+                            <i data-lucide="plus"
+                                class="w-4 h-4 text-muted group-open:rotate-45 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-muted mt-4 leading-relaxed">Daisy is a minimalist AI copilot that blends
+                            deep focus tools, personalized modes, and evolving memory into a single, calm experience.
+                        </p>
+                    </details>
+                    <details class="apple-card p-6 cursor-pointer group">
+                        <summary class="list-none flex justify-between items-center text-sm font-bold text-ink">
+                            How does the memory work?
+                            <i data-lucide="plus"
+                                class="w-4 h-4 text-muted group-open:rotate-45 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-muted mt-4 leading-relaxed">Daisy learns your preferences over time. You
+                            have full control — you can pause, review, or delete memory anytime in settings.</p>
+                    </details>
+                    <details class="apple-card p-6 cursor-pointer group">
+                        <summary class="list-none flex justify-between items-center text-sm font-bold text-ink">
+                            Is my data secure?
+                            <i data-lucide="plus"
+                                class="w-4 h-4 text-muted group-open:rotate-45 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-muted mt-4 leading-relaxed">Always. We use end-to-end encryption for your
+                            personal memory profiles and never sell your data to third parties.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="py-24 relative z-10 reveal-init reveal-active">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="space-y-8">
+                        <div class="apple-card p-8">
+                            <p class="text-ink text-lg font-medium leading-relaxed mb-8">“The most calm software I've
+                                used in years. It quietly nudges me toward focus without ever feeling intrusive.”</p>
+                            <div class="flex items-center gap-4">
+                                <img src="https://i.pravatar.cc/100?img=11"
+                                    class="w-10 h-10 rounded-full border border-black/5" alt="Ava">
+                                <div>
+                                    <p class="text-[13px] font-bold text-ink">Ava K.</p>
+                                    <p class="text-[11px] text-muted">Product Designer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-8 pt-12 md:pt-0">
+                        <div class="apple-card p-8 bg-black text-white border-none">
+                            <p class="text-lg font-medium leading-relaxed mb-8">“Daisy has fundamentally changed how I
+                                approach my work day. The context switching is finally gone.”</p>
+                            <div class="flex items-center gap-4">
+                                <img src="https://i.pravatar.cc/100?img=22"
+                                    class="w-10 h-10 rounded-full border border-white/10" alt="Noah">
+                                <div>
+                                    <p class="text-[13px] font-bold">Noah R.</p>
+                                    <p class="text-[11px] opacity-60">Founder</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-8 pt-12 lg:pt-0">
+                        <div class="apple-card p-8">
+                            <p class="text-ink text-lg font-medium leading-relaxed mb-8">“It feels less like a tool and
+                                more like a partner. The memory profile is surprisingly intuitive.”</p>
+                            <div class="flex items-center gap-4">
+                                <img src="https://i.pravatar.cc/100?img=33"
+                                    class="w-10 h-10 rounded-full border border-black/5" alt="Maya">
+                                <div>
+                                    <p class="text-[13px] font-bold text-ink">Maya S.</p>
+                                    <p class="text-[11px] text-muted">Researcher</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+
+        <div
+            class="p-8 rounded-[2.5rem] bg-white border border-primary/5 shadow-lg shadow-primary/5 hover:-translate-y-2 transition-transform">
+            <div class="w-12 h-12 bg-pastel-green rounded-[24%] flex items-center justify-center mb-6 shadow-sm">
+                <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+            </div>
+            <h3 class="font-display text-xl font-bold text-gray-800 mb-4">Safe & Respectful</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Your data never leaves your device's reach.
+                Daisy
+                is encrypted, non-judgmental, and programmed with strict safety and respect protocols.</p>
+        </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-30"></div>
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="font-display text-3xl font-bold text-gray-800 mb-6">Experience the Evolution</h2>
+            <p class="text-gray-500 mb-10 max-w-xl mx-auto uppercase text-xs tracking-[0.2em] font-bold">Daisy
+                learns
+                from every interaction to better serve your unique lifestyle.</p>
+
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-8"
+                onsubmit="event.preventDefault(); alert('Welcome to Nomad!');">
+                <input type="email" placeholder="Enter your email"
+                    class="flex-1 px-6 py-4 rounded-full bg-white/10 border border-white/10 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                <button type="submit"
+                    class="px-8 py-4 bg-primary text-dark font-bold rounded-full hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 whitespace-nowrap haptic-pop">
+                    Get Started
+                </button>
+            </form>
+
+            <p class="text-sm text-gray-600 dark:text-gray-500">Free forever. Upgrade anytime for premium features.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 pt-16 pb-8 relative z-10 glass-strong">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="font-display font-bold text-xl text-primary tracking-[0.2em]">DAISY</span>
+                    </div>
+                    <p
+                        class="text-[10px] uppercase font-bold tracking-widest text-gray-400 leading-relaxed mb-4 max-w-xs">
+                        An evolving digital companion designed to help you navigate life with ease.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all haptic-pop">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Intelligence</h4>
+                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                        <li><a href="#modes" class="hover:text-primary transition-colors">AI Modes</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Personalization</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Memory</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Voice</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Company</h4>
+                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition-colors">Our Mission</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy First</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Radical Trust</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] uppercase font-bold tracking-widest text-gray-800 mb-4">Legal</h4>
+                    <ul class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Terms</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">© 2024 DAISY AI. All rights
+                    reserved.</p>
+                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-500">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    All systems operational
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Daisy AI Modes data (12 Modes)
+
+
+
+
+
+
+
+
+
+        // Initialize Everything
+        function initApp() {
+            // Render main grid (bottom section)
+            const mainGrid = document.getElementById('productsGrid');
+            if (mainGrid) {
+                mainGrid.innerHTML = '';
+                daisyModes.forEach((mode, index) => {
+                    const card = document.createElement('div');
+                    card.className = `glass rounded-[2.5rem] overflow-hidden card-hover group cursor-pointer p-8 bg-white/70 flex flex-col items-center text-center ios-shadow border border-white/40 backdrop-blur-md`;
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = `all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) ${index * 0.1}s`;
+
+                    card.innerHTML = `
+                        <div class="w-20 h-20 ${mode.bg} rounded-[28%] flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 ring-4 ring-white/50">
+                            <i data-lucide="${mode.icon}" class="w-10 h-10 ${mode.text}"></i>
+                        </div>
+                        <h3 class="font-display text-base font-bold text-gray-800 mb-1 leading-tight">${mode.name}</h3>
+                        <p class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.2em] mb-3">${mode.category}</p>
+                        <p class="text-[11px] text-gray-500 leading-relaxed line-clamp-2">${mode.desc}</p>
+                    `;
+                    card.onclick = () => selectMode(mode.name);
+                    mainGrid.appendChild(card);
+                    revealObserver.observe(card);
+                });
+            }
+
+            if (typeof type === 'function') setTimeout(type, 1000);
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+
+            // Re-initialize reveals for all marked elements
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        }
+
+        document.addEventListener('DOMContentLoaded', initApp);
+
+
+        function applyTheme(theme) {
+            const root = document.documentElement;
+            if (theme === "pastel") {
+                root.classList.add("theme-pastel");
+                localStorage.setItem("daisy_theme", "pastel");
+                pendingTheme = "pastel";
+            } else {
+                root.classList.remove("theme-pastel");
+                localStorage.setItem("daisy_theme", "default");
+                pendingTheme = "default";
+            }
+        }
+
+        const shopCatalog = [
+            {
+                id: "pastel", name: "Pastel Premium Theme", cost: 50, desc: "Soft gradients and a calmer mood.",
+                reason: "theme_unlock"
+            },
+            {
+                id: "glow", name: "Glow Hover Effects", cost: 80, desc: "Extra glow on interactive elements.", reason:
+                    "glow_unlock"
+            },
+            {
+                id: "confetti", name: "Confetti Reward Burst", cost: 120, desc: "Celebrate wins with confetti.",
+                reason: "confetti_unlock"
+            },
+            {
+                id: "avatar", name: "Avatar Frame", cost: 60, desc: "Cute frame for your profile card.", reason:
+                    "avatar_unlock"
+            },
+        ];
+
+        function renderShopItems(unlocks) {
+            const container = document.getElementById('shopItems');
+            if (!container) return;
+            container.innerHTML = '';
+            shopCatalog.forEach((item) => {
+                const unlocked = !!unlocks?.[item.id];
+                const card = document.createElement('div');
+                card.className = 'glass rounded-[20px] p-5 flex items-center justify-between relative overflow-hidden';
+                card.innerHTML = `
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">${item.name}</p>
+                            <p class="text-xs text-gray-500">${item.desc}</p>
+                            <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Cost: ${item.cost} coins</p>
+                        </div>
+                        ${unlocked ? '<span class="absolute top-3 right-3 text-[9px] uppercase font-bold tracking-widest bg-green-500/90 text-white px-2 py-1 rounded-full">Unlocked</span>'
+                        : '<span class="absolute top-3 right-3 text-[9px] uppercase font-bold tracking-widest bg-black/80 text-white px-2 py-1 rounded-full">Locked</span>'}
+                        <button data-shop="${item.id}" class="px-4 py-2.5 ${unlocked ? 'glass text-gray-900' : 'bg-accent text-white'} rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all haptic-pop">
+                            ${unlocked ? 'Apply' : 'Unlock'}
+                        </button>
+                    `;
+                container.appendChild(card);
+            });
+        }
+
+        function applyUnlocks(unlocks) {
+            const root = document.documentElement;
+            root.classList.toggle('glow-enabled', !!unlocks?.glow);
+            root.classList.toggle('confetti-enabled', !!unlocks?.confetti);
+            root.classList.toggle('avatar-enabled', !!unlocks?.avatar);
+        }
+
+        // Integrated Focus Mode Logic (Study Focus)
+        const IntegratedPomodoro = {
+            timer: null,
+            timeLeft: 25 * 60,
+            duration: 25 * 60,
+            focusDuration: 25 * 60,
+            breakDuration: 5 * 60,
+            mode: 'focus', // 'focus' or 'break'
+            isRunning: false,
+            sessionsCompleted: 0,
+            autoBreak: true,
+            autoResume: false,
+            goalTarget: 4,
+
+            init() {
+                this.loadState();
+                this.updateUI();
+                this.setupListeners();
+            },
+
+            loadState() {
+                const saved = localStorage.getItem('daisy_focus_history');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        this.sessionsCompleted = data.sessionsCompleted || 0;
+                        const logContainer = document.getElementById('focusLog');
+                        if (logContainer && data.history && data.history.length > 0) {
+                            logContainer.innerHTML = '';
+                            data.history.forEach(entry => this.appendLogEntry(entry.title, entry.time, entry.timestamp));
+                        }
+                        this.updateSessionCount();
+                    } catch (e) { console.error("Failed to load focus history", e); }
+                }
+
+                const preset = localStorage.getItem('daisy_focus_preset');
+                if (preset) {
+                    try {
+                        const data = JSON.parse(preset);
+                        this.setPreset(data.focus, data.break, false);
+                    } catch (_) { }
+                }
+
+                const autoBreak = localStorage.getItem('daisy_auto_break');
+                if (autoBreak !== null) {
+                    this.autoBreak = autoBreak === 'true';
+                }
+
+                const autoResume = localStorage.getItem('daisy_auto_resume');
+                if (autoResume !== null) {
+                    this.autoResume = autoResume === 'true';
+                }
+            },
+
+            saveState() {
+                const logContainer = document.getElementById('focusLog');
+                const history = Array.from(logContainer.querySelectorAll('.focus-entry')).map(el => ({
+                    title: el.querySelector('.entry-title').textContent,
+                    time: el.querySelector('.entry-time').textContent,
+                    timestamp: el.querySelector('.entry-timestamp').textContent
+                }));
+                localStorage.setItem('daisy_focus_history', JSON.stringify({
+                    sessionsCompleted: this.sessionsCompleted,
+                    history: history
+                }));
+            },
+
+            setupListeners() {
+                const toggleBtn = document.getElementById('focusToggle');
+                const resetBtn = document.getElementById('focusReset');
+                const skipBtn = document.getElementById('focusSkip');
+
+                toggleBtn?.addEventListener('click', () => this.toggle());
+                resetBtn?.addEventListener('click', () => this.reset());
+                skipBtn?.addEventListener('click', () => this.skip());
+
+                document.querySelectorAll('.nw-preset').forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        const focus = Number(btn.getAttribute('data-focus')) || 25;
+                        const brk = Number(btn.getAttribute('data-break')) || 5;
+                        this.setPreset(focus, brk, true);
+                        document.querySelectorAll('.nw-preset').forEach((b) => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    });
+                });
+
+                const autoBreakBtn = document.getElementById('autoBreakToggle');
+                if (autoBreakBtn) {
+                    autoBreakBtn.classList.toggle('active', this.autoBreak);
+                    autoBreakBtn.addEventListener('click', () => {
+                        this.autoBreak = !this.autoBreak;
+                        autoBreakBtn.classList.toggle('active', this.autoBreak);
+                        localStorage.setItem('daisy_auto_break', `${this.autoBreak}`);
+                    });
+                }
+
+                const autoResumeBtn = document.getElementById('autoResumeToggle');
+                if (autoResumeBtn) {
+                    autoResumeBtn.classList.toggle('active', this.autoResume);
+                    autoResumeBtn.addEventListener('click', () => {
+                        this.autoResume = !this.autoResume;
+                        autoResumeBtn.classList.toggle('active', this.autoResume);
+                        localStorage.setItem('daisy_auto_resume', `${this.autoResume}`);
+                    });
+                }
+
+                document.addEventListener('keydown', (e) => {
+                    const tag = document.activeElement?.tagName?.toLowerCase();
+                    if (tag === 'input' || tag === 'textarea') return;
+                    if (e.code === 'Space') {
+                        e.preventDefault();
+                        this.toggle();
+                    }
+                    if (e.key.toLowerCase() === 'r') this.reset();
+                    if (e.key.toLowerCase() === 's') this.skip();
+                });
+            },
+
+            toggle() {
+                if (this.isRunning) {
+                    this.pause();
+                } else {
+                    this.start();
+                }
+            },
+
+            start() {
+                if (this.isRunning) return;
+                this.isRunning = true;
+                this.playSound('play');
+                document.getElementById('focusModePanel')?.classList.add('timer-active');
+                this.timer = setInterval(() => {
+                    if (this.timeLeft > 0) {
+                        this.timeLeft--;
+                        this.updateUI();
+                    } else {
+                        this.complete();
+                    }
+                }, 1000);
+            },
+
+            pause() {
+                this.isRunning = false;
+                document.getElementById('focusModePanel')?.classList.remove('timer-active');
+                clearInterval(this.timer);
+                this.updateToggleButton();
+            },
+
+            reset() {
+                this.pause();
+                this.timeLeft = this.duration;
+                this.updateUI();
+            },
+
+            skip() {
+                const confirmed = confirm("Skip this session?");
+                if (confirmed) {
+                    this.timeLeft = 0;
+                    this.complete();
+                }
+            },
+
+            complete() {
+                this.pause();
+                const workspace = document.getElementById('neuralWorkspace');
+                if (workspace) {
+                    workspace.classList.add('session-complete');
+                    setTimeout(() => workspace.classList.remove('session-complete'), 1200);
+                }
+
+                if (this.mode === 'focus') {
+                    this.sessionsCompleted++;
+                    this.awardRewards();
+                    this.logSession('Deep Work', `${Math.round(this.focusDuration / 60)}m`);
+                    this.saveState();
+
+                    showToast(`Session Complete! ${Math.round(this.focusDuration / 60)}m • ${this.sessionsCompleted}/${this.goalTarget}`, "success");
+
+                    if (this.autoBreak) {
+                        this.mode = 'break';
+                        this.duration = this.breakDuration;
+                        this.timeLeft = this.duration;
+                        showToast(`Break started. Relax for ${Math.round(this.breakDuration / 60)} mins.`, "info");
+                    } else {
+                        this.mode = 'focus';
+                        this.duration = this.focusDuration;
+                        this.timeLeft = this.duration;
+                        showToast("Ready for the next session.", "info");
+                    }
+                } else {
+                    // Switch to focus
+                    this.mode = 'focus';
+                    this.duration = this.focusDuration;
+                    this.timeLeft = this.duration;
+                    showToast("Break over. Back to focus!", "info");
+                    if (this.autoResume) this.start();
+                }
+
+                this.updateUI();
+                this.updateNeuralSync();
+            },
+
+            awardRewards() {
+                if (window.RewardsEngine) {
+                    RewardsEngine.addCoins(10);
+                    RewardsEngine.addXP(20);
+                }
+            },
+
+            logSession(title, time) {
+                this.appendLogEntry(title, time, new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                this.updateSessionCount();
+            },
+
+            appendLogEntry(title, time, timestamp) {
+                const logContainer = document.getElementById('focusLog');
+                if (!logContainer) return;
+
+                if (logContainer.querySelector('.focus-placeholder')) {
+                    logContainer.innerHTML = '';
+                }
+
+                const entry = document.createElement('div');
+                entry.className = 'focus-entry flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 border border-black/5 text-sm text-gray-700 whitespace-nowrap animate-fade-in';
+                entry.innerHTML = `
+                    <span class="entry-title text-sm font-medium">${title}</span>
+                    <span class="entry-time text-xs text-gray-500">${time}</span>
+                    <span class="entry-timestamp text-xs text-gray-400">${timestamp}</span>
+                `;
+                logContainer.prepend(entry);
+                lucide.createIcons();
+            },
+
+            updateSessionCount() {
+                const countEl = document.getElementById('sessionCount');
+                if (countEl) countEl.textContent = `${this.sessionsCompleted} Session${this.sessionsCompleted !== 1 ? 's' : ''}`;
+                const goalCountEl = document.getElementById('goalCount');
+                const goalProgressEl = document.getElementById('goalProgress');
+                if (goalCountEl) goalCountEl.textContent = `${this.sessionsCompleted} / ${this.goalTarget}`;
+                if (goalProgressEl) {
+                    const pct = Math.min(100, (this.sessionsCompleted / this.goalTarget) * 100);
+                    goalProgressEl.style.width = `${pct}%`;
+                }
+            },
+
+            updateUI() {
+                const timerEl = document.getElementById('focusTimer');
+                const progressEl = document.getElementById('focusProgress');
+                const modeEl = document.getElementById('pomodoroModeDisplay');
+
+                const mins = Math.floor(this.timeLeft / 60);
+                const secs = this.timeLeft % 60;
+                const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                if (timerEl) {
+                    timerEl.textContent = timeStr;
+                }
+
+                if (progressEl) {
+                    const progress = this.timeLeft / this.duration;
+                    const percent = Math.max(0, Math.min(100, progress * 100));
+                    progressEl.style.width = `${percent}%`;
+                    const ring = document.getElementById('focusRing');
+                    if (ring) ring.style.setProperty('--ring-progress', `${percent}%`);
+                }
+
+                if (modeEl) {
+                    modeEl.textContent = this.mode === 'focus' ? 'Focus' : 'Break';
+                    const container = document.getElementById('pomodoroModeDisplayContainer');
+                    if (container) {
+                        container.className = "pm-mode-chip";
+                    }
+                    modeEl.className = "";
+                }
+
+                this.updateNeuralSync(timeStr);
+                const cycleEl = document.getElementById('cycleDisplay');
+                if (cycleEl) cycleEl.textContent = `${Math.round(this.focusDuration / 60)} / ${Math.round(this.breakDuration / 60)}`;
+            },
+
+            updateNeuralSync(timeStr) {
+                const phoneBody = document.getElementById('appBody');
+                if (!phoneBody || !phoneBody.querySelector('.neural-sync-active')) return;
+
+                const phoneTimer = phoneBody.querySelector('#phoneFocusTimer');
+                const phoneRing = phoneBody.querySelector('#phoneFocusRing');
+
+                if (phoneTimer) phoneTimer.textContent = timeStr || "25:00";
+
+                if (phoneRing) {
+                    const circumference = 534; // radius 85 in phone mockup
+                    const progress = this.timeLeft / this.duration;
+                    const offset = circumference * (1 - progress);
+                    phoneRing.style.strokeDashoffset = offset;
+                }
+            },
+
+            updateToggleButton() {
+                const iconEl = document.getElementById('focusIcon');
+                if (iconEl) {
+                    iconEl.setAttribute('data-lucide', this.isRunning ? 'pause' : 'play');
+                    lucide.createIcons();
+                }
+                const toggleBtn = document.getElementById('focusToggle');
+                if (toggleBtn) toggleBtn.classList.toggle('is-playing', this.isRunning);
+                const workspace = document.getElementById('neuralWorkspace');
+                if (workspace) workspace.classList.toggle('session-active', this.isRunning);
+                this.updateNeuralSync();
+            },
+
+            setPreset(focusMinutes, breakMinutes, persist = true) {
+                this.focusDuration = Math.max(5, focusMinutes) * 60;
+                this.breakDuration = Math.max(1, breakMinutes) * 60;
+                this.duration = this.mode === 'focus' ? this.focusDuration : this.breakDuration;
+                this.timeLeft = this.duration;
+                if (persist) {
+                    localStorage.setItem('daisy_focus_preset', JSON.stringify({
+                        focus: focusMinutes,
+                        break: breakMinutes
+                    }));
+                }
+                this.updateUI();
+            }
+        };
+
+        // Initialize IntegratedPomodoro
+        IntegratedPomodoro.init();
+
+        const focusQuotes = [
+            "Small steps. Quiet focus. Big results.",
+            "Do the work. Let the noise fade.",
+            "One session at a time.",
+            "Focus is a choice you make every minute.",
+            "Start simple. Finish strong.",
+            "Silence the rest. Keep the promise.",
+            "Progress loves consistency.",
+            "Make this minute count."
+        ];
+
+        function rotateQuote() {
+            const el = document.getElementById('motivationQuote');
+            if (!el) return;
+            const next = focusQuotes[Math.floor(Math.random() * focusQuotes.length)];
+            el.textContent = next;
+        }
+
+        rotateQuote();
+        setInterval(rotateQuote, 60000);
+
+        async function completeTask() {
+            try {
+                const reward = await DaisyAPI.spendCoins({ amount: 0, reason: "task_complete" });
+                triggerRewardAnimation(reward.total, reward.bonus);
+                showAnimeWidget(`Task done! + ${reward.total || 5} `);
+                if (window.AIModes) {
+                    await window.AIModes.applyModeReward({
+                        baseCoins: 0,
+                        reason: "task",
+                        DaisyAPI: window.DaisyAPI,
+                        Dopamine: window.Dopamine,
+                        onReward: (amt, bonus) => triggerRewardAnimation(amt, bonus),
+                    });
+                }
+                await refreshBalance(true);
+                await refreshHistory();
+                await refreshQuests();
+            } catch (err) {
+                showToast(err.message || "Task failed", "error");
+            }
+        }
+
+        async function sendChat() {
+            const input = document.getElementById('chatInputWorkspace');
+            const display = document.getElementById('chatDisplay');
+            const text = input?.value?.trim();
+            if (!text || !display) return;
+
+            // Append User Message
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-black text-white p-6 rounded-[40px] rounded-tr-none self-end max-w-[85%] border border-black/10 shadow-lg animate-fade-in";
+            userMsg.innerHTML = `<p class="text-base leading-relaxed">${text}</p>`;
+            display.appendChild(userMsg);
+            display.scrollTop = display.scrollHeight;
+
+            input.value = "";
+
+            try {
+                const res = await DaisyAPI.aiChat({ message: text });
+                const mode = window.AIModes?.getMode?.() || "Motivator";
+                const context = { coins: currentCoins, streak: streakCountEl?.textContent || 0, prompted: true };
+                const localReply = window.AIModes?.generateResponse?.(mode, context);
+                const replyText = localReply || res.reply;
+
+                // Append Daisy Message
+                const daisyMsg = document.createElement('div');
+                daisyMsg.className = "bg-white/70 p-6 rounded-[32px] rounded-tl-none self-start max-w-[85%] border border-black/5 shadow-sm animate-fade-in";
+                daisyMsg.innerHTML = `<p class="text-base text-gray-700 leading-relaxed font-medium">${replyText}</p>`;
+                display.appendChild(daisyMsg);
+                display.scrollTop = display.scrollHeight;
+
+                await refreshBalance(true);
+                await refreshHistory();
+                await refreshQuests();
+            } catch (err) {
+                showToast(err.message || "Chat failed", "error");
+            }
+        }
+
+        function initShopModal() {
+            const openBtn = document.getElementById('openShop');
+            const closeBtn = document.getElementById('closeShop');
+            const modal = document.getElementById('shopModal');
+            const container = document.getElementById('shopItems');
+
+            openBtn?.addEventListener('click', async () => {
+                modal?.classList.remove('hidden');
+                try {
+                    const balance = await DaisyAPI.getBalance();
+                    renderShopItems(balance.unlocks);
+                } catch (_) {
+                    // ignore
+                }
+            });
+            closeBtn?.addEventListener('click', () => modal?.classList.add('hidden'));
+            modal?.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.add('hidden');
+            });
+            container?.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button[data-shop]');
+                if (!btn) return;
+                const id = btn.getAttribute('data-shop');
+                const item = shopCatalog.find((i) => i.id === id);
+                if (!item) return;
+
+                try {
+                    const balance = await DaisyAPI.getBalance();
+                    const isUnlocked = balance.unlocks?.[item.id];
+                    if (isUnlocked) {
+                        if (id === "pastel") applyTheme("pastel");
+                        if (id === "glow") document.documentElement.classList.add('glow-enabled');
+                        if (id === "confetti") document.documentElement.classList.add('confetti-enabled');
+                        if (id === "avatar") document.documentElement.classList.add('avatar-enabled');
+                        showToast("Applied!");
+                        return;
+                    }
+                    await DaisyAPI.spendCoins({ amount: item.cost, reason: item.reason });
+                    if (item.id === "pastel") applyTheme("pastel");
+                    window.Dopamine?.shopUnlock?.(item.name);
+                    showToast("Unlocked!");
+                    await refreshBalance(true);
+                } catch (err) {
+                    showToast(err.message || "Unlock failed", "error");
+                }
+            });
+        }
+
+        function initActions() {
+            const searchInput = document.getElementById('heroSearch');
+            searchInput?.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && window.topSearchMatch) {
+                    selectMode(window.topSearchMatch);
+                    searchInput.blur();
+                }
+            });
+
+            document.getElementById('completeTaskBtn')?.addEventListener('click', completeTask);
+            document.getElementById('chatSendBtnWorkspace')?.addEventListener('click', sendChat);
+        }
+
+        function initAIModes() {
+            const select = document.getElementById('aiModeSelect');
+            if (!select || !window.AIModes) return;
+            select.value = window.AIModes.getMode();
+            select.addEventListener('change', (e) => {
+                window.AIModes.setMode(e.target.value);
+                showToast(`Mode: ${e.target.value}`);
+            });
+        }
+
+        function initThemeSwitcher() {
+            const panel = document.getElementById('themePanel');
+            const toggle = document.getElementById('themeToggle');
+            const saved = localStorage.getItem('daisy_bg') || 'default';
+            document.body.setAttribute('data-bg', saved);
+
+            toggle?.addEventListener('click', () => {
+                panel?.classList.toggle('active');
+            });
+
+            panel?.querySelectorAll('.theme-dot').forEach((dot) => {
+                dot.addEventListener('click', (e) => {
+                    const bg = e.currentTarget.getAttribute('data-bg');
+                    document.body.setAttribute('data-bg', bg);
+                    localStorage.setItem('daisy_bg', bg);
+                    panel.classList.remove('active');
+                });
+            });
+        }
+
+        function initWaitlist() {
+            const btn = document.getElementById('waitlistSubmit');
+            const input = document.getElementById('waitlistEmail');
+            const status = document.getElementById('waitlistStatus');
+            btn?.addEventListener('click', async () => {
+                const email = input?.value?.trim();
+                if (!email) return;
+                if (status) status.textContent = "Submitting...";
+                try {
+                    await DaisyAPI.waitlist({ email });
+                    if (status) status.textContent = "You're in. Welcome to the waitlist.";
+                    if (input) input.value = "";
+                } catch (err) {
+                    if (status) status.textContent = err.message || "Unable to submit.";
+                }
+            });
+        }
+
+        (async function initGamification() {
+            initActions();
+            initAIModes();
+            initShopModal();
+            initWaitlist();
+            initThemeSwitcher();
+            pendingTheme = localStorage.getItem("daisy_theme");
+            if (window.DaisyAPI?.unlockAll) await window.DaisyAPI.unlockAll();
+            if (window.DaisyAPI?.enableUnlimitedCoins) await window.DaisyAPI.enableUnlimitedCoins();
+            refreshBalance(false);
+            refreshHistory();
+            refreshQuests();
+        })();
+
+        // Soundscape Engine
+        const SoundEngine = {
+            activeSound: null,
+            audioCtx: null,
+            oscillators: [],
+            currentTrackIndex: 0,
+            playlist: [
+                {
+                    title: 'Clair de Lune',
+                    artist: 'Claude Debussy',
+                    url: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Debussy_-_Clair_de_Lune.mp3'
+                },
+                {
+                    title: 'Gymnopédie No. 1',
+                    artist: 'Erik Satie',
+                    url: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Gymnopedie_No._1.mp3'
+                },
+                {
+                    title: 'Nocturne Op. 9 No. 2',
+                    artist: 'Frédéric Chopin',
+                    url: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Nocturne_in_E_flat_major%2C_Op._9_no._2.mp3'
+                }
+            ],
+
+            init() {
+                if (!this.audioCtx) {
+                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (this.audioCtx.state === 'suspended') {
+                    this.audioCtx.resume();
+                }
+            },
+
+            play(index = null) {
+                this.init();
+                this.stop();
+
+                if (index !== null) this.currentTrackIndex = index;
+                const track = this.playlist[this.currentTrackIndex];
+
+                // Update UI Metadata
+                const trackEl = document.getElementById('pomoTrackName');
+                const artistEl = document.getElementById('pomoArtistName');
+                if (trackEl) trackEl.textContent = track.title;
+                if (artistEl) artistEl.textContent = track.artist;
+
+                const audio = new Audio();
+                audio.src = track.url;
+                audio.loop = true;
+                audio.volume = 0.5;
+                audio.preload = "auto";
+
+                if (window.DaisyAPI) window.DaisyAPI.showNotification(`Loading ${track.title}...`, 'info');
+
+                // Add loading timeout
+                this.loadTimeout = setTimeout(() => {
+                    if (audio.readyState < 2) {
+                        console.error('Music load timeout:', track.title);
+                        if (window.DaisyAPI) window.DaisyAPI.showNotification(`Network slow: ${track.title} is taking a while.`, 'warning');
+                    }
+                }, 10000);
+
+                audio.addEventListener('canplay', () => {
+                    clearTimeout(this.loadTimeout);
+                    audio.play().then(() => {
+                        if (window.DaisyAPI) window.DaisyAPI.showNotification(`Playing: ${track.title}`, 'success');
+                        this.startTracking();
+                    }).catch(err => {
+                        console.error('Music playback blocked:', err);
+                        if (window.DaisyAPI) window.DaisyAPI.showNotification('Playback blocked. Click anywhere to enable music.', 'warning');
+                        this.stop();
+                    });
+                }, { once: true });
+
+                audio.addEventListener('timeupdate', () => {
+                    if (this.onProgress) this.onProgress(audio.currentTime, audio.duration);
+                });
+
+                audio.addEventListener('error', (e) => {
+                    clearTimeout(this.loadTimeout);
+                    console.error('Audio source error:', e);
+                    if (window.DaisyAPI) window.DaisyAPI.showNotification('Failed to load track. Connection interrupted.', 'error');
+                    this.stop();
+                });
+
+                audio.load(); // Explicit load
+                this.activeSound = { music: audio, type: 'music' };
+            },
+
+            loadTimeout: null,
+
+            onProgress: null,
+
+            seek(percent) {
+                if (this.activeSound && this.activeSound.music) {
+                    const audio = this.activeSound.music;
+                    audio.currentTime = audio.duration * (percent / 100);
+                }
+            },
+
+            startTracking() {
+                PomoTimer.isMusicPlaying = true;
+                PomoTimer.updateMusicUI(true);
+            },
+
+            stop() {
+                if (this.activeSound) {
+                    if (this.activeSound.music) {
+                        this.activeSound.music.pause();
+                        this.activeSound.music.src = "";
+                    }
+                    this.activeSound = null;
+                }
+                PomoTimer.isMusicPlaying = false;
+                PomoTimer.updateMusicUI(false);
+            },
+        };
+
+        function toggleSound(type, btn) {
+            PomoTimer.toggleZen(type, btn);
+        }
+
+        function toggleBreatheMode() {
+            const overlay = document.getElementById('breatheOverlay');
+            if (!overlay) return;
+
+            if (overlay.style.opacity === '1') {
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+            } else {
+                overlay.style.opacity = '1';
+                overlay.style.pointerEvents = 'auto';
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
