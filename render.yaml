@@ -2,5 +2,4 @@ services:
   - type: web
     name: daisy-copilot
     env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: ./website
