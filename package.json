@@ -1,0 +1,8 @@
+{
+  "name": "daisy-copilot-render",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "powershell -NoProfile -Command \"if (Test-Path dist) { Remove-Item -Recurse -Force dist }; New-Item -ItemType Directory -Force dist | Out-Null; Copy-Item -Path website\\* -Destination dist -Recurse -Force\""
+  }
+}
